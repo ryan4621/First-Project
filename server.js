@@ -64,18 +64,18 @@ app.use(corsHeaders);
 app.use(securityHeaders);
 
 // Rate limits
-// app.use('/auth/resend-verification', verificationResendRateLimit);
-// app.use('/auth/me', generalRateLimit);
-// app.use('/api/change-password', authRateLimit);
-// app.use('/api/change-email', authRateLimit);
-// app.use('/api/checkout', strictRateLimit);
-// app.use('/api/orders', strictRateLimit);
-// app.use('/api/payment-methods', strictRateLimit);
-// app.use('/api/addresses', addressRateLimit);
-// app.use('/api/contact', contactRateLimit);
-// app.use('/admin/change-password', authRateLimit);
-// app.use('/auth', strictRateLimit);
-// app.use('/api/', generalRateLimit);
+app.use('/auth/resend-verification', verificationResendRateLimit);
+app.use('/auth/me', generalRateLimit);
+app.use('/api/change-password', authRateLimit);
+app.use('/api/change-email', authRateLimit);
+app.use('/api/checkout', strictRateLimit);
+app.use('/api/orders', strictRateLimit);
+app.use('/api/payment-methods', strictRateLimit);
+app.use('/api/addresses', addressRateLimit);
+app.use('/api/contact', contactRateLimit);
+app.use('/admin/change-password', authRateLimit);
+app.use('/auth', strictRateLimit);
+app.use('/api/', generalRateLimit);
 
 
 // Debug CSRF
@@ -135,9 +135,9 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 // Start server
-const server = https.createServer(tlsOptions, app)
+// const server = https.createServer(tlsOptions, app)
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`HTTPS Express server running on port ${PORT}`);
 });
 

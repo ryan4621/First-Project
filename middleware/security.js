@@ -2,40 +2,40 @@ import helmet from 'helmet';
 import pool from '../main.js'
 import rateLimit from 'express-rate-limit';
 import { doubleCsrf } from 'csrf-csrf';
-import fs from "fs";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+// import fs from "fs";
+// import { join, dirname } from "path";
+// import { fileURLToPath } from "url";
 import cors from "cors";
 import dotenv from "dotenv";
 import { RedisStore } from 'rate-limit-redis'
 import { createClient } from 'redis'
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
-// TLS options
-const tlsOptions = {
-  key: fs.readFileSync(join(__dirname, "../key.pem")),
-  cert: fs.readFileSync(join(__dirname, "../cert.pem")),
-  allowHTTP1: true,
-  minVersion: "TLSv1.2",
-  ciphers: [
-    "TLS_AES_256_GCM_SHA384",
-    "TLS_CHACHA20_POLY1305_SHA256",
-    "TLS_AES_128_GCM_SHA256",
-    "ECDHE-ECDSA-AES256-GCM-SHA384",
-    "!aNULL",
-    "!eNULL",
-    "!EXPORT",
-    "!DES",
-    "!RC4",
-    "!3DES",
-    "!MD5",
-    "!PSK",
-  ].join(":"),
-  honorCipherOrder: true,
-};
+// // TLS options
+// const tlsOptions = {
+//   key: fs.readFileSync(join(__dirname, "../key.pem")),
+//   cert: fs.readFileSync(join(__dirname, "../cert.pem")),
+//   allowHTTP1: true,
+//   minVersion: "TLSv1.2",
+//   ciphers: [
+//     "TLS_AES_256_GCM_SHA384",
+//     "TLS_CHACHA20_POLY1305_SHA256",
+//     "TLS_AES_128_GCM_SHA256",
+//     "ECDHE-ECDSA-AES256-GCM-SHA384",
+//     "!aNULL",
+//     "!eNULL",
+//     "!EXPORT",
+//     "!DES",
+//     "!RC4",
+//     "!3DES",
+//     "!MD5",
+//     "!PSK",
+//   ].join(":"),
+//   honorCipherOrder: true,
+// };
 
 const corsHeaders = cors({
   origin: process.env.NODE_ENV === 'production' 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <button class="hamburger-btn" id="hamburger-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  
+  <!-- Add this overlay div right after the hamburger button -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <div class="sidebar">
+    <h2>Admin</h2>
+    <a href="admin.html" class="active">Dashboard</a>
+    <a href="admin-users.html">Users</a>
+    <a href="admin-products.html">Products</a>
+    <a href="admin-orders.html">Orders</a>
+    <a href="admin-notifications.html">Notifications</a>
+    <a href="admin-support.html">Support</a>
+    <a href="admin-session-logs.html">Activity Logs</a>
+    <a href="admin-error-logs.html">Error Monitoring</a>
+    <a href="change-password.html">Change Password</a>
+    <a href="#" id="logoutBtn" type="button" class="btn">Logout</a>
+  </div>
+
+  <div class="main-content">
+    <h1>Dashboard</h1>
+    <div class="stats">
+      <div class="stat-box">
+        <h3 id="total-users">0</h3>
+        <p>Total Users</p>
+      </div>
+      <div class="stat-box">
+        <h3 id="total-purchases">0</h3>
+        <p>Completed Orders</p>
+      </div>
+      <div class="stat-box">
+        <h3 id="total-orders">0</h3>
+        <p>Total Orders</p>
+      </div>
+      <div class="stat-box">
+        <h3 id="total-products">0</h3>
+        <p>Total Products</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Confirm Logout</h2>
+      <p>Are you sure you want to logout?</p>
+      <div class="modal-actions">
+        <button id="confirmLogout">Yes, Logout</button>
+        <button id="cancelLogout">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../frontend/csrf-helper.js"></script>
+  <script src="../frontend/auth-check.js"></script>
+  <script src="admin.js"></script>
+  <script src="admin-general.js"></script>
+</body>
+</html>

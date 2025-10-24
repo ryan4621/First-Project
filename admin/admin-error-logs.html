@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error Monitoring</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin-error-logs.css">
+</head>
+<body>
+  <button class="hamburger-btn" id="hamburger-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  
+  <!-- Add this overlay div right after the hamburger button -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="sidebar">
+    <h2>Admin</h2>
+    <a href="admin.html">Dashboard</a>
+    <a href="admin-users.html">Users</a>
+    <a href="admin-products.html">Products</a>
+    <a href="admin-orders.html">Orders</a>
+    <a href="admin-notifications.html">Notifications</a>
+    <a href="admin-support.html">Support</a>
+    <a href="admin-session-logs.html">Activity Logs</a>
+    <a href="admin-error-logs.html" class="active">Error Monitoring</a>
+    <a href="change-password.html">Change Password</a>
+    <a href="#" id="logoutBtn" type="button" class="btn">Logout</a>
+  </div>
+
+  <div class="main-content">
+    <div class="error-logs-container">
+      <!-- Header -->
+      <div class="error-logs-header">
+        <h1 class="error-logs-title">Error Monitoring</h1>
+        <button class="error-logs-export-btn" id="error-logs-export-btn">
+          Export CSV
+        </button>
+      </div>
+
+      <!-- Statistics -->
+      <div class="error-logs-stats" id="error-logs-stats">
+        <div class="error-logs-stat-card error-logs-stat-critical">
+          <div class="error-logs-stat-value" id="error-logs-critical-count">-</div>
+          <div class="error-logs-stat-label">Critical Errors</div>
+        </div>
+        <div class="error-logs-stat-card error-logs-stat-high">
+          <div class="error-logs-stat-value" id="error-logs-high-count">-</div>
+          <div class="error-logs-stat-label">High Severity</div>
+        </div>
+        <div class="error-logs-stat-card error-logs-stat-unresolved">
+          <div class="error-logs-stat-value" id="error-logs-unresolved-count">-</div>
+          <div class="error-logs-stat-label">Unresolved</div>
+        </div>
+        <div class="error-logs-stat-card error-logs-stat-today">
+          <div class="error-logs-stat-value" id="error-logs-today-count">-</div>
+          <div class="error-logs-stat-label">Errors Today</div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="error-logs-filters">
+        <div class="error-logs-filter-grid">
+          <div class="error-logs-filter-group">
+            <label class="error-logs-filter-label">Search</label>
+            <input 
+              type="text" 
+              class="error-logs-filter-input" 
+              id="error-logs-search"
+              placeholder="Search errors..."
+            >
+          </div>
+          <div class="error-logs-filter-group">
+            <label class="error-logs-filter-label">Severity</label>
+            <select class="error-logs-filter-select" id="error-logs-severity-filter">
+              <option value="all">All Severities</option>
+              <option value="critical">Critical</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <div class="error-logs-filter-group">
+            <label class="error-logs-filter-label">Error Type</label>
+            <select class="error-logs-filter-select" id="error-logs-type-filter">
+              <option value="all">All Types</option>
+            </select>
+          </div>
+          <div class="error-logs-filter-group">
+            <label class="error-logs-filter-label">Status</label>
+            <select class="error-logs-filter-select" id="error-logs-resolved-filter">
+              <option value="all">All Status</option>
+              <option value="false">Unresolved</option>
+              <option value="true">Resolved</option>
+            </select>
+          </div>
+          <div class="error-logs-filter-group">
+            <label class="error-logs-filter-label">Date From</label>
+            <input 
+              type="date" 
+              class="error-logs-filter-input" 
+              id="error-logs-date-from"
+            >
+          </div>
+          <div class="error-logs-filter-group">
+            <label class="error-logs-filter-label">Date To</label>
+            <input 
+              type="date" 
+              class="error-logs-filter-input" 
+              id="error-logs-date-to"
+            >
+          </div>
+        </div>
+        <div class="error-logs-filter-actions">
+          <button class="error-logs-filter-btn error-logs-reset-btn" id="error-logs-reset-filters">
+            Reset Filters
+          </button>
+          <button class="error-logs-filter-btn error-logs-apply-btn" id="error-logs-apply-filters">
+            Apply Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="error-logs-table-container">
+        <table class="error-logs-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Severity</th>
+              <th>Error Type</th>
+              <th>Message</th>
+              <th>Path</th>
+              <th>User</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="error-logs-table-body">
+            <tr>
+              <td colspan="8" class="error-logs-loading">Loading error logs...</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="error-logs-pagination">
+          <div class="error-logs-page-info" id="error-logs-page-info">
+            Showing 0 - 0 of 0 errors
+          </div>
+          <div class="error-logs-page-buttons">
+            <button class="error-logs-page-btn" id="error-logs-prev-btn" disabled>
+              Previous
+            </button>
+            <button class="error-logs-page-btn" id="error-logs-next-btn" disabled>
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div id="error-logs-detail-modal" class="error-logs-modal">
+    <div class="error-logs-modal-content">
+      <div class="error-logs-modal-header">
+        <h2 class="error-logs-modal-title">Error Details</h2>
+        <button class="error-logs-modal-close">&times;</button>
+      </div>
+      <div class="error-logs-modal-body" id="error-logs-modal-body">
+        <!-- Details will be populated here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Resolve Modal -->
+  <div id="error-logs-resolve-modal" class="error-logs-modal">
+    <div class="error-logs-modal-content error-logs-modal-small">
+      <div class="error-logs-modal-header">
+        <h2 class="error-logs-modal-title">Resolve Error</h2>
+        <button class="error-logs-resolve-close">&times;</button>
+      </div>
+      <div class="error-logs-modal-body">
+        <div class="error-logs-form-group">
+          <label class="error-logs-form-label">Resolution Notes (Optional)</label>
+          <textarea 
+            class="error-logs-form-textarea" 
+            id="error-logs-resolution-notes"
+            placeholder="Describe how this error was resolved..."
+            rows="4"
+          ></textarea>
+        </div>
+        <div class="error-logs-modal-actions">
+          <button class="error-logs-btn error-logs-btn-secondary" id="error-logs-cancel-resolve">
+            Cancel
+          </button>
+          <button class="error-logs-btn error-logs-btn-success" id="error-logs-confirm-resolve">
+            Mark as Resolved
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Modal -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Confirm Logout</h2>
+      <p>Are you sure you want to logout?</p>
+      <div class="modal-actions">
+        <button id="confirmLogout">Yes, Logout</button>
+        <button id="cancelLogout">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../frontend/csrf-helper.js"></script>
+  <script src="../frontend/toast-helper.js"></script>
+  <script src="../frontend/confirmation-modal.js"></script>
+  <script src="admin-error-logs.js"></script>
+  <script src="admin-general.js"></script>
+</body>
+</html>

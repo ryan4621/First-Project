@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="admin-products.css">
+  <title>Admin - Products</title>
+</head>
+<body>
+  <div class="page-header">
+    <a href="admin.html" class="back-btn">← Back to Dashboard</a>
+    <a href="admin-add-product.html" class="btn add-product-btn">+ Add Product</a>
+  </div>
+  <h1>Products</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Product ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Stock</th>
+        <th>Price</th>
+        <th>Created At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="products-table-body">
+      <!-- Products will be loaded here dynamically -->
+    </tbody>
+  </table>
+
+  <script src="../frontend/csrf-helper.js"></script>
+  <script src="../frontend/toast-helper.js"></script>
+  <script src="../frontend/confirmation-modal.js"></script>
+  <script src="admin-products.js"></script>
+
+</body>
+</html>

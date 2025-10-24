@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notification Management - Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin-notifications.css">
+</head>
+<body>
+  <button class="hamburger-btn" id="hamburger-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  
+  <!-- Add this overlay div right after the hamburger button -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="sidebar">
+    <h2>Admin</h2>
+    <a href="admin.html">Dashboard</a>
+    <a href="admin-users.html">Users</a>
+    <a href="admin-products.html">Products</a>
+    <a href="admin-orders.html">Orders</a>
+    <a href="admin-notifications.html" class="active">Notifications</a>
+    <a href="admin-support.html">Support</a>
+    <a href="admin-session-logs.html">Activity Logs</a>
+    <a href="admin-error-logs.html">Error Monitoring</a>
+    <a href="change-password.html">Change Password</a>
+    <a href="#" id="logoutBtn" type="button" class="btn">Logout</a>
+  </div>
+
+  <div class="main-content notification-main-content">
+    <!-- Header -->
+    <div class="notification-header">
+      <h1>Notification Management</h1>
+      <button class="notification-btn notification-btn-success" id="notification-refresh-btn">
+        Refresh Data
+      </button>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="notification-stats" id="notification-stats">
+      <div class="notification-stat-card sent">
+        <h3 class="notification-stat-number" id="sent-notifications-count">-</h3>
+        <p class="notification-stat-label">Sent Notifications</p>
+      </div>
+      <div class="notification-stat-card draft">
+        <h3 class="notification-stat-number" id="draft-notifications-count">-</h3>
+        <p class="notification-stat-label">Draft Notifications</p>
+      </div>
+      <div class="notification-stat-card">
+        <h3 class="notification-stat-number" id="total-recipients-count">-</h3>
+        <p class="notification-stat-label">Total Recipients</p>
+      </div>
+      <div class="notification-stat-card engagement">
+        <h3 class="notification-stat-number" id="read-rate-percentage">-</h3>
+        <p class="notification-stat-label">Average Read Rate</p>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="notification-actions">
+      <button class="notification-btn notification-btn-primary" id="notification-create-btn">
+        Create New Notification
+      </button>
+      <button class="notification-btn notification-btn-secondary" id="notification-templates-btn">
+        Manage Templates
+      </button>
+    </div>
+
+    <!-- Create Notification Form -->
+    <div class="notification-create-form" id="notification-create-form">
+      <h2 class="notification-form-title">Create New Notification</h2>
+      
+      <form id="notification-form">
+        <div class="notification-form-grid">
+          <!-- Title -->
+          <div class="notification-form-group">
+            <label for="notification-title" class="notification-form-label required">Title</label>
+            <input 
+              type="text" 
+              id="notification-title" 
+              name="title" 
+              class="notification-form-input"
+              required
+              placeholder="Enter notification title"
+            >
+          </div>
+
+          <!-- Category -->
+          <div class="notification-form-group">
+            <label for="notification-category" class="notification-form-label required">Category</label>
+            <select id="notification-category" name="category" class="notification-form-select" required>
+              <option value="">Select category...</option>
+              <option value="marketing_emails">Marketing Emails</option>
+              <option value="order_updates">Order Updates</option>
+              <option value="promotional_offers">Promotional Offers</option>
+              <option value="general">General</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div class="notification-form-group full-width">
+            <label for="notification-message" class="notification-form-label required">Message</label>
+            <textarea 
+              id="notification-message" 
+              name="message" 
+              class="notification-form-textarea"
+              required
+              placeholder="Enter your message here..."
+              rows="6"
+            ></textarea>
+          </div>
+        </div>
+
+        <!-- Targeting Section -->
+        <div class="notification-targeting-section">
+          <h3 class="notification-targeting-title">Target Audience</h3>
+          <div class="notification-form-grid">
+            <div class="notification-form-group">
+              <div class="notification-form-checkbox">
+                <input type="checkbox" id="notification-target-all" name="target_all_users" checked>
+                <label for="notification-target-all" class="notification-form-label">Send to all users</label>
+              </div>
+            </div>
+            <div class="notification-form-group">
+              <label for="notification-user-roles" class="notification-form-label">Target User Roles</label>
+              <select id="notification-user-roles" name="target_user_roles" class="notification-form-select" multiple>
+                <option value="user">Regular Users</option>
+                <option value="admin">Administrators</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Channels Section -->
+        <div class="notification-channels-section">
+          <h3 class="notification-channels-title">Delivery Channels</h3>
+          <div class="notification-form-grid">
+            <div class="notification-form-group">
+              <div class="notification-form-checkbox">
+                <input type="checkbox" id="notification-send-email" name="send_email" checked>
+                <label for="notification-send-email" class="notification-form-label">Send Email</label>
+              </div>
+            </div>
+            <div class="notification-form-group">
+              <div class="notification-form-checkbox">
+                <input type="checkbox" id="notification-send-push" name="send_push" checked>
+                <label for="notification-send-push" class="notification-form-label">Send In-App Notification</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="notification-form-actions">
+          <button type="button" class="notification-btn notification-btn-secondary" id="notification-cancel-btn">
+            Cancel
+          </button>
+          <button type="submit" class="notification-btn notification-btn-primary">
+            Send Notification
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Notifications List -->
+    <div class="notification-list-container">
+      <div class="notification-list-header">
+        <h3 class="notification-list-title">Recent Notifications</h3>
+        <span class="notification-list-count" id="notification-list-count">0 notifications</span>
+      </div>
+      
+      <!-- Loading State -->
+      <div class="notification-loading" id="notification-loading-state">
+        <div class="notification-loading-spinner"></div>
+        <p>Loading notifications...</p>
+      </div>
+
+      <!-- Empty State -->
+      <div class="notification-empty" id="notification-empty-state" style="display: none;">
+        <div class="notification-empty-icon">📬</div>
+        <h3>No notifications found</h3>
+        <p>Create your first notification to get started.</p>
+      </div>
+
+      <!-- Notifications Table -->
+      <table class="notification-table" id="notification-table" style="display: none;">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Recipients</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="notification-table-body">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Notification Detail Modal -->
+  <div id="notification-modal" class="notification-modal">
+    <div class="notification-modal-content">
+      <div class="notification-modal-header">
+        <h3 class="notification-modal-title" id="notification-modal-title">Notification Details</h3>
+        <button class="notification-modal-close" id="notification-modal-close">&times;</button>
+      </div>
+      <div class="notification-modal-body" id="notification-modal-body">
+        <div class="notification-loading">
+          <div class="notification-loading-spinner"></div>
+          <p>Loading notification details...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Modal -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Confirm Logout</h2>
+      <p>Are you sure you want to logout?</p>
+      <div class="modal-actions">
+        <button id="confirmLogout">Yes, Logout</button>
+        <button id="cancelLogout">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../frontend/csrf-helper.js"></script>
+  <script type="module" src="admin-notifications.js"></script>
+  <script src="../frontend/confirmation-modal.js"></script>
+  <script src="admin-general.js"></script>
+</body>
+</html>

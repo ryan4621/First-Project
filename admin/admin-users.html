@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Admin - Users</title>
+  <link rel="stylesheet" href="admin-users.css">
+
+  <!-- jsPDF for client-side PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="topbar">
+    <a href="admin.html" class="back-btn">← Back to Dashboard</a>
+    <div class="controls" style="margin-left:auto;">
+      <input id="searchInput" placeholder="Search name, email or id" />
+      <select id="roleFilter">
+        <option value="">All roles</option>
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+      </select>
+      <select id="sortSelect">
+        <option value="created_asc">Oldest</option>
+        <option value="created_desc">Newest</option>
+      </select>
+      <select id="limitSelect" class="page-size">
+        <option value="10">10</option>
+        <option value="20" selected>20</option>
+        <option value="50">50</option>
+      </select>
+      <button id="exportCsvBtn" class="secondary">Export CSV</button>
+      <button id="exportPdfBtn">Export PDF</button>
+    </div>
+  </div>
+  <h1>Users</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Created At</th>
+        <th class="actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="users-table-body">
+      
+    </tbody>
+  </table>
+  <div class="pagination" id="pagination"></div>
+  <script src="../frontend/csrf-helper.js"></script>
+  <script src="../frontend/toast-helper.js"></script>
+  <script src="../frontend/confirmation-modal.js"></script>
+  <script src="admin-users.js"></script>
+</body>
+</html>

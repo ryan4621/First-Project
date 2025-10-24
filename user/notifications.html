@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications - User Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="notifications.css">
+  <script src="translate-loader.js"></script>
+</head>
+<body>
+  <button class="hamburger-menu" id="hamburger-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>My Account</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="orders.html">Orders</a>
+        <a href="shop.html">Shop</a>
+        <a href="#">Wishlist</a>
+        <a href="notifications.html" class="active">Notifications</a>
+        <a href="support.html">Support</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="#" class="logout-btn">Logout</a>
+        <a href="#" class="switch-account">Switch account</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+      <div class="notifications-content">
+        <!-- Header -->
+        <div class="notifications-header">
+          <h1>Notifications</h1>
+          <div class="notifications-actions">
+            <button class="notifications-btn notifications-btn-secondary" id="notifications-mark-all-read-btn">
+              Mark All Read
+            </button>
+            <button class="notifications-btn notifications-btn-primary" id="notifications-refresh-btn">
+              Refresh
+            </button>
+            <a href="settings.html" class="notifications-btn notifications-btn-secondary">
+              Notification Settings
+            </a>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="notifications-filters">
+          <div class="notifications-filter-group">
+            <label class="notifications-filter-label">Status</label>
+            <select id="notifications-status-filter" class="notifications-filter-select">
+              <option value="all">All Notifications</option>
+              <option value="unread">Unread Only</option>
+              <option value="read">Read Only</option>
+            </select>
+          </div>
+
+          <div class="notifications-filter-group">
+            <label class="notifications-filter-label">Category</label>
+            <select id="notifications-category-filter" class="notifications-filter-select">
+              <option value="all">All Categories</option>
+              <option value="marketing_emails">Marketing</option>
+              <option value="order_updates">Orders</option>
+              <option value="promotional_offers">Promotions</option>
+              <option value="general">General</option>
+            </select>
+          </div>
+
+          <div class="notifications-stats">
+            <span id="notifications-total-count">0 notifications</span>
+            <span id="notifications-unread-count">0 unread</span>
+          </div>
+        </div>
+
+        <!-- Notifications List -->
+        <div class="notifications-list">
+          <div class="notifications-list-header">
+            <h3 class="notifications-list-title">Your Notifications</h3>
+            <span class="notifications-count-badge" id="notifications-displayed-count">0 notifications</span>
+          </div>
+
+          <!-- Bulk Actions -->
+          <div class="notifications-bulk-actions" id="notifications-bulk-actions" style="display: none;">
+            <div class="notifications-bulk-checkbox">
+              <input type="checkbox" id="notifications-select-all">
+              <label for="notifications-select-all">Select All</label>
+            </div>
+            <button class="notifications-btn notifications-btn-secondary" id="notifications-bulk-mark-read">
+              Mark Selected as Read
+            </button>
+            <button class="notifications-btn notifications-btn-secondary" id="notifications-bulk-delete">
+              Delete Selected
+            </button>
+          </div>
+          
+          <!-- Loading State -->
+          <div class="notifications-loading" id="notifications-loading-state">
+            <div class="notifications-loading-spinner"></div>
+            <p>Loading your notifications...</p>
+          </div>
+
+          <!-- Empty State -->
+          <div class="notifications-empty" id="notifications-empty-state" style="display: none;">
+            <div class="notifications-empty-icon">🔔</div>
+            <h3>No notifications yet</h3>
+            <p>When you receive notifications, they'll appear here.</p>
+          </div>
+
+          <!-- Notifications Container -->
+          <div id="notifications-container" style="display: none;">
+            <!-- Notifications will be dynamically inserted here -->
+          </div>
+
+          <!-- Pagination -->
+          <div class="notifications-pagination" id="notifications-pagination" style="display: none;">
+            <button class="notifications-pagination-btn" id="notifications-prev-btn">Previous</button>
+            <div id="notifications-page-numbers"></div>
+            <button class="notifications-pagination-btn" id="notifications-next-btn">Next</button>
+            <span class="notifications-pagination-info" id="notifications-pagination-info"></span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Logout Confirmation Modal -->
+  <div class="logout-modal" id="logout-modal">
+    <div class="logout-modal-content">
+        <h3>Confirm Logout</h3>
+        <p>Are you sure you want to logout?</p>
+        <div class="logout-modal-actions">
+            <button class="logout-modal-btn logout-cancel" id="logout-cancel">Cancel</button>
+            <button class="logout-modal-btn logout-confirm" id="logout-confirm">Logout</button>
+        </div>
+    </div>
+  </div>
+
+  <script src="../frontend/csrf-helper.js"></script>
+  <script src="../frontend/confirmation-modal.js"></script>
+  <script src="general.js"></script>
+  <script type="module" src="notifications.js"></script>
+</body>
+</html>

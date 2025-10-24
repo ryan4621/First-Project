@@ -1,0 +1,375 @@
+.admin-session-logs-container {
+    padding: 20px;
+  }
+
+  .admin-session-logs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .admin-session-logs-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .admin-session-logs-export-btn {
+    background: #2563eb;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .admin-session-logs-export-btn:hover {
+    background: #1d4ed8;
+  }
+
+  .admin-session-logs-filters {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+  }
+
+  .admin-session-logs-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+
+  .admin-session-logs-filter-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .admin-session-logs-filter-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 5px;
+  }
+
+  .admin-session-logs-filter-input,
+  .admin-session-logs-filter-select {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .admin-session-logs-filter-input:focus,
+  .admin-session-logs-filter-select:focus {
+    border-color: #2563eb;
+  }
+
+  .admin-session-logs-filter-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .admin-session-logs-filter-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .admin-session-logs-apply-btn {
+    background: #2563eb;
+    color: white;
+  }
+
+  .admin-session-logs-apply-btn:hover {
+    background: #1d4ed8;
+  }
+
+  .admin-session-logs-reset-btn {
+    background: #e5e7eb;
+    color: #374151;
+  }
+
+  .admin-session-logs-reset-btn:hover {
+    background: #d1d5db;
+  }
+
+  .admin-session-logs-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  .admin-session-logs-stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .admin-session-logs-stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 5px;
+  }
+
+  .admin-session-logs-stat-label {
+    font-size: 14px;
+    color: #6b7280;
+  }
+
+  .admin-session-logs-table-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+
+  .admin-session-logs-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .admin-session-logs-table thead {
+    background: #f9fafb;
+    border-bottom: 2px solid #e5e7eb;
+  }
+
+  .admin-session-logs-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .admin-session-logs-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+    color: #1a1a1a;
+  }
+
+  .admin-session-logs-table tbody tr:hover {
+    background: #f9fafb;
+  }
+
+  .admin-session-logs-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .admin-session-logs-badge-user {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  .admin-session-logs-badge-product {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  .admin-session-logs-badge-ticket {
+    background: #fce7f3;
+    color: #9f1239;
+  }
+
+  .admin-session-logs-badge-notification {
+    background: #e0e7ff;
+    color: #3730a3;
+  }
+
+  .admin-session-logs-action {
+    font-weight: 500;
+    color: #374151;
+  }
+
+  .admin-session-logs-timestamp {
+    color: #6b7280;
+    font-size: 13px;
+  }
+
+  .admin-session-logs-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .admin-session-logs-page-info {
+    font-size: 14px;
+    color: #6b7280;
+  }
+
+  .admin-session-logs-page-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .admin-session-logs-page-btn {
+    padding: 6px 12px;
+    border: 1px solid #d1d5db;
+    background: white;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .admin-session-logs-page-btn:hover:not(:disabled) {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+  }
+
+  .admin-session-logs-page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .admin-session-logs-loading {
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+  }
+
+  .admin-session-logs-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b7280;
+  }
+
+  .admin-session-logs-empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  .admin-session-logs-view-btn {
+    background: #f3f4f6;
+    color: #374151;
+    padding: 4px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s;
+  }
+
+  .admin-session-logs-view-btn:hover {
+    background: #e5e7eb;
+  }
+
+  /* Modal Styles */
+  .admin-session-logs-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .admin-session-logs-modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .admin-session-logs-modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .admin-session-logs-modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .admin-session-logs-modal-close {
+    color: #9ca3af;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .admin-session-logs-modal-close:hover {
+    color: #6b7280;
+  }
+
+  .admin-session-logs-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .admin-session-logs-detail-row {
+    margin-bottom: 16px;
+  }
+
+  .admin-session-logs-detail-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+
+  .admin-session-logs-detail-value {
+    font-size: 14px;
+    color: #1a1a1a;
+    word-break: break-word;
+  }
+
+  .admin-session-logs-detail-code {
+    background: #f3f4f6;
+    padding: 12px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 13px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }

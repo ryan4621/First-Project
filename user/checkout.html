@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Farfetch</title>
+    <link rel="stylesheet", href="checkout.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <div class="checkout-container">
+        <a href="shop.html" class="back-btn">Back</a>
+        <h1 style="text-align: center; margin-bottom: 30px;">Checkout</h1>
+        
+        <div class="checkout-grid">
+            <!-- Checkout Form -->
+            <div class="checkout-form">
+                <form id="checkout-form">
+                    <!-- Shipping Address -->
+                    <div class="form-section">
+                        <h3>Shipping Address</h3>
+                        
+                        <!-- Address Selection (will be populated by JavaScript) -->
+                        <div id="address-selection" style="display: none;">
+                            <div class="form-group">
+                                <label for="selected-address">Choose shipping address:</label>
+                                <select id="selected-address" name="selectedAddress" required>
+                                    <option value="">Select an address</option>
+                                </select>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <a href="profile.html" target="_blank" style="color: #007bff; text-decoration: none;">
+                                    Manage addresses in your profile →
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- No addresses message -->
+                        <div id="no-addresses-message" style="display: none;">
+                            <div style="padding: 20px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; margin-bottom: 20px;">
+                                <h4 style="margin: 0 0 10px 0; color: #495057;">No Saved Addresses</h4>
+                                <p style="margin: 0 0 15px 0; color: #6c757d;">You need to add a shipping address to your profile before checkout.</p>
+                                <a href="profile.html" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; font-weight: 500;">
+                                    Add Address in Profile
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Loading state -->
+                        <div id="addresses-loading">
+                            <div style="padding: 20px; text-align: center; color: #666;">
+                                Loading your addresses...
+                            </div>
+                        </div>
+
+                        <!-- Selected address preview -->
+                        <div id="address-preview" style="display: none; margin-top: 15px;">
+                            <h4 style="margin-bottom: 10px; color: #495057;">Shipping to:</h4>
+                            <div style="padding: 15px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px;">
+                                <div id="preview-content"></div>
+                            </div>
+                        </div>
+
+                        <!-- Hidden fields for form submission -->
+                        <input type="hidden" id="shipping-name" name="shippingName">
+                        <input type="hidden" id="shipping-email" name="shippingEmail">
+                        <input type="hidden" id="shipping-phone" name="shippingPhone">
+                        <input type="hidden" id="shipping-street" name="shippingStreet">
+                        <input type="hidden" id="shipping-city" name="shippingCity">
+                        <input type="hidden" id="shipping-state" name="shippingState">
+                        <input type="hidden" id="shipping-postal" name="shippingPostal">
+                        <input type="hidden" id="shipping-country" name="shippingCountry">
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="form-section">
+                        <h3>Payment Method</h3>
+                        
+                        <!-- Payment Method Selection (will be populated by JavaScript) -->
+                        <div id="payment-method-selection" style="display: none;">
+                            <div class="form-group">
+                                <label for="selected-payment-method">Choose payment method:</label>
+                                <select id="selected-payment-method" name="selectedPaymentMethod" required>
+                                    <option value="">Select a payment method</option>
+                                </select>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <a href="profile.html" target="_blank" style="color: #007bff; text-decoration: none;">
+                                    Manage payment methods in your profile →
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- No payment methods message -->
+                        <div id="no-payment-methods-message" style="display: none;">
+                            <div style="padding: 20px; background-color: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; margin-bottom: 20px;">
+                                <h4 style="margin: 0 0 10px 0; color: #856404;">No Saved Payment Methods</h4>
+                                <p style="margin: 0 0 15px 0; color: #856404;">You need to add a payment method to your profile before checkout.</p>
+                                <a href="profile.html" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #ffc107; color: #212529; text-decoration: none; border-radius: 4px; font-weight: 500;">
+                                    Add Payment Method in Profile
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Loading state -->
+                        <div id="payment-methods-loading">
+                            <div style="padding: 20px; text-align: center; color: #666;">
+                                Loading your payment methods...
+                            </div>
+                        </div>
+
+                        <!-- Selected payment method preview -->
+                        <div id="payment-method-preview" style="display: none; margin-top: 15px;">
+                            <h4 style="margin-bottom: 10px; color: #495057;">Paying with:</h4>
+                            <div style="padding: 15px; background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px;">
+                                <div id="payment-preview-content"></div>
+                            </div>
+                        </div>
+
+                        <!-- Hidden field for form submission -->
+                        <input type="hidden" id="payment-method-id" name="paymentMethodId">
+                    </div>
+
+                    <!-- Order Notes -->
+                    <div class="form-section">
+                        <h3>Order Notes (Optional)</h3>
+                        <div class="form-group">
+                            <textarea id="order-notes" name="orderNotes" rows="3" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;" placeholder="Any special instructions for your order..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h3 style="margin-bottom: 20px;">Order Summary</h3>
+                
+                <div id="order-items">
+                    <div style="text-align: center; padding: 20px; color: #666;">
+                        Loading cart items...
+                    </div>
+                </div>
+                
+                <div class="order-totals">
+                    <div class="total-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal-amount">$0.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Shipping:</span>
+                        <span id="shipping-amount">$0.00</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Tax:</span>
+                        <span id="tax-amount">$0.00</span>
+                    </div>
+                    <div class="total-row final">
+                        <span>Total:</span>
+                        <span id="total-amount">$0.00</span>
+                    </div>
+                </div>
+                
+                <button type="submit" id="submit-payment" class="checkout-btn">
+                    <span id="button-text">Complete Order</span>
+                    <div id="spinner" style="display: none;">Processing...</div>
+                </button>
+                
+                <div id="payment-errors" class="error" style="display: none;"></div>
+                <div id="payment-success" class="success" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../frontend/csrf-helper.js"></script>
+    <script src="../frontend/toast-helper.js"></script>
+    <script src="checkout.js"></script>
+</body>
+</html>

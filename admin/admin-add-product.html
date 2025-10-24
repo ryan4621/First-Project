@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="admin-add-product.css">
+<title>Add Product</title>
+</head>
+<body>
+<div class="container">
+<button id="backToDashboard">← Back</button>
+<h1>Add Product</h1>
+<form id="addProductForm">
+<input type="text" name="name" placeholder="Product Name" required>
+<input type="text" name="description" placeholder="Description">
+<input type="number" name="price" placeholder="Price" required step="0.01">
+<input type="number" name="stock" placeholder="Stock">
+
+<div class="image-upload-section" id="imageUploadSection">
+    <h4>Product Image</h4>
+    <p>Upload an image file</p>
+    <input type="file" id="productImage" name="productImage" accept="image/*">
+    <input type="url" name="image_url" id="imageUrl" placeholder="Image URL (auto-filled after upload)" readonly style="margin-top: 10px; background: #f8f9fa;">
+    
+    <div class="upload-status" id="uploadStatus"></div>
+</div>
+<button type="submit" id="submitBtn">Add Product</button>
+</form>
+</div>
+    <script src="../frontend/csrf-helper.js"></script>
+    <script src="../frontend/toast-helper.js"></script>
+    <script src="../frontend/confirmation-modal.js"></script>
+    <script src="admin-add-product.js"></script>   
+</body>
+</html>

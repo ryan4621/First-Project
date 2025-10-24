@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders</title>
+  <link rel="stylesheet" href="profile.css">
+  <link rel="stylesheet" href="orders.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <button class="hamburger-menu" id="hamburger-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>My Account</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="orders.html" class="active">Orders</a>
+        <a href="shop.html">Shop</a>
+        <a href="#">Wishlist</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="support.html">Support</a>
+        <a href="settings.html">Settings</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="#" class="logout-btn">Logout</a>
+        <a href="#" class="switch-account">Switch account</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+      <h1>My Orders</h1>
+
+      <!-- Filter Section -->
+      <section class="profile-section">
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <select id="status-filter" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+            <option value="">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="processing">Processing</option>
+            <option value="shipped">Shipped</option>
+            <option value="delivered">Delivered</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="refunded">Refunded</option>
+          </select>
+          <button id="filter-btn" class="btn profile-btn-primary">Apply Filter</button>
+        </div>
+      </section>
+
+      <!-- Orders List -->
+      <section class="profile-section">
+        <div id="orders-loading" style="text-align: center; padding: 40px;">
+          <p>Loading your orders...</p>
+        </div>
+
+        <div id="no-orders" style="display: none; text-align: center; padding: 40px;">
+          <h3>No Orders Yet</h3>
+          <p>You haven't placed any orders yet.</p>
+          <a href="shop.html" class="btn profile-btn-primary" style="margin-top: 20px;">Start Shopping</a>
+        </div>
+
+        <div id="orders-list"></div>
+      </section>
+      <!-- After orders-list div, add: -->
+      <div id="pagination" style="display: none; margin-top: 20px; text-align: center; padding: 20px; background: white; border-radius: 8px;">
+        <button id="prev-page" class="btn profile-btn-secondary" style="margin: 0 5px;">Previous</button>
+        <span id="page-info" style="margin: 0 15px; font-weight: 500;"></span>
+        <button id="next-page" class="btn profile-btn-primary" style="margin: 0 5px;">Next</button>
+      </div>
+
+      <!-- Order Details Modal -->
+      <div class="order-modal-overlay" id="order-modal-overlay" hidden>
+        <div class="order-modal">
+          <div class="order-modal-header">
+            <h3>Order Details</h3>
+            <button class="order-close-btn" id="order-close-modal">&times;</button>
+          </div>
+          <div class="order-modal-body" id="order-modal-body">
+            <!-- Details will be populated here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Cancel Order Modal -->
+      <div class="cancel-modal-overlay" id="cancel-modal-overlay" hidden>
+        <div class="cancel-modal">
+          <div class="cancel-modal-header">
+            <h3>Cancel Order</h3>
+            <button class="cancel-close-btn" id="cancel-close-modal">&times;</button>
+          </div>
+          <div class="cancel-modal-body">
+            <p>Are you sure you want to cancel this order?</p>
+            <form id="cancel-form">
+              <div class="form-group">
+                <label>Reason for cancellation:</label>
+                <select id="cancel-reason" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                  <option value="requested_by_customer">Changed my mind</option>
+                  <option value="duplicate">Duplicate order</option>
+                  <option value="fraudulent">Fraudulent</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Additional details (optional):</label>
+                <textarea id="cancel-description" rows="3" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+              </div>
+              <div class="cancel-modal-actions">
+                <button type="button" class="btn profile-btn-secondary" id="cancel-cancel-btn">Go Back</button>
+                <button type="submit" class="btn profile-btn-danger">Confirm Cancellation</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+  <!-- Logout Confirmation Modal -->
+  <div class="logout-modal" id="logout-modal">
+    <div class="logout-modal-content">
+        <h3>Confirm Logout</h3>
+        <p>Are you sure you want to logout?</p>
+        <div class="logout-modal-actions">
+            <button class="logout-modal-btn logout-cancel" id="logout-cancel">Cancel</button>
+            <button class="logout-modal-btn logout-confirm" id="logout-confirm">Logout</button>
+        </div>
+    </div>
+  </div>
+
+  <script src="../frontend/csrf-helper.js"></script>
+  <script src="../frontend/toast-helper.js"></script>
+  <script src="general.js"></script>
+  <script src="orders.js"></script>
+</body>
+</html>

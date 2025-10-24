@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support Management - Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin-support.css">
+</head>
+<body>
+  <button class="hamburger-btn" id="hamburger-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  
+  <!-- Add this overlay div right after the hamburger button -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="sidebar">
+    <h2>Admin</h2>
+    <a href="admin.html">Dashboard</a>
+    <a href="admin-users.html">Users</a>
+    <a href="admin-products.html">Products</a>
+    <a href="admin-orders.html">Orders</a>
+    <a href="admin-notifications.html">Notifications</a>
+    <a href="admin-support.html" class="active">Support</a>
+    <a href="admin-session-logs.html">Activity Logs</a>
+    <a href="admin-error-logs.html">Error Monitoring</a>
+    <a href="change-password.html">Change Password</a>
+    <a href="#" id="logoutBtn" type="button" class="btn">Logout</a>
+  </div>
+
+  <div class="main-content support-main-content">
+    <!-- Header -->
+    <div class="support-header">
+      <h1>Support Management</h1>
+      <button class="support-btn support-btn-secondary" id="refreshBtn">
+        Refresh Data
+      </button>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="support-stats" id="supportStats">
+      <div class="support-stat-card pending">
+        <h3 class="support-stat-number" id="pendingCount">-</h3>
+        <p class="support-stat-label">Pending Tickets</p>
+      </div>
+      <div class="support-stat-card in-progress">
+        <h3 class="support-stat-number" id="inProgressCount">-</h3>
+        <p class="support-stat-label">In Progress</p>
+      </div>
+      <div class="support-stat-card resolved">
+        <h3 class="support-stat-number" id="resolvedCount">-</h3>
+        <p class="support-stat-label">Resolved</p>
+      </div>
+      <div class="support-stat-card high-priority">
+        <h3 class="support-stat-number" id="highPriorityCount">-</h3>
+        <p class="support-stat-label">High Priority</p>
+      </div>
+      <div class="support-stat-card closed">
+        <h3 class="support-stat-number" id="closedCount">-</h3>
+        <p class="support-stat-label">Closed</p>
+      </div>
+    </div>
+
+    <!-- Filters and Controls -->
+    <div class="support-controls">
+      <div class="support-filters">
+        <div class="support-filter-group">
+          <label class="support-filter-label">Status</label>
+          <select id="statusFilter" class="support-filter-select">
+            <option value="all">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="in_progress">In Progress</option>
+            <option value="resolved">Resolved</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+        <div class="support-filter-group">
+          <label class="support-filter-label">Priority</label>
+          <select id="priorityFilter" class="support-filter-select">
+            <option value="all">All Priorities</option>
+            <option value="low">Low</option>
+            <option value="normal">Normal</option>
+            <option value="high">High</option>
+            <option value="urgent">Urgent</option>
+          </select>
+        </div>
+        <div class="support-filter-group">
+          <label class="support-filter-label">Subject</label>
+          <select id="subjectFilter" class="support-filter-select">
+            <option value="all">All Subjects</option>
+            <option value="general">General</option>
+            <option value="account">Account</option>
+            <option value="product">Product</option>
+            <option value="technical">Technical</option>
+            <option value="billing">Billing</option>
+            <option value="feedback">Feedback</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="support-filter-group">
+          <label class="support-filter-label">Search</label>
+          <input type="text" id="searchInput" class="support-search-input" placeholder="Search by name, email, or message...">
+        </div>
+      </div>
+      <div class="support-action-buttons">
+        <button class="support-btn support-btn-primary" id="exportBtn">Export CSV</button>
+        <span class="support-pagination-info" id="totalTicketsInfo">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Tickets Table -->
+    <div class="support-tickets-container">
+      <div class="support-tickets-header">
+        <h3 class="support-tickets-title">Support Tickets</h3>
+        <span class="support-tickets-count" id="displayedTicketsCount">0 tickets</span>
+      </div>
+      
+      <!-- Loading State -->
+      <div class="support-loading" id="loadingState">
+        <div class="support-loading-spinner"></div>
+        <p>Loading support tickets...</p>
+      </div>
+
+      <!-- Empty State -->
+      <div class="support-empty" id="emptyState" style="display: none;">
+        <div class="support-empty-icon">📭</div>
+        <h3>No support tickets found</h3>
+        <p>No tickets match your current filters.</p>
+      </div>
+
+      <!-- Tickets Table -->
+      <table class="support-tickets-table" id="ticketsTable" style="display: none;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Subject</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="ticketsTableBody">
+        </tbody>
+      </table>
+
+      <!-- Pagination -->
+      <div class="support-pagination" id="paginationContainer" style="display: none;">
+        <button class="support-pagination-btn" id="prevPageBtn">Previous</button>
+        <div id="pageNumbers"></div>
+        <button class="support-pagination-btn" id="nextPageBtn">Next</button>
+        <span class="support-pagination-info" id="paginationInfo"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ticket Detail Modal -->
+  <div id="ticketModal" class="support-modal">
+    <div class="support-modal-content">
+      <div class="support-modal-header">
+        <h3 class="support-modal-title" id="modalTitle">Ticket Details</h3>
+        <button class="support-modal-close" id="closeModalBtn">&times;</button>
+      </div>
+      <div class="support-modal-body" id="modalBody">
+        <div class="support-loading">
+          <div class="support-loading-spinner"></div>
+          <p>Loading ticket details...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Modal -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Confirm Logout</h2>
+      <p>Are you sure you want to logout?</p>
+      <div class="modal-actions">
+        <button id="confirmLogout">Yes, Logout</button>
+        <button id="cancelLogout">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../frontend/csrf-helper.js"></script>
+  <script type="module" src="admin-support.js"></script>
+  <script src="admin-general.js"></script>
+</body>
+</html>

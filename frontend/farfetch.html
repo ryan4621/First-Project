@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="farfetch.css" />
+		<link
+			rel="stylesheet"
+			href="//use.fontawesome.com/releases/v6.4.0/css/all.css"
+		/>
+		<title>Far Fetch</title>
+		<link
+			href="https://fonts.cdnfonts.com/css/nimbus-sans-l"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+		/>
+	</head>
+	<body>
+		<div class="top">
+			<a href="#">Incoming | <span>Shop the latest arrivals</span></a>
+		</div>
+		<div class="modal fade modal1">
+			<div class="modal-dialog mw-100 mt-0 bg-white z-1">
+				<div class="modal-content border-0 rounded-0" style="height: 235px">
+					<div class="modal-header border-0">
+						<a
+							href="farfetch.html"
+							data-bs-toggle="modal"
+							data-bs-target=".modal3"
+							><h2 class="modal-title m-auto fw-bolder">FARFETCH</h2></a
+						>
+						<div class="icons">
+							<span
+								class="custom-close-button pe-2 ps-2 pb-1"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+								>&times;</span
+							>
+						</div>
+					</div>
+					<div class="m-auto col-5">
+						<input
+							type="search"
+							class="search-input form-control border-secondary border-1 fw-light text-dark"
+							name="Search"
+							placeholder="Search womenswear"
+							style="box-shadow: none; height: 45px"
+							autocomplete="off"
+						/>
+					</div>
+					<div class="modal-body m-auto mt-2 col-5 p-0">
+						<ul
+							class="d-flex list-unstyled mt-3 pb-1 txn fw-lighter"
+							style="border-bottom: 1px solid #e2e2e2"
+						>
+							<li class="pe-3">
+								<a
+									class="txn0 women text-decoration-none"
+									href="#"
+									onclick="changePlaceHolder1()"
+									>WOMEN</a
+								>
+							</li>
+							<li class="ps-3 pe-3">
+								<a
+									class="txn0 men text-decoration-none"
+									href="#"
+									onclick="changePlaceHolder2()"
+									>MEN</a
+								>
+							</li>
+							<li class="ps-3">
+								<a
+									class="txn0 kids text-decoration-none"
+									href="#"
+									onclick="changePlaceHolder3()"
+									>KIDS</a
+								>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="mobile-overlay"></div>
+
+		<div class="mobile-menu">
+			<a href="farfetch.html" data-bs-toggle="modal" data-bs-target=".modal3"
+				><h1 class="header1">FARFETCH</h1></a
+			>
+			<a href="#">Women</a>
+			<a href="#">Men</a>
+			<a href="kidswear.html">Kids</a>
+			<div class="mobile-menu-divider"></div>
+			<a href="#"><i class="bi bi-globe"></i> Language & Region</a>
+			<div class="mobile-menu-divider"></div>
+			<button
+				class="mobile-menu-button"
+				data-bs-toggle="modal"
+				data-bs-target=".modal2"
+			>
+				Sign In
+			</button>
+			<!-- <button class="mobile-menu-button" data-bs-toggle="modal" data-bs-target=".modal2">Register</button> -->
+		</div>
+
+		<div class="nav-mobile" style="display: none">
+			<!-- Mobile Navigation (visible only on mobile) -->
+			<div class="mobile-nav-left">
+				<div class="hamburger">
+					<i class="bi bi-list"></i>
+				</div>
+				<div
+					class="mobile-search-icon"
+					data-bs-toggle="modal"
+					data-bs-target=".modal1"
+				>
+					<i class="bi bi-search"></i>
+				</div>
+			</div>
+
+			<a href="farfetch.html" data-bs-toggle="modal" data-bs-target=".modal3"
+				><h1 class="header1">FARFETCH</h1></a
+			>
+
+			<div class="mobile-nav-right">
+				<a href="farfetchwishlist.html"><i class="bi bi-suit-heart"></i></a>
+				<a href="farfetchcart.html"
+					><i class="bi bi-handbag"
+						><span
+							class="cart-badge badge bg-dark"
+							style="
+								border: 2px solid #fff;
+								border-radius: 50%;
+								font-size: 0.5em;
+								position: absolute;
+								font-family: Arial, Helvetica, sans-serif;
+							"
+						></span></i
+				></a>
+			</div>
+		</div>
+
+		<div class="nav">
+			<!-- Desktop Navigation -->
+			<div class="select">
+				<a href="#">Women</a>
+				<a href="#">Men</a>
+				<a href="kidswear.html">Kids</a>
+			</div>
+
+			<!-- Logo/Brand Name -->
+			<a
+				href="farfetch.html"
+				class="header1"
+				data-bs-toggle="modal"
+				data-bs-target=".modal3"
+				><h1>FARFETCH</h1></a
+			>
+
+			<!-- Desktop Nav Right -->
+			<div class="nav-right">
+				<div class="icons">
+					<a href="#"><i class="bi bi-globe"></i></a>
+					<a href="#"
+						><i
+							class="bi bi-person icon-person"
+							data-bs-toggle="modal"
+							data-bs-target=".modal2"
+						></i
+					></a>
+					<a href="farfetchwishlist.html"
+						><i class="bi bi-suit-heart"
+							><span
+								class="badge bg-dark me-0"
+								style="
+									border: 2px solid #fff;
+									border-radius: 50%;
+									font-size: 0.5em;
+									position: relative;
+									top: 5px;
+									right: 13px;
+									font-family: Arial, Helvetica, sans-serif;
+								"
+							></span></i
+					></a>
+					<a href="farfetchcart.html"
+						><i class="ms-0 bi bi-handbag type-bold"
+							><span
+								class="ms-0 cart-badge badge bg-dark"
+								style="
+									border: 2px solid #fff;
+									border-radius: 50%;
+									font-size: 0.5em;
+									position: absolute;
+									top: 36px;
+									right: 55px;
+									font-family: Arial, Helvetica, sans-serif;
+									width: auto;
+								"
+							></span></i
+					></a>
+				</div>
+				<div class="search-bar">
+					<input
+						type="text"
+						class="form-control"
+						name="Search"
+						data-bs-toggle="modal"
+						data-bs-target=".modal1"
+						placeholder="Search"
+						style="box-shadow: none; outline: none"
+						onclick="focusModalInput()"
+						autocomplete="off"
+					/>
+					<i class="bi bi-search"></i>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal modal2">
+			<div class="modal-dialog">
+				<div class="modal-content m-auto fw-light fs-6 content2 border-0">
+					<div class="container container2 overflow-scroll">
+						<div class="">
+							<div class="header pb-3 pt-2 sticky-top">
+								<div class="d-flex justify-content-between">
+									<h4 class="fw-light pt-2 fs-5">Come on in</h4>
+									<div class="icons">
+										<i
+											class="bi bi-x fs-2 close"
+											data-bs-dismiss="modal"
+											aria-label="Close"
+										></i>
+										<!-- <span class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">&times;</span> -->
+									</div>
+								</div>
+								<div class="header-links border-bottom mt-3 text-secondary">
+									<span
+										><a
+											href="#"
+											class="header-links1 text-decoration-none text-secondary"
+											>SIGN IN</a
+										></span
+									>
+									<span class="ps-4"
+										><a
+											href="#"
+											class="header-links2 text-decoration-none text-secondary"
+											>I'M NEW HERE</a
+										></span
+									>
+								</div>
+							</div>
+							<form class="form1">
+								<div class="form-group form1a">
+									<label for="email" class="mb-1">Email address</label>
+									<input
+										type="email"
+										name="email"
+										class="form-control border-0 email"
+										style="outline: 1px solid black"
+									/>
+								</div>
+								<div class="form-group form2a">
+									<label for="pwd" class="mt-2 mb-1">Password</label>
+									<input
+										type="text"
+										name="pwd"
+										class="form-control border-0 password"
+										min="8"
+										style="outline: 1px solid black"
+									/>
+								</div>
+								<div
+									class="form-check checkbox mt-3 me-5 d-flex"
+									style="height: 30px"
+								>
+									<i
+										class="bi bi-check2-square checked-icon m-0"
+										style="
+											display: block;
+											font-size: 1.8em;
+											position: relative;
+											right: 19px;
+											bottom: 4px;
+											margin-bottom: 0px;
+											width: 10px;
+										"
+									></i>
+									<i
+										class="bi bi-square box-icon"
+										style="
+											display: none;
+											font-size: 1.4em;
+											position: relative;
+											right: 17px;
+											width: 10px;
+										"
+									></i
+									><span class="mt-1 me-2"
+										>Keep me signed in.
+										<a href="#" class="text-dark"> What's this?</a></span
+									>
+								</div>
+								<div class="fp mt-2 mb-1">
+									<a
+										href="#"
+										class="text-dark"
+										data-bs-toggle="modal"
+										data-bs-target="#passwordResetModal"
+										data-bs-dismiss="modal"
+										>Forgot your password?</a
+									>
+								</div>
+								<div class="d-flex flex-column signin-bottom">
+									<button
+										type="submit"
+										class="btn btn-dark mt-2 fw-bold signin"
+									>
+										Sign in
+									</button>
+									<span class="text-center">OR</span>
+									<button
+										type="submit"
+										class="btn border-dark mb-2 fw-semibold"
+									>
+										<a href="#"> <i class="bi bi-google pe-3"></i></a>
+										<span class="text-center">Continue With Google</span>
+									</button>
+									<button
+										type="submit"
+										class="btn border-dark mt-1 mb-2 fw-semibold"
+									>
+										<a href="#"> <i class="bi bi-apple"></i></a>
+										<span>Continue With Apple</span>
+									</button>
+									<button
+										type="submit"
+										class="btn border-dark mt-1 fw-semibold"
+									>
+										<a href="#"> <i class="bi bi-facebook"></i></a>
+										<span>Continue With Facebook</span>
+									</button>
+									<div class="text-center mt-3">
+										<a href="#" class="text-dark">New to FARFETCH? Register.</a>
+									</div>
+								</div>
+							</form>
+							<form class="form2">
+								<div class="form-group">
+									<label for="name" class="mb-1">Name</label>
+									<input
+										type="text"
+										name="name"
+										class="form-control border-black"
+									/>
+								</div>
+								<div class="form-group">
+									<label for="email" class="mt-3 mb-1">Email address</label>
+									<input
+										type="email"
+										name="email"
+										class="form-control border-0 email"
+										style="outline: 1px solid black"
+									/>
+								</div>
+								<div class="form-group">
+									<label for="pwd" class="mt-2 mb-1">Password</label>
+									<input
+										type="text"
+										name="pwd"
+										class="form-control border-black"
+									/>
+								</div>
+								<div class="form-text text-dark mt-2">
+									<span
+										>By registering, you agree to our
+										<a href="#" class="link-dark"
+											>Terms & Conditions,<br />
+											Privacy and Cookie Policy,</a
+										>
+										and to join our loyalty <br />
+										programme</span
+									>
+								</div>
+								<div class="form-check checkbox mt-2">
+									<label class="form-check-label text-dark"
+										><input
+											type="checkbox"
+											name="signedin"
+											class="form-check-input"
+										/>
+										Sign up and never miss out on exclusive member rewards,
+										tailored new arrivals and new launches. Unsubscribe at the
+										bottom of our emails.
+										<a href="#" class="text-dark">
+											<br />
+											Find out more.</a
+										></label
+									>
+								</div>
+								<div class="d-flex flex-column signin-bottom">
+									<button type="submit" class="btn btn-dark mt-2">
+										Register
+									</button>
+									<span class="text-center">OR</span>
+									<button class="btn border-dark mb-2">
+										<a href="#"> <i class="bi bi-google pe-3"></i></a>
+										<span class="text-center">Continue With Google</span>
+									</button>
+									<button class="btn border-dark mt-1 mb-2">
+										<a href="#"> <i class="bi bi-apple"></i></a>
+										<span>Continue With Apple</span>
+									</button>
+									<button class="btn border-dark mt-1">
+										<a href="#"> <i class="bi bi-facebook"></i></a>
+										<span>Continue With Facebook</span>
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Password Reset Modal -->
+		<div class="modal fade" id="passwordResetModal">
+			<div class="modal-dialog">
+				<div
+					class="modal-content m-auto fw-light fs-6 border-0"
+					style="width: 400px"
+				>
+					<div class="reset-modal-header border-0">
+						<h4 class="fw-light fs-5">Reset Password</h4>
+						<i
+							class="bi bi-x fs-2"
+							data-bs-dismiss="modal"
+							aria-label="Close"
+							style="cursor: pointer"
+						></i>
+					</div>
+					<div class="modal-body">
+						<!-- Step 1: Request Reset -->
+						<div id="resetStep1">
+							<p>Enter your email address and we'll send you a reset code.</p>
+							<div class="form-group">
+								<label for="resetEmail" class="mb-1">Email address</label>
+								<input
+									type="email"
+									id="resetEmail"
+									class="form-control border-0"
+									style="outline: 1px solid black"
+								/>
+							</div>
+							<button
+								type="button"
+								class="btn btn-dark w-100 mt-3"
+								id="sendResetCode"
+							>
+								Send Reset Code
+							</button>
+						</div>
+
+						<!-- Step 2: Verify Code -->
+						<div id="resetStep2" style="display: none">
+							<p>Enter the 6-digit code sent to your email.</p>
+							<div class="form-group">
+								<label for="resetCode" class="mb-1">Reset Code</label>
+								<input
+									type="text"
+									id="resetCode"
+									class="form-control border-0 text-center"
+									maxlength="6"
+									style="
+										outline: 1px solid black;
+										font-size: 1.5rem;
+										letter-spacing: 0.5rem;
+									"
+								/>
+							</div>
+							<button
+								type="button"
+								class="btn btn-dark w-100 mt-3"
+								id="verifyResetCode"
+							>
+								Verify Code
+							</button>
+							<button
+								type="button"
+								class="btn btn-link w-100 mt-2 text-dark"
+								id="backToStep1"
+							>
+								← Back
+							</button>
+						</div>
+
+						<!-- Step 3: New Password -->
+						<div id="resetStep3" style="display: none">
+							<p>Enter your new password.</p>
+							<div class="form-group">
+								<label for="newPassword" class="mb-1">New Password</label>
+								<input
+									type="password"
+									id="newPassword"
+									class="form-control border-0"
+									style="outline: 1px solid black"
+								/>
+							</div>
+							<div class="form-group">
+								<label for="confirmPassword" class="mt-2 mb-1"
+									>Confirm Password</label
+								>
+								<input
+									type="password"
+									id="confirmPassword"
+									class="form-control border-0"
+									style="outline: 1px solid black"
+								/>
+							</div>
+							<button
+								type="button"
+								class="btn btn-dark w-100 mt-3"
+								id="resetPassword"
+							>
+								Reset Password
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal modal3">
+			<div class="modal-dialog">
+				<div
+					class="modal-content content3 m-auto pb-0 border-0"
+					style="height: auto; width: 400px"
+				>
+					<div
+						class="loaded-modal-header header3 pb-0 pt-2 d-flex justify-content-between border-bottom-0"
+					>
+						<h4 class="fw-light fs-5">Sign up and get 10% off</h4>
+						<div class="icons">
+							<i
+								class="bi bi-x fs-2"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></i>
+						</div>
+					</div>
+					<div class="modal-body">
+						<div>
+							<img
+								src="./images/double.jpg"
+								style="height: 130px; width: 100%"
+							/>
+						</div>
+						<div class="bcr2 fw-light mt-3">
+							<span class="">GET UPDATES BY</span>
+							<div class="email-check mt-3">
+								<input
+									type="checkbox"
+									class="form mycheckbox mb-3"
+									name="email"
+									data-bs-toggle="collapse"
+									data-bs-target=".emailcollapse"
+									checked
+								/>
+								<label for="email">Email</label>
+								<div class="collapse show emailcollapse">
+									<input
+										class="form-control fw-lighter"
+										type="email"
+										name="email"
+										placeholder="Your email address"
+										style="width: 350px"
+									/>
+								</div>
+							</div>
+							<div class="sms-check mt-3 mb-2">
+								<input
+									type="checkbox"
+									class=""
+									name="sms"
+									data-bs-toggle="collapse"
+									data-bs-target=".signincollapse"
+								/>
+								<label for="sms">SMS</label>
+								<div class="collapse signincollapse">
+									<div class="d-flex form">
+										<input
+											class="form-control input1 me-1 text-dark fw-lighter"
+											placeholder="+234"
+										/>
+										<input
+											class="form-control input2 fw-lighter"
+											placeholder="Your phone number"
+											style="height: 45px; width: 350px"
+										/>
+									</div>
+								</div>
+							</div>
+							<div style="line-height: 1em">
+								<span class="bcr-text" id="title"
+									>By signing up, you consent to receiving marketing by email
+									and/or SMS and acknowledge you have read our<a
+										href="#"
+										style="color: #000; width: auto"
+									>
+										Privacy Policy.</a
+									>
+									Unsubscribe anytime at the bottom of our emails or by replying
+									STOP to any of our SMS.</span
+								>
+							</div>
+							<div class="text-end mt-3">
+								<button
+									type="button"
+									name="signup"
+									class="btn btn-dark border-0"
+								>
+									Sign Up
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="top-content">
+				<h2>Choose a department</h2>
+				<div class="box-container">
+					<div class="box one">
+						<h3>WOMENSWEAR</h3>
+					</div>
+					<div class="box two">
+						<h3>MENSWEAR</h3>
+					</div>
+					<div class="box three">
+						<h3>KIDSWEAR</h3>
+					</div>
+				</div>
+			</div>
+			<div class="mid-content">
+				<div class="cover">
+					<a href="#">
+						<i class="fa-solid fa-clothes-hanger"></i>
+						<p>HOW TO SHOP</p>
+						<p>Your guide to shopping and placing orders</p></a
+					>
+				</div>
+				<div class="cover">
+					<a href="#">
+						<i class="fa-sharp fa-regular fa-circle-question"></i>
+						<p>FAQS</p>
+						<p>Your questions answered</p></a
+					>
+				</div>
+				<div class="cover">
+					<a href="#">
+						<i class="fa-regular fa-message"></i>
+						<p>NEED HELP?</p>
+						<p>Contact our global Customer Service team</p></a
+					>
+				</div>
+			</div>
+		</div>
+		<div class="bottom-content">
+			<div class="bottom-content-left">
+				<h4>GET 10% OFF YOUR FIRST ORDER</h4>
+				<p>
+					Sign up for promotions, tailored new arrivals, stock updates and more
+					- straight to your inbox
+				</p>
+			</div>
+			<div class="bottom-content-right">
+				<span class="">GET UPDATES BY</span>
+				<div class="email-check mt-3">
+					<input
+						type="checkbox"
+						class="form mycheckbox mb-3"
+						name="email"
+						data-bs-toggle="collapse"
+						data-bs-target=".emailcollapse"
+						checked
+					/>
+					<label for="email">Email</label>
+					<div class="collapse show emailcollapse">
+						<input
+							class="form-control fw-lighter"
+							type="email"
+							name="email"
+							placeholder="Your email address"
+							style="width: 350px"
+						/>
+					</div>
+				</div>
+				<div class="sms-check mt-3 mb-2">
+					<input
+						type="checkbox"
+						class=""
+						name="sms"
+						data-bs-toggle="collapse"
+						data-bs-target=".signincollapse"
+					/>
+					<label for="sms">SMS</label>
+					<div class="collapse signincollapse">
+						<div class="d-flex form">
+							<input
+								class="form-control input1 me-1 text-dark fw-lighter"
+								placeholder="+234"
+							/>
+							<input
+								class="form-control input2 fw-lighter"
+								placeholder="Your phone number"
+								style="height: 45px; width: 350px"
+							/>
+						</div>
+					</div>
+				</div>
+				<button type="button" class="mt-2" name="signup">Sign Up</button>
+				<span id="title" class="mt-3"
+					>By signing up, you consent to receiving marketing by email and/or SMS
+					and acknowledge you have read our<a href="#" style="color: #000">
+						Privacy Policy.</a
+					>
+					Unsubscribe anytime at the bottom of our emails or by replying STOP to
+					any of our SMS.</span
+				>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-left">
+				<h5>Customer Service</h5>
+				<ul>
+					<li><a href="#">Contact Us</a></li>
+					<li><a href="#">FAQs</a></li>
+					<li><a href="#">Orders and delivery</a></li>
+					<li><a href="#">Returns and refunds</a></li>
+					<li><a href="#">Payment and pricing</a></li>
+					<li><a href="#">Cryptocurrency payments</a></li>
+					<li><a href="#">Promotion terms and conditions</a></li>
+					<li><a href="#">FARFETCH Customer Promise</a></li>
+				</ul>
+			</div>
+			<div class="footer-center">
+				<h5>About FARFETCH</h5>
+				<ul>
+					<li><a href="#">About us</a></li>
+					<li><a href="#">Investors</a></li>
+					<li><a href="#">FARFETCH partner boutiques</a></li>
+					<li><a href="#">Careers</a></li>
+					<li><a href="#">FARFETCH app</a></li>
+					<li><a href="#">Modern slavery statement</a></li>
+				</ul>
+			</div>
+			<div class="footer-social">
+				<div class="footer-right">
+					<h5>Discounts and membership</h5>
+					<ul>
+						<li><a href="#">Affiliate program</a></li>
+						<li><a href="#">Refer a friend</a></li>
+						<li><a href="#">FARFETCH membership</a></li>
+						<li><a href="#">Student Beans and Graduatues</a></li>
+						<li><a href="#">Student and Youth discount</a></li>
+					</ul>
+				</div>
+				<h5>Follow us</h5>
+				<div class="social">
+					<i class="fa-brands fa-instagram"></i>
+					<i class="fa-brands fa-facebook"></i>
+					<i class="fa-brands fa-pinterest-p"></i>
+					<i class="fa-brands fa-twitter"></i>
+					<i class="fa-brands fa-snapchat"></i>
+					<i class="fa-brands fa-youtube"></i>
+				</div>
+			</div>
+		</div>
+		<div class="footer-2nd">
+			<div class="footer-2nd-details">
+				<a href="#">Privacy Policy</a>
+				<a href="#">Terms and conditions</a>
+				<a href="#">Accessibility</a>
+				<a href="#">Sitemap</a>
+			</div>
+			<p>
+				'FARFETCH' and the 'FARFETCH' logo are trade marks of FARFETCH UK
+				Limited and are registered in numerous jurisdictions around the world.
+				<br />
+				© Copyright 2023 FARFETCH UK Limited. All rights reserved.
+			</p>
+		</div>
+
+		<script src="csrf-helper.js"></script>
+		<script src="toast-helper.js"></script>
+		<script src="auth-check.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+			crossorigin="anonymous"
+		></script>
+		<script src="farfetch.js"></script>
+		<script src="signup.js"></script>
+		<script src="login.js"></script>
+		<script src="password-reset.js"></script>
+	</body>
+</html>

@@ -1,0 +1,317 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "nimbus-sans-extended", sans-serif;
+}
+.top {
+    background-color: #070707;
+}
+.top a {
+    color: #fff;
+    font-size: .9em;
+    text-decoration: underline;
+}
+.navi {
+    /* display: flex;
+    justify-content: space-between; */
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    font-size: .9em;
+    height: 130px;
+    /* width: auto; */
+    border-bottom: none;
+}
+.navi a {
+    text-decoration: none;
+    color: #000;
+}
+.navi .select {
+    display: flex;
+    width: 300px;
+    padding-top: 10px;
+    padding-left: 30px;
+}
+.navi .select a {
+    padding: 15px;
+    text-decoration: none;
+    font-weight: lighter;
+}
+.navi .select a:hover {
+    background-color: #f2f2f2;
+    color: #5f5f5f;
+    height: 45px;
+    
+}
+.select a:first-child:hover {
+    border-radius: 8px 0px 0px 8px;
+}
+.select a:last-child:hover {
+    border-radius: 0px 8px 8px 0px;
+}
+.navi h1 {
+    position: absolute;
+    left: 600px;
+    font-size: 2.2em;
+    font-weight: 600;
+    margin: 20px 0px 0px 25px;
+    font-style: normal;
+}
+.nav-bottom > input {
+    box-shadow: none;
+}
+.navi .icons {
+    margin-top: 20px;
+    margin-right: 50px;
+    padding-left: 100px;
+    padding-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    -webkit-text-stroke: 0.6px;
+}
+.navi .icons i {
+    padding: 13px;
+}
+.icons > button {
+    color: #000;
+    box-shadow: none;
+}
+.nav-top {
+    display: flex;
+    justify-content: space-between;
+}
+.nav-bottom {
+    margin-right: 54px;
+    display: flex;
+    justify-content: space-between;
+}
+.nav h1 {
+    margin-right: 100px ;
+    text-align: center;
+}
+.select a > span {
+    font-weight: 600;
+}
+.menu {
+    padding: 10px 0px 0px 0px;
+    font-weight: 300;
+    width: 800px;
+}
+.menu ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.menu li{
+    padding: 10px;
+    list-style: none;
+}
+.first-content {
+    background-image: linear-gradient(to left, rgb(49, 48, 48), rgb(182, 181, 181));
+    padding-top: 80px;
+    margin: 0 auto;
+    margin-top: 60px;
+    width: 1250px;
+    height: 300px;
+}
+.first-content h2 {
+    color: #fff;
+    text-align: center;
+    font-size: 3em;
+}
+.first-content a {
+    text-decoration: none;
+}
+.first-content p{
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 1em;
+}
+.first-content a > button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 25px;
+    width: 130px;
+    padding: 10px;
+    opacity: 2px;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    background-color: transparent;
+}
+.second-content {
+    font-weight: 100;
+    display: flex;
+    padding: 20px;
+    margin-top: 90px;
+    margin-left: 65px; 
+}
+.second-content-right {
+    margin-left: 70px;
+    padding-top: 230px;
+    color: #000;
+    width: 600px;
+    background-color: none;
+}
+.second-content-right a, p{
+    text-decoration: none;
+    color: #000;
+}
+.second-content-right h3 {
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 100;
+}
+.second-content-right p {
+    text-align: center;
+    padding-top: 55px;
+    font-size: 1em;
+}
+.second-content-right a > button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 55px;
+    width: 120px;
+    font-weight: bold;
+    border: 1px solid #000;
+    border-radius: 8px;
+    background-color: transparent;
+}
+.third-content {
+    padding-left: 20px;
+    margin-top: 70px;
+    margin-left: 52px;
+    font-weight: 100;
+}
+.third-content h3 {
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 100;
+}
+.third-content div{
+    display: flex;
+}
+.third-content div > img {
+    margin-top: 50px;
+    width: 426px;
+    padding: 13px;
+}
+.third-content-details {
+    display: flex;
+    flex-direction: column;
+}
+.third-content-details  p {
+    padding-top: 20px;
+    margin-left: 15px;
+}
+.fourth-content {
+    display: flex;
+    margin-top: 80px;
+    margin-left: 70px;
+    font-weight: 100;
+}
+.fourth-content div > img {
+    padding: 13px;
+    width: 640px;
+    margin-bottom: 10px;
+}
+.fourth-content div > p {
+    margin-left: 10px;
+    padding-left: 13px;
+    padding: 2px;
+}
+.fifth-content {
+    margin: 110px 90px 20px 80px;
+    font-weight: 100;
+}
+.fifth-content-top {
+    display: flex;
+    justify-content: space-between;
+}
+.fifth-content-top h3 {
+    font-size: 1.4em;
+    font-weight: 300;
+}
+.fifth-content-top > button {
+    height: 33px;
+    width: 120px;
+    font-size: 1em;
+    font-weight: 600;
+    border: 1px solid #000;
+    border-radius: 8px;
+    background-color: transparent;
+}
+.fifth-content-top > button:hover {
+    background-color: rgb(243, 243, 243);
+    cursor: pointer;
+}
+.kids-item {
+    display: flex;
+    width: auto;
+    justify-content: space-between;
+    margin: 40px 0px 20px 0px ;
+    overflow: hidden;
+}
+.kids-item-box {
+    overflow-x: scroll;
+    width: 490px;
+    padding: 10px;
+}
+.heart {
+    background-size: contain;
+    text-align: end;
+    font-size: 1.3em;
+    height: 350px;
+}
+.heart i:hover{
+    color: rgb(7, 7, 7);
+    cursor: pointer;
+}
+.givenchy-icon {
+    background-image: url(./images/givenchy-kids.jpg);
+}
+.missoni-icon {
+    background-image: url(./images/missoni-kids.jpg);
+}
+.chloe-icon {
+    background-image: url(./images/chloe_kids.jpg);
+}
+.kenzo-icon {
+    background-image: url(./images/kenzo-kids.jpg);
+}
+.kids-item-details {
+    display: flex;
+    flex-direction: column;
+}
+.kids-item-details > h4 {
+    font-size: 1em;
+    font-weight: 600;
+}
+.kids-item-details-price {
+    margin-top: 5px;
+}
+/* .kids-item-details-price {
+    margin-top: 25px;
+} */
+/* .kids-item-detail .giv {
+    margin-bottom: 10px;
+} */
+.sixth-content {
+    margin: 20px 0 0 65px;
+    padding: 20px;
+    font-weight: 100;
+}
+.sixth-content > img {
+    margin-bottom: 20px;
+}
+.sixth-content > p {
+    padding: 2px;
+}
+.stella-icon {
+    background-image: url(brown-boots.jpg);
+}

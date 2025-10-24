@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Activity Logs</title>
+  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin-session-logs.css">
+</head>
+<body>
+  <button class="hamburger-btn" id="hamburger-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  
+  <!-- Add this overlay div right after the hamburger button -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="sidebar">
+    <h2>Admin</h2>
+    <a href="admin.html">Dashboard</a>
+    <a href="admin-users.html">Users</a>
+    <a href="admin-products.html">Products</a>
+    <a href="admin-orders.html">Orders</a>
+    <a href="admin-notifications.html">Notifications</a>
+    <a href="admin-support.html">Support</a>
+    <a href="admin-session-logs.html" class="active">Activity Logs</a>
+    <a href="admin-error-logs.html">Error Monitoring</a>
+    <a href="change-password.html">Change Password</a>
+    <a href="#" id="logoutBtn" type="button" class="btn">Logout</a>
+  </div>
+
+  <div class="main-content">
+    <div class="admin-session-logs-container">
+      <!-- Header -->
+      <div class="admin-session-logs-header">
+        <h1 class="admin-session-logs-title">Admin Activity Logs</h1>
+        <button class="admin-session-logs-export-btn" id="admin-session-logs-export-btn">
+          Export CSV
+        </button>
+      </div>
+
+      <!-- Statistics -->
+      <div class="admin-session-logs-stats" id="admin-session-logs-stats">
+        <div class="admin-session-logs-stat-card">
+          <div class="admin-session-logs-stat-value" id="admin-session-logs-total-actions">-</div>
+          <div class="admin-session-logs-stat-label">Total Actions</div>
+        </div>
+        <div class="admin-session-logs-stat-card">
+          <div class="admin-session-logs-stat-value" id="admin-session-logs-active-admins">-</div>
+          <div class="admin-session-logs-stat-label">Active Admins</div>
+        </div>
+        <div class="admin-session-logs-stat-card">
+          <div class="admin-session-logs-stat-value" id="admin-session-logs-actions-today">-</div>
+          <div class="admin-session-logs-stat-label">Actions Today</div>
+        </div>
+        <div class="admin-session-logs-stat-card">
+          <div class="admin-session-logs-stat-value" id="admin-session-logs-actions-week">-</div>
+          <div class="admin-session-logs-stat-label">Actions This Week</div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="admin-session-logs-filters">
+        <div class="admin-session-logs-filter-grid">
+          <div class="admin-session-logs-filter-group">
+            <label class="admin-session-logs-filter-label">Search</label>
+            <input 
+              type="text" 
+              class="admin-session-logs-filter-input" 
+              id="admin-session-logs-search"
+              placeholder="Search actions, admins..."
+            >
+          </div>
+          <div class="admin-session-logs-filter-group">
+            <label class="admin-session-logs-filter-label">Admin</label>
+            <select class="admin-session-logs-filter-select" id="admin-session-logs-admin-filter">
+              <option value="all">All Admins</option>
+            </select>
+          </div>
+          <div class="admin-session-logs-filter-group">
+            <label class="admin-session-logs-filter-label">Action Type</label>
+            <select class="admin-session-logs-filter-select" id="admin-session-logs-action-filter">
+              <option value="all">All Actions</option>
+              <option value="viewed_users_list">Viewed Users List</option>
+              <option value="viewed_user">Viewed User</option>
+              <option value="updated_user">Updated User</option>
+              <option value="deleted_user">Deleted User</option>
+              <option value="activate_user">Activated User</option>
+              <option value="deactivate_user">Deactivated User</option>
+              <option value="suspend_user">Suspended User</option>
+              <option value="reset_user_password">Reset Password</option>
+              <option value="sent_email_to_user">Sent Email</option>
+              <option value="viewed_products_list">Viewed Products</option>
+              <option value="updated_product">Updated Product</option>
+              <option value="deleted_product">Deleted Product</option>
+              <option value="viewed_support_tickets">Viewed Support Tickets</option>
+              <option value="updated_support_ticket">Updated Support Ticket</option>
+              <!-- <option value="created_notification">Created Notification</option> -->
+              <option value="sent_notification">Sent Notification</option>
+              <option value="deleted_notification">Deleted Notification</option>
+              <option value="admin_login">Admin Login</option>
+              <option value="admin_logout">Admin Logout</option>
+            </select>
+          </div>
+          <div class="admin-session-logs-filter-group">
+            <label class="admin-session-logs-filter-label">Entity Type</label>
+            <select class="admin-session-logs-filter-select" id="admin-session-logs-entity-filter">
+              <option value="all">All Types</option>
+              <option value="user">User</option>
+              <option value="product">Product</option>
+              <option value="support_ticket">Support Ticket</option>
+              <option value="notification">Notification</option>
+            </select>
+          </div>
+          <div class="admin-session-logs-filter-group">
+            <label class="admin-session-logs-filter-label">Date From</label>
+            <input 
+              type="date" 
+              class="admin-session-logs-filter-input" 
+              id="admin-session-logs-date-from"
+            >
+          </div>
+          <div class="admin-session-logs-filter-group">
+            <label class="admin-session-logs-filter-label">Date To</label>
+            <input 
+              type="date" 
+              class="admin-session-logs-filter-input" 
+              id="admin-session-logs-date-to"
+            >
+          </div>
+        </div>
+        <div class="admin-session-logs-filter-actions">
+          <button class="admin-session-logs-filter-btn admin-session-logs-reset-btn" id="admin-session-logs-reset-filters">
+            Reset Filters
+          </button>
+          <button class="admin-session-logs-filter-btn admin-session-logs-apply-btn" id="admin-session-logs-apply-filters">
+            Apply Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="admin-session-logs-table-container">
+        <table class="admin-session-logs-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Admin</th>
+              <th>Action</th>
+              <th>Entity Type</th>
+              <th>Entity ID</th>
+              <th>IP Address</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody id="admin-session-logs-table-body">
+            <tr>
+              <td colspan="7" class="admin-session-logs-loading">Loading activity logs...</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="admin-session-logs-pagination">
+          <div class="admin-session-logs-page-info" id="admin-session-logs-page-info">
+            Showing 0 - 0 of 0 logs
+          </div>
+          <div class="admin-session-logs-page-buttons">
+            <button class="admin-session-logs-page-btn" id="admin-session-logs-prev-btn" disabled>
+              Previous
+            </button>
+            <button class="admin-session-logs-page-btn" id="admin-session-logs-next-btn" disabled>
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div id="admin-session-logs-detail-modal" class="admin-session-logs-modal">
+    <div class="admin-session-logs-modal-content">
+      <div class="admin-session-logs-modal-header">
+        <h2 class="admin-session-logs-modal-title">Activity Log Details</h2>
+        <button class="admin-session-logs-modal-close">&times;</button>
+      </div>
+      <div class="admin-session-logs-modal-body" id="admin-session-logs-modal-body">
+        <!-- Details will be populated here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Logout Modal -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Confirm Logout</h2>
+      <p>Are you sure you want to logout?</p>
+      <div class="modal-actions">
+        <button id="confirmLogout">Yes, Logout</button>
+        <button id="cancelLogout">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../frontend/csrf-helper.js"></script>
+  <script src="admin-session-logs.js"></script>
+  <script src="admin-general.js"></script>
+</body>
+</html>

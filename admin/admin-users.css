@@ -1,0 +1,22 @@
+body { font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; }
+    h1 { margin-bottom: 10px; }
+    .topbar { display:flex; gap:10px; align-items:center; margin-bottom:30px; flex-wrap:wrap; }
+    .back-btn { display:inline-block; padding:10px 15px; background:#007bff; color:white; text-decoration:none; border-radius:5px; }
+    .back-btn:hover{background:#0056b3}
+    .controls { margin-left: auto; display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+    .controls input, .controls select { padding:8px; border-radius:6px; border:1px solid #ccc; }
+    .controls button { padding:8px 12px; border-radius:6px; border:none; cursor:pointer; background:#007bff; color:#fff; }
+    .controls button.secondary { background:#28a745 }
+    table { width:100%; border-collapse:collapse; background:white; margin-top:40px; }
+    th,td { padding:12px; border:1px solid #ddd; text-align:left; }
+    th { background:#007bff; color:white; }
+    tr:nth-child(even){ background:#f9f9f9; }
+    .actions { text-align:center; }
+    .action-btn { padding:6px 10px; margin:2px; border:none; border-radius:4px; cursor:pointer; color:#fff; }
+    .edit { background:#007bff }
+    .view { background:#28a745 }
+    .delete { background:#b21111 }
+    .pagination { display:flex; gap:8px; align-items:center; justify-content:center; margin-top:12px; flex-wrap:wrap;}
+    .page-btn { padding:6px 10px; border-radius:6px; border:1px solid #ccc; background:#fff; cursor:pointer; }
+    .page-btn.active { background:#007bff; color:#fff; border-color:#007bff; }
+    .page-size { width:80px; }

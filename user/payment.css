@@ -1,0 +1,180 @@
+/* Payment Methods Styles */
+.payment-list {
+    margin-bottom: 20px;
+  }
+  
+  .payment-method-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .payment-method-card.default {
+    border-color: #28a745;
+    background-color: #f8fff9;
+  }
+  
+  .payment-method-info {
+    flex: 1;
+  }
+  
+  .payment-method-info h4 {
+    margin: 0 0 5px 0;
+    color: #333;
+  }
+  
+  .payment-method-info p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .payment-method-info .default-badge {
+    display: inline-block;
+    background: #28a745;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-left: 10px;
+  }
+  
+  .payment-method-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn-small {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .btn-small:hover {
+    background: #f5f5f5;
+  }
+  
+  .btn-small.btn-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+  }
+  
+  .btn-small.btn-danger:hover {
+    background: #dc3545;
+    color: white;
+  }
+  
+  .btn-small.btn-primary {
+    color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-small.btn-primary:hover {
+    background: #007bff;
+    color: white;
+  }
+  
+  /* Modal Styles */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal {
+    background: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .modal-header h3 {
+    margin: 0;
+  }
+  
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+  }
+  
+  .modal-close:hover {
+    color: #333;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .checkbox-group input[type="checkbox"] {
+    width: auto;
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+  }
+  
+  .empty-state h4 {
+    margin: 0 0 10px 0;
+    color: #333;
+  }

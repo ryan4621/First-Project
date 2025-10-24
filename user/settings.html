@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="settings.css">
+  <script src="translate-loader.js"></script>
+</head>
+<body>
+  <button class="hamburger-menu" id="hamburger-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>My Account</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="orders.html">Orders</a>
+        <a href="shop.html">Shop</a>
+        <a href="#">Wishlist</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="support.html">Support</a>
+        <a href="settings.html" class="active">Settings</a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="#" class="logout-btn">Logout</a>
+        <a href="#" class="switch-account">Switch account</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+      <h1 style="text-align: center; position: fixed;">Settings</h1>
+
+      <!-- Settings Navigation Tabs -->
+      <div class="settings-nav">
+        <button class="settings-nav-btn active" id="preferences-tab-btn" data-tab="preferences">
+          Preferences
+        </button>
+        <button class="settings-nav-btn" id="security-tab-btn" data-tab="security">
+          Security
+        </button>
+      </div>
+
+      <!-- Preferences Section -->
+      <div class="settings-section" id="preferences-section">
+        
+        <!-- Notification Settings -->
+        <section class="settings-card settings-card-collapsible">
+          <div class="settings-card-header settings-card-toggle" data-target="notification-settings">
+            <div class="settings-card-header-content">
+              <h2>Notification Settings</h2>
+              <p class="settings-card-description">Manage how you receive notifications</p>
+            </div>
+            <div class="settings-card-chevron">
+              <span class="chevron-icon">▼</span>
+            </div>
+          </div>
+          
+          <div class="settings-card-content settings-card-collapsible-content" id="notification-settings">
+            <div>
+              <div class="preferences-setting-group">
+                <div class="preferences-setting-item">
+                  <div class="preferences-setting-info">
+                    <label class="preferences-setting-label">Email Notifications</label>
+                    <span class="preferences-setting-description">Receive notifications via email</span>
+                  </div>
+                  <div class="preferences-toggle-switch">
+                    <input type="checkbox" id="preferences-notifications-email" class="preferences-toggle-input">
+                    <label for="preferences-notifications-email" class="preferences-toggle-label"></label>
+                  </div>
+                </div>
+
+                <div class="preferences-setting-item">
+                  <div class="preferences-setting-info">
+                    <label class="preferences-setting-label">SMS Notifications</label>
+                    <span class="preferences-setting-description">Receive notifications via text message</span>
+                  </div>
+                  <div class="preferences-toggle-switch">
+                    <input type="checkbox" id="preferences-notifications-sms" class="preferences-toggle-input">
+                    <label for="preferences-notifications-sms" class="preferences-toggle-label"></label>
+                  </div>
+                </div>
+
+                <div class="preferences-setting-item">
+                  <div class="preferences-setting-info">
+                    <label class="preferences-setting-label">Push Notifications</label>
+                    <span class="preferences-setting-description">Receive browser push notifications</span>
+                  </div>
+                  <div class="preferences-toggle-switch">
+                    <input type="checkbox" id="preferences-notifications-push" class="preferences-toggle-input">
+                    <label for="preferences-notifications-push" class="preferences-toggle-label"></label>
+                  </div>
+                </div>
+
+                <div class="preferences-setting-item">
+                  <div class="preferences-setting-info">
+                    <label class="preferences-setting-label">Marketing Emails</label>
+                    <span class="preferences-setting-description">Receive promotional and marketing emails</span>
+                  </div>
+                  <div class="preferences-toggle-switch">
+                    <input type="checkbox" id="preferences-marketing-emails" class="preferences-toggle-input">
+                    <label for="preferences-marketing-emails" class="preferences-toggle-label"></label>
+                  </div>
+                </div>
+
+                <div class="preferences-setting-item">
+                  <div class="preferences-setting-info">
+                    <label class="preferences-setting-label">Order Updates</label>
+                    <span class="preferences-setting-description">Receive notifications about order status</span>
+                  </div>
+                  <div class="preferences-toggle-switch">
+                    <input type="checkbox" id="preferences-order-updates" class="preferences-toggle-input">
+                    <label for="preferences-order-updates" class="preferences-toggle-label"></label>
+                  </div>
+                </div>
+
+                <div class="preferences-setting-item">
+                  <div class="preferences-setting-info">
+                    <label class="preferences-setting-label">Promotional Offers</label>
+                    <span class="preferences-setting-description">Receive notifications about deals and offers</span>
+                  </div>
+                  <div class="preferences-toggle-switch">
+                    <input type="checkbox" id="preferences-promotional-offers" class="preferences-toggle-input">
+                    <label for="preferences-promotional-offers" class="preferences-toggle-label"></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Language & Currency Settings -->
+        <section class="settings-card settings-card-collapsible">
+          <div class="settings-card-header settings-card-toggle" data-target="language-currency-settings">
+            <div class="settings-card-header-content">
+              <h2>Language & Currency</h2>
+              <p class="settings-card-description">Set your preferred language and currency</p>
+            </div>
+            <div class="settings-card-chevron">
+              <span class="chevron-icon">▼</span>
+            </div>
+          </div>
+          
+          <div class="settings-card-content settings-card-collapsible-content" id="language-currency-settings">
+            <div>
+              <div class="preferences-form-row">
+                <div class="preferences-form-group">
+                  <label for="preferences-language-select" class="preferences-form-label">Language</label>
+                  <select id="preferences-language-select" class="preferences-form-select">
+                    <option value="en">English</option>
+                    <option value="es">Spanish (Español)</option>
+                    <option value="fr">French (Français)</option>
+                    <option value="zh-CN">Chinese (中文)</option>
+                    <option value="hi">Hindi (हिन्दी)</option>
+                    <option value="ar">Arabic (العربية)</option>
+                    <option value="pt">Portuguese (Português)</option>
+                    <option value="ru">Russian (Русский)</option>
+                    <option value="ja">Japanese (日本語)</option>
+                    <option value="de">German (Deutsch)</option>
+                    <option value="ko">Korean (한국어)</option>
+                    <option value="it">Italian (Italiano)</option>
+                  </select>
+                </div>
+                <div class="preferences-form-group">
+                  <label for="preferences-currency-select" class="preferences-form-label">Currency</label>
+                  <select id="preferences-currency-select" class="preferences-form-select">
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="GBP">GBP (£)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Privacy Settings -->
+        <section class="settings-card settings-card-collapsible">
+          <div class="settings-card-header settings-card-toggle" data-target="privacy-settings">
+            <div class="settings-card-header-content">
+              <h2>Privacy Settings</h2>
+              <p class="settings-card-description">Control your privacy and visibility</p>
+            </div>
+            <div class="settings-card-chevron">
+              <span class="chevron-icon">▼</span>
+            </div>
+          </div>
+          
+          <div class="settings-card-content settings-card-collapsible-content" id="privacy-settings">
+            <div>
+              <div class="preferences-form-group">
+                <label for="preferences-profile-visibility" class="preferences-form-label">Profile Visibility</label>
+                <select id="preferences-profile-visibility" class="preferences-form-select">
+                  <option value="public">Public</option>
+                  <option value="private">Private</option>
+                </select>
+                <span class="preferences-form-description">Choose who can view your profile</span>
+              </div>
+
+              <div class="preferences-setting-group">
+                <div class="preferences-setting-item">
+                  <div class="preferences-setting-info">
+                    <label class="preferences-setting-label">Show Online Status</label>
+                    <span class="preferences-setting-description">Let others see when you're online</span>
+                  </div>
+                  <div class="preferences-toggle-switch">
+                    <input type="checkbox" id="preferences-show-online-status" class="preferences-toggle-input">
+                    <label for="preferences-show-online-status" class="preferences-toggle-label"></label>
+                  </div>
+                </div>
+
+                <div class="preferences-setting-item">
+                  <div class="preferences-setting-info">
+                    <label class="preferences-setting-label">Allow Search Engines</label>
+                    <span class="preferences-setting-description">Allow search engines to index your profile</span>
+                  </div>
+                  <div class="preferences-toggle-switch">
+                    <input type="checkbox" id="preferences-allow-search-engines" class="preferences-toggle-input">
+                    <label for="preferences-allow-search-engines" class="preferences-toggle-label"></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Preferences Actions -->
+        <div class="settings-actions">
+          <button class="settings-btn settings-btn-primary" id="preferences-save-btn">
+            Save Preferences
+          </button>
+          <button class="settings-btn settings-btn-secondary" id="preferences-reset-btn">
+            Reset to Defaults
+          </button>
+        </div>
+      </div>
+
+      <!-- Security Section -->
+      <div class="settings-section hidden" id="security-section">
+        
+        <!-- Change Password -->
+        <section class="settings-card settings-card-collapsible">
+          <div class="settings-card-header settings-card-toggle" data-target="password-settings">
+            <div class="settings-card-header-content">
+              <h2>Change Password</h2>
+              <p class="settings-card-description">Update your account password</p>
+            </div>
+            <div class="settings-card-chevron">
+              <span class="chevron-icon">▼</span>
+            </div>
+          </div>
+          
+          <div class="settings-card-content settings-card-collapsible-content" id="password-settings">
+            <div>
+              <form id="security-password-form" class="security-form">
+                <div class="security-form-group">
+                  <label for="security-current-password" class="security-form-label">Current Password</label>
+                  <div class="security-password-input-wrapper">
+                    <input type="password" id="security-current-password" class="security-form-input" required>
+                    <button type="button" class="security-password-toggle" data-target="security-current-password">
+                      <span class="security-eye-icon">👁</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="security-form-group">
+                  <label for="security-new-password" class="security-form-label">New Password</label>
+                  <div class="security-password-input-wrapper">
+                    <input type="password" id="security-new-password" class="security-form-input" required>
+                    <button type="button" class="security-password-toggle" data-target="security-new-password">
+                      <span class="security-eye-icon">👁</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="security-form-group">
+                  <label for="security-confirm-password" class="security-form-label">Confirm New Password</label>
+                  <div class="security-password-input-wrapper">
+                    <input type="password" id="security-confirm-password" class="security-form-input" required>
+                    <button type="button" class="security-password-toggle" data-target="security-confirm-password">
+                      <span class="security-eye-icon">👁</span>
+                    </button>
+                  </div>
+                </div>
+                <button type="submit" class="settings-btn settings-btn-primary">
+                  Update Password
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- Two-Factor Authentication -->
+        <section class="settings-card settings-card-collapsible">
+          <div class="settings-card-header settings-card-toggle" data-target="2fa-settings">
+            <div class="settings-card-header-content">
+              <h2>Two-Factor Authentication</h2>
+              <p class="settings-card-description">Add an extra layer of security to your account</p>
+            </div>
+            <div class="settings-card-chevron">
+              <span class="chevron-icon">▼</span>
+            </div>
+          </div>
+          
+          <div class="settings-card-content settings-card-collapsible-content" id="2fa-settings">
+            <div>
+              <div class="security-2fa-status" id="security-2fa-status">
+                <div class="security-status-indicator">
+                  <span class="security-status-dot security-status-disabled"></span>
+                  <span class="security-status-text">Two-Factor Authentication is disabled</span>
+                </div>
+                <button class="settings-btn settings-btn-primary" id="security-enable-2fa-btn">
+                  Enable 2FA
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Active Sessions -->
+        <section class="settings-card settings-card-collapsible">
+          <div class="settings-card-header settings-card-toggle" data-target="sessions-settings">
+            <div class="settings-card-header-content">
+              <h2>Active Sessions</h2>
+              <p class="settings-card-description">View and manage your active login sessions</p>
+            </div>
+            <div class="settings-card-chevron">
+              <span class="chevron-icon">▼</span>
+            </div>
+          </div>
+          
+          <div class="settings-card-content settings-card-collapsible-content" id="sessions-settings">
+            <div>
+              <div class="security-sessions-list" id="security-sessions-list">
+                <div class="security-session-item">
+                  <div class="security-session-info">
+                    <div class="security-session-device">Current Session (Chrome on Windows)</div>
+                    <div class="security-session-details">
+                      <span class="security-session-location">New York, US</span>
+                      <span class="security-session-time">Active now</span>
+                    </div>
+                  </div>
+                  <span class="security-session-badge">Current</span>
+                </div>
+              </div>
+              <button class="settings-btn settings-btn-secondary" id="security-refresh-sessions-btn">
+                Refresh Sessions
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Activity Logs -->
+        <section class="settings-card settings-card-collapsible">
+          <div class="settings-card-header settings-card-toggle" data-target="activity-settings">
+            <div class="settings-card-header-content">
+              <h2>Activity Logs</h2>
+              <p class="settings-card-description">View your recent account activity</p>
+            </div>
+            <div class="settings-card-chevron">
+              <span class="chevron-icon">▼</span>
+            </div>
+          </div>
+          
+          <div class="settings-card-content settings-card-collapsible-content" id="activity-settings">
+            <div>
+              <div class="security-activity-list" id="security-activity-list">
+                <div class="security-activity-item">
+                  <div class="security-activity-icon">🔐</div>
+                  <div class="security-activity-info">
+                    <div class="security-activity-title">Password changed</div>
+                    <div class="security-activity-time">2 hours ago</div>
+                  </div>
+                </div>
+                <div class="security-activity-item">
+                  <div class="security-activity-icon">📧</div>
+                  <div class="security-activity-info">
+                    <div class="security-activity-title">Email updated</div>
+                    <div class="security-activity-time">1 day ago</div>
+                  </div>
+                </div>
+              </div>
+              <button class="settings-btn settings-btn-secondary" id="security-load-more-activity-btn">
+                Load More Activity
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Security Questions -->
+        <section class="settings-card settings-card-collapsible">
+          <div class="settings-card-header settings-card-toggle" data-target="security-questions-settings">
+            <div class="settings-card-header-content">
+              <h2>Security Questions</h2>
+              <p class="settings-card-description">Set up security questions for account recovery</p>
+            </div>
+            <div class="settings-card-chevron">
+              <span class="chevron-icon">▼</span>
+            </div>
+          </div>
+          
+          <div class="settings-card-content settings-card-collapsible-content" id="security-questions-settings">
+            <div>
+              <div class="security-questions-status" id="security-questions-status">
+                <div class="security-status-indicator">
+                  <span class="security-status-dot security-status-disabled"></span>
+                  <span class="security-status-text">Security questions not set up</span>
+                </div>
+                <button class="settings-btn settings-btn-primary" id="security-setup-questions-btn">
+                  Set Up Questions
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Account Deactivation -->
+        <section class="settings-card settings-card-collapsible settings-card-danger">
+          <div class="settings-card-header settings-card-toggle" data-target="account-actions-settings">
+            <div class="settings-card-header-content">
+              <h2>Account Deactivation</h2>
+              <p class="settings-card-description">Temporarily deactivate or permanently delete your account</p>
+            </div>
+            <div class="settings-card-chevron">
+              <span class="chevron-icon">▼</span>
+            </div>
+          </div>
+          
+          <div class="settings-card-content settings-card-collapsible-content" id="account-actions-settings">
+            <div>
+              <div class="security-danger-actions">
+                <button class="settings-btn settings-btn-warning" id="security-deactivate-btn">
+                  Deactivate Account
+                </button>
+                <button class="settings-btn settings-btn-danger" id="security-delete-btn">
+                  Delete Account
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Settings Toast Notification -->
+      <div class="settings-toast" id="settings-toast"></div>
+
+      <!-- Settings Confirmation Modal -->
+      <div class="settings-modal-overlay" id="settings-modal-overlay">
+        <div class="settings-modal">
+          <div class="settings-modal-header">
+            <h3 id="settings-modal-title">Confirm Action</h3>
+            <button class="settings-modal-close" id="settings-modal-close">&times;</button>
+          </div>
+          <div class="settings-modal-body">
+            <p id="settings-modal-message">Are you sure you want to proceed?</p>
+          </div>
+          <div class="settings-modal-actions">
+            <button class="settings-btn settings-btn-secondary" id="settings-modal-cancel">Cancel</button>
+            <button class="settings-btn settings-btn-primary" id="settings-modal-confirm">Confirm</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Questions Modal -->
+      <div class="settings-modal-overlay" id="security-questions-modal">
+        <div class="settings-modal" style="max-width: 600px;">
+          <div class="settings-modal-header">
+            <h3>Set Up Security Questions</h3>
+            <button class="settings-modal-close" id="close-questions-modal">&times;</button>
+          </div>
+          <div class="settings-modal-body">
+            <p>Choose 3 security questions and provide answers. These will help recover your account if needed.</p>
+            <form id="security-questions-form" class="security-questions-form">
+              <div class="security-form-group">
+                <label class="security-form-label">Question 1</label>
+                <select name="question1" class="security-form-select" required>
+                  <option value="">Select a question</option>
+                  <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+                  <option value="What city were you born in?">What city were you born in?</option>
+                  <option value="What was your mother's maiden name?">What was your mother's maiden name?</option>
+                  <option value="What was the name of your first school?">What was the name of your first school?</option>
+                </select>
+                <input type="text" name="answer1" placeholder="Your answer" class="security-form-input" required style="margin-top: 0.5rem;">
+              </div>
+              
+              <div class="security-form-group">
+                <label class="security-form-label">Question 2</label>
+                <select name="question2" class="security-form-select" required>
+                  <option value="">Select a question</option>
+                  <option value="What street did you grow up on?">What street did you grow up on?</option>
+                  <option value="What was your favorite food as a child?">What was your favorite food as a child?</option>
+                  <option value="What was the model of your first car?">What was the model of your first car?</option>
+                  <option value="What was your childhood nickname?">What was your childhood nickname?</option>
+                </select>
+                <input type="text" name="answer2" placeholder="Your answer" class="security-form-input" required style="margin-top: 0.5rem;">
+              </div>
+              
+              <div class="security-form-group">
+                <label class="security-form-label">Question 3</label>
+                <select name="question3" class="security-form-select" required>
+                  <option value="">Select a question</option>
+                  <option value="What was the name of your best friend in high school?">What was the name of your best friend in high school?</option>
+                  <option value="What was your favorite subject in school?">What was your favorite subject in school?</option>
+                  <option value="What was the name of your first employer?">What was the name of your first employer?</option>
+                  <option value="What was your dream job as a child?">What was your dream job as a child?</option>
+                </select>
+                <input type="text" name="answer3" placeholder="Your answer" class="security-form-input" required style="margin-top: 0.5rem;">
+              </div>
+            </form>
+          </div>
+          <div class="settings-modal-actions">
+            <button class="settings-btn settings-btn-secondary" id="cancel-questions-btn">Cancel</button>
+            <button class="settings-btn settings-btn-primary" id="save-questions-btn">Save Questions</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Deletion Confirmation Modal -->
+      <div class="settings-modal-overlay" id="account-deletion-modal">
+        <div class="settings-modal" style="max-width: 450px;">
+          <div class="settings-modal-header">
+            <h3 id="account-action-title">Delete Account</h3>
+            <button class="settings-modal-close" id="close-deletion-modal">&times;</button>
+          </div>
+          <div class="settings-modal-body">
+            <div class="account-deletion-warning">
+              <p id="account-action-warning">This action cannot be undone. All your data will be permanently deleted.</p>
+              <div class="security-form-group" style="margin-top: 1rem;">
+                <label class="security-form-label">Confirm your password</label>
+                <input type="password" id="deletion-password-input" class="security-form-input" placeholder="Enter your password" required>
+              </div>
+            </div>
+          </div>
+          <div class="settings-modal-actions">
+            <button class="settings-btn settings-btn-secondary" id="cancel-deletion-btn">Cancel</button>
+            <button class="settings-btn settings-btn-danger" id="confirm-deletion-btn">Delete Account</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="logout-modal" id="logout-modal">
+      <div class="logout-modal-content">
+        <h3>Confirm Logout</h3>
+        <p>Are you sure you want to logout?</p>
+        <div class="logout-modal-actions">
+            <button class="logout-modal-btn logout-cancel" id="logout-cancel">Cancel</button>
+            <button class="logout-modal-btn logout-confirm" id="logout-confirm">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../frontend/csrf-helper.js"></script>
+  <script src="general.js"></script>
+  <script type="module" src="settings.js"></script>
+  <script type="module" src="preferences.js"></script>
+  <script type="module" src="security.js"></script>
+</body>
+</html>

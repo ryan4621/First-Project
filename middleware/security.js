@@ -1,0 +1,262 @@
+import helmet from 'helmet';
+import pool from '../main.js'
+import rateLimit from 'express-rate-limit';
+import { doubleCsrf } from 'csrf-csrf';
+import fs from "fs";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+import cors from "cors";
+import dotenv from "dotenv";
+import { RedisStore } from 'rate-limit-redis'
+import { createClient } from 'redis'
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// TLS options
+const tlsOptions = {
+  key: fs.readFileSync(join(__dirname, "../key.pem")),
+  cert: fs.readFileSync(join(__dirname, "../cert.pem")),
+  allowHTTP1: true,
+  minVersion: "TLSv1.2",
+  ciphers: [
+    "TLS_AES_256_GCM_SHA384",
+    "TLS_CHACHA20_POLY1305_SHA256",
+    "TLS_AES_128_GCM_SHA256",
+    "ECDHE-ECDSA-AES256-GCM-SHA384",
+    "!aNULL",
+    "!eNULL",
+    "!EXPORT",
+    "!DES",
+    "!RC4",
+    "!3DES",
+    "!MD5",
+    "!PSK",
+  ].join(":"),
+  honorCipherOrder: true,
+};
+
+const corsHeaders = cors({
+  origin: process.env.NODE_ENV === 'production' 
+  ? [process.env.FRONTEND_URL]
+  : ["http://127.0.0.1:5500", "https://localhost:3000"],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+});
+
+// Security headers
+const securityHeaders = helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net", "https://fonts.cdnfonts.com", "https://use.fontawesome.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:", "https:", "https://ik.imagekit.io/hd48hro8z"],
+      scriptSrc: ["'self'", "https://embed.tawk.to", "https://cdn.jsdelivr.net"],
+      connectSrc: ["'self'", "https://ik.imagekit.io/hd48hro8z", "https://embed.tawk.to", "wss://embed.tawk.to" ],
+      frameSrc: ["https://embed.tawk.to"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
+  crossOriginEmbedderPolicy: false,
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
+  }
+});
+
+// Create a `node-redis` client
+const client = createClient({
+	socket: {
+    host: 'localhost',
+    port: 6379,
+  }
+})
+
+await client.connect()
+
+client.on('connect', () => console.log('✅ Connected to Redis successfully'));
+client.on('error', (err) => console.error('❌ Redis error:', err));
+
+
+// General rate limiting
+const generalRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1000, // limit each IP to 1000 requests per windowMs
+  message: {
+    success: false,
+    message: 'Too many requests from this IP, please try again later',
+    retryAfter: 900
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+  store: new RedisStore({ sendCommand: (...args) => client.sendCommand(args) }),
+});
+
+// Strict rate limiting for sensitive operations
+const strictRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 50, // limit each IP to 50 requests per windowMs
+  message: {
+    success: false,
+    message: 'Too many sensitive operations, please try again later',
+    retryAfter: 900
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+  store: new RedisStore({ sendCommand: (...args) => client.sendCommand(args) })
+});
+
+// Authentication rate limiting
+const authRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // limit each IP to 5 attempts per windowMs
+  message: {
+    success: false,
+    message: 'Too many authentication attempts, please try again later',
+    retryAfter: 900
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+  skipSuccessfulRequests: true,
+  store: new RedisStore({ sendCommand: (...args) => client.sendCommand(args) })
+});
+
+const verificationResendRateLimit = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 3,
+  message: {
+    success: false,
+    message: 'Too many verification email requests. Please try again later.',
+    retryAfter: 3600
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+  store: new RedisStore({ sendCommand: (...args) => client.sendCommand(args) })
+});
+
+// Address operations rate limiting
+const addressRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: {
+    success: false,
+    message: 'Too many address operations, please try again later',
+    retryAfter: 900
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+  store: new RedisStore({ sendCommand: (...args) => client.sendCommand(args) })
+});
+
+const contactRateLimit = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 3,
+  message: {
+    success: false,
+    message: 'Too many contact submissions, please try again later',
+    retryAfter: 900
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+  store: new RedisStore({ sendCommand: (...args) => client.sendCommand(args) })
+});
+
+const httpsRedirect = (req, res, next) => {
+  if (process.env.NODE_ENV === 'production') {
+    if (req.header('x-forwarded-proto') !== 'https') {
+      return res.redirect(`https://${req.header('host')}${req.url}`);
+    }
+  }
+  next();
+};
+
+// Configure CSRF protection
+const { doubleCsrfProtection } = doubleCsrf({
+  getSecret: () => process.env.CSRF_SECRET,
+  cookieName: 'x-csrf-token',
+  cookieOptions: {
+    httpOnly: true,
+    secure: true,
+    sameSite: process.env.NODE_ENV === 'production' ? 'lax' : 'none'
+  },
+  size: 64,
+  ignoredMethods: ['GET', 'HEAD', 'OPTIONS'],
+  getSessionIdentifier: (req) => {
+    return req.cookies.authToken || req.cookies.sessionId || 'anonymous';
+  }
+});
+
+const checkEnvVars = () => {
+  const requiredEnvVars = [
+    'JWT_SECRET',
+    'CSRF_SECRET',
+    'SENDGRID_API_KEY',
+    'ADMIN_EMAIL',
+    'FROM_EMAIL',
+    'DB_HOST',
+    'DB_USER',
+    'DB_PASSWORD',
+    'DB_NAME',
+    'STRIPE_SECRET_KEY',
+    'STRIPE_WEBHOOK_SECRET',
+    'IMAGEKIT_PRIVATE'
+  ];
+
+  for (const envVar of requiredEnvVars) {
+    if (!process.env[envVar]) {
+      console.error(`❌ FATAL: Missing required environment variable: ${envVar}`);
+      process.exit(1);
+    }
+  }
+
+  console.log('✅ All required environment variables are set');
+};
+
+// Graceful shutdown
+const gracefulShutdown = (server, pool) => {
+  const shutdown = async () => {
+    console.log('Received shutdown signal, closing server gracefully...');
+    
+    server.close(async () => {
+      console.log('HTTP server closed');
+      
+      try {
+        await pool.end();
+        console.log('Database connections closed');
+        process.exit(0);
+      } catch (err) {
+        console.error('Error during shutdown:', err);
+        process.exit(1);
+      }
+    });
+    
+    // Force close after 30 seconds
+    setTimeout(() => {
+      console.error('Forcing shutdown after timeout');
+      process.exit(1);
+    }, 30000);
+  };
+
+  process.on('SIGTERM', shutdown);
+  process.on('SIGINT', shutdown);
+}
+
+export {
+  tlsOptions,
+  corsHeaders,
+  securityHeaders,
+  generalRateLimit,
+  strictRateLimit,
+  authRateLimit,
+  addressRateLimit,
+  contactRateLimit,
+  verificationResendRateLimit,
+  httpsRedirect,
+  doubleCsrfProtection,
+  checkEnvVars,
+  gracefulShutdown
+};

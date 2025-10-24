@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Bag</title>
+    <link rel="stylesheet" href="farfetch.css">
+    <!-- <link rel="stylesheet" href="kidswear.css"> -->
+    <!-- <link rel="stylesheet" href="foodhub.css"> -->
+    <link rel="stylesheet" href="farfetchcart.css">
+    <link href="https://fonts.cdnfonts.com/css/nimbus-sans-l" rel="stylesheet">
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v6.4.0/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container"></div>
+
+    <div class="top">
+        <a href="#">Incoming | <span>Shop the latest arrivals</span></a>
+    </div>
+    <div class="modal fade modal1">
+        <div class="modal-dialog mw-100 mt-0 bg-white z-1">
+            <div class="modal-content border-0 rounded-0" style="height: 235px;">
+                <div class="modal-header border-0">
+                        <h2 class="modal-title m-auto fw-bolder">FARFETCH</h2>
+                        <div class="icons">
+                            <span class="custom-close-button pe-2 ps-2 pb-1" data-bs-dismiss="modal" aria-label="Close">&times;</span>
+                        </div>
+                </div>
+                <div class="m-auto col-5">
+                    <input type="search" class="search-input form-control border-secondary border-1 fw-light text-dark" name="Search" placeholder="Search womenswear" style="box-shadow: none; height: 45px;" autocomplete="off" autofocus>
+                </div>
+                <div class="modal-body m-auto mt-2 col-5 p-0">
+                    <ul class="d-flex list-unstyled mt-3 pb-1 txn fw-lighter" style="border-bottom: 1px solid #e2e2e2;">
+                        <li class="pe-3"><a class="women text-decoration-none" href="#" onclick="changePlaceHolder1()">WOMEN</a></li>
+                        <li class="ps-3 pe-3"><a class="text-decoration-none" href="#" onclick="changePlaceHolder2()">MEN</a></li>
+                        <li class="ps-3"><a class="text-decoration-none" href="#" onclick="changePlaceHolder3()">KIDS</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mobile-overlay"></div>
+
+    <div class="mobile-menu">
+        <a href="farfetch.html" data-bs-toggle="modal" data-bs-target=".modal3"><h1 class="header1">FARFETCH</h1></a>
+        <a href="#">Women</a>
+        <a href="#">Men</a>
+        <a href="kidswear.html">Kids</a>
+        <div class="mobile-menu-divider"></div>
+        <a href="#"><i class="bi bi-globe"></i> Language & Region</a>
+        <div class="mobile-menu-divider"></div>
+        <button class="mobile-menu-button" data-bs-toggle="modal" data-bs-target=".modal2">Sign In</button>
+        <!-- <button class="mobile-menu-button" data-bs-toggle="modal" data-bs-target=".modal2">Register</button> -->
+    </div>
+
+    <div class="nav-mobile" style="display: none;">
+
+        <!-- Mobile Navigation (visible only on mobile) -->
+        <div class="mobile-nav-left">
+            <div class="hamburger">
+                <i class="bi bi-list"></i>
+            </div>
+            <div class="mobile-search-icon" data-bs-toggle="modal" data-bs-target=".modal1">
+                <i class="bi bi-search"></i>
+            </div>
+        </div>
+
+        <a href="farfetch.html"><h1 class="header1">FARFETCH</h1></a>
+        
+        <div class="mobile-nav-right">
+            <a href="farfetchwishlist.html"><i class="bi bi-suit-heart"></i></a>
+            <a href="farfetchcart.html"><i class="bi bi-handbag"><span class="cart-badge badge bg-dark" style="border: 2px solid #fff; border-radius: 50%; font-size: .5em; position: absolute; font-family: Arial, Helvetica, sans-serif;"></span></i></a>
+        </div>
+
+    </div>
+    <div class="modal modal2">
+        <div class="modal-dialog">    
+            <div class="modal-content m-auto fw-light fs-6 content2 border-0">
+                <div class="container container2 overflow-scroll">
+                    <div class="">
+                        <div class="header pb-3 pt-2 sticky-top">
+                            <div class="d-flex justify-content-between">
+                                <h4 class="fw-light pt-2 fs-5">Come on in</h4>
+                                <div class="icons">
+                                    <i class="bi bi-x fs-2 close" data-bs-dismiss="modal" aria-label="Close"></i>
+                                    <!-- <span class="custom-close-button" data-bs-dismiss="modal" aria-label="Close">&times;</span> -->
+                                </div>
+                            </div>
+                            <div class="header-links border-bottom mt-3 text-secondary">
+                                <span><a href="#" class="header-links1 text-decoration-none text-secondary">SIGN IN</a></span>
+                                <span class="ps-4"><a href="#" class="header-links2 text-decoration-none text-secondary">I'M NEW HERE</a></span>
+                            </div>
+                        </div>
+                        <form class="form1">
+                            <div class="form-group form1a">
+                                <label for="email" class="mb-1">Email address</label>
+                                <input type="email" name="email" class="form-control border-0 email" style="outline: 1px solid black;">
+                            </div>
+                            <div class="form-group form2a">
+                                <label for="pwd" class="mt-2 mb-1">Password</label>
+                                <input type="text" name="pwd" class="form-control border-0 password" min="8" style="outline: 1px solid black;">
+                            </div>
+                            <div class="form-check checkbox mt-3 me-5 d-flex" style="height: 30px;">
+                                <i class="bi bi-check2-square checked-icon m-0" style="display: block; font-size: 1.8em; position: relative; right: 19px; bottom: 4px; margin-bottom: 0px; width: 10px;"></i>
+                                <i class="bi bi-square box-icon" style="display: none; font-size: 1.4em; position: relative; right: 17px; width: 10px;"></i><span class="mt-1 me-2">Keep me signed in. <a href="#" class="text-dark"> What's this?</a></span>    
+                            </div>
+                            <div class="fp mt-2 mb-1">
+                                <a href="#" class="text-dark">Forgot your password?</a>
+                            </div>
+                            <div class="d-flex flex-column signin-bottom">
+                                <button type="submit" class="btn btn-dark mt-2 fw-bold signin">Sign in</button>
+                                <span class="text-center">OR</span>
+                                <button type="submit" class="btn border-dark mb-2 fw-semibold"><a href="#">
+                                    <i class="bi bi-google pe-3"></i></a>
+                                    <span class="text-center">Continue With Google</span>
+                                </button>
+                                <button type="submit" class="btn border-dark mt-1 mb-2 fw-semibold"><a href="#">
+                                    <i class="bi bi-apple"></i></a>
+                                    <span>Continue With Apple</span>
+                                </button>
+                                <button type="submit" class="btn border-dark mt-1 fw-semibold"><a href="#">
+                                    <i class="bi bi-facebook"></i></a>
+                                    <span>Continue With Facebook</span>
+                                </button>
+                                <div class="text-center mt-3">
+                                    <a href="#" class="text-dark">New to FARFETCH? Register.</a>
+                                </div>
+                            </div>
+                        </form>                       
+                        <form class="form2">
+                            <div class="form-group">
+                                <label for="name" class="mb-1">Name</label>
+                                <input type="text" name="name" class="form-control border-black">
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="mt-3 mb-1">Email address</label>
+                                <input type="email" name="email" class="form-control border-0 email" style="outline: 1px solid black;">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd" class="mt-2 mb-1">Password</label>
+                                <input type="text" name="pwd" class="form-control border-black">
+                            </div>
+                            <div class="form-text text-dark mt-2">
+                                <span>By registering, you agree to our <a href="#" class="link-dark">Terms & Conditions,<br> Privacy and Cookie Policy,</a> and to join our loyalty <br> programme</span>
+                            </div>
+                            <div class="form-check checkbox mt-2">
+                                <label class="form-check-label text-dark"><input type="checkbox" name="signedin" class="form-check-input">
+                                    Sign up and never miss out on exclusive member rewards, tailored new arrivals and new launches. Unsubscribe at the bottom of our emails. <a href="#" class="text-dark"> <br> Find out more.</a></label>
+                            </div>
+                            <div class="d-flex flex-column signin-bottom">
+                                <button type="submit" class="btn btn-dark mt-2 ">Register</button>
+                                <span class="text-center">OR</span>
+                                <button class="btn border-dark mb-2"><a href="#">
+                                    <i class="bi bi-google pe-3"></i></a>
+                                    <span class="text-center">Continue With Google</span>
+                                </button>
+                                <button class="btn border-dark mt-1 mb-2"><a href="#">
+                                    <i class="bi bi-apple"></i></a>
+                                    <span>Continue With Apple</span>
+                                </button>
+                                <button class="btn border-dark mt-1"><a href="#">
+                                    <i class="bi bi-facebook"></i></a>
+                                    <span>Continue With Facebook</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nav">
+        <!-- Mobile Menu Structure -->
+        <div class="hamburger">
+            <i class="bi bi-list"></i>
+        </div>
+        <div class="mobile-overlay"></div>
+        <div class="mobile-menu">
+            <a href="#">Women</a>
+            <a href="#">Men</a>
+            <a href="kidswear.html">Kids</a>
+            <div class="mobile-menu-divider"></div>
+            <a href="#"><i class="bi bi-globe"></i> Language & Region</a>
+            <div class="mobile-menu-divider"></div>
+            <button class="mobile-menu-button" data-bs-toggle="modal" data-bs-target=".modal2">Sign In</button>
+            <button class="mobile-menu-button" data-bs-toggle="modal" data-bs-target=".modal2">Register</button>
+        </div>
+        
+        <!-- Desktop Navigation -->
+        <div class="select">
+            <a href="#">Women</a>
+            <a href="#">Men</a>
+            <a href="kidswear.html">Kids</a>
+        </div>
+        
+        <!-- Logo/Brand Name -->
+        <a href="farfetch.html" class="header1" ><h1>FARFETCH</h1></a>
+        
+        <!-- Desktop Nav Right -->
+        <div class="nav-right">
+            <div class="icons">
+                <a href="#"><i class="bi bi-globe"></i></a>
+                <a href="#"><i class="bi bi-person icon-person" data-bs-toggle="modal" data-bs-target=".modal2"></i></a>
+                <a href="farfetchwishlist.html"><i class="bi bi-suit-heart"><span class="badge bg-dark me-0" style="border: 2px solid #fff; border-radius: 50%; font-size: .5em; position: relative; top: 5px; right: 13px; font-family: Arial, Helvetica, sans-serif;"></span></i></a>
+                <a href="farfetchcart.html"><i class="ms-0 bi bi-handbag type-bold"><span class="ms-0 cart-badge badge bg-dark" style="border: 2px solid #fff; border-radius: 50%; font-size: .5em; position: absolute; top: 36px; right: 55px; font-family: Arial, Helvetica, sans-serif; width: auto;"></span></i></a>
+            </div>
+            <div class="search-bar">
+                <input type="text" class="form-control" name="Search" data-bs-toggle="modal" data-bs-target=".modal1" placeholder="Search" style="box-shadow: none; outline: none;" onclick="focusModalInput()" autocomplete="off">
+                <i class="bi bi-search"></i>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation (visible only on mobile) -->
+        <div class="mobile-nav-left" style="display: none;">
+            <div class="hamburger">
+                <i class="bi bi-list"></i>
+            </div>
+            <div class="mobile-search-icon" data-bs-toggle="modal" data-bs-target=".modal1">
+                <i class="bi bi-search"></i>
+            </div>
+        </div>
+        
+        <div class="mobile-nav-right" style="display: none;">
+            <a href="farfetchwishlist.html"><i class="bi bi-suit-heart"></i></a>
+            <a href="farfetchcart.html"><i class="bi bi-handbag"><span class="cart-badge badge bg-dark" style="border: 2px solid #fff; border-radius: 50%; font-size: .5em; position: absolute; font-family: Arial, Helvetica, sans-serif;"></span></i></a>
+        </div>
+    </div>
+    <!-- <object data="farfetchmodal2.html"></object> --> 
+    <div class="page-header">
+        <h1 style="font-size: 2em; font-weight: 600; margin-left: 46px; margin-top: 40px;">SHOPPING BAG</h1>
+    </div>
+    <div class="ms-4 mt-0 p-4 wlheader" style="width: 800px; ">
+        <div>     
+            <span class="mt-1 fw-lighter">There's nothing in your bag yet. Sign in or create an account to unlock members-only rewards and personalised recommendations.</span>
+            <div class="fw-lighter mt-3 cartlinks">
+                <a href="#" class="text-dark ps-0">Shop Women</a>
+                <a href="#" class="text-dark">Shop New in</a>
+                <a href="#" class="text-dark">Shop Pre-owned</a>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-dark mt-3">Sign in</button>
+    </div>
+    <div class="carting">
+        <div class="cart-items">
+            
+        </div>
+        <div class="cart-total">
+            <div class="d-flex justify-content-between h-auto">
+                <span class="fs-5 fw-bold mb-4">Summary</span>
+                <a href="#" class="text-dark fw-light position-absolute" style="font-size: .9em; margin-bottom: 30px; top: 220px; right: 55px;">Continue Shopping</a>
+            </div>
+            <div class="cart-total-item">
+                <span class="cart-total-title">Subtotal</span>
+                <span class="cart-sub-total-price">$0</span>
+            </div>
+            <div class="cart-total-item mt-2">
+                <span class="cart-total-title">Delivery</span>
+                <span class="cart-delivery-price">$24.00</span>
+            </div>
+            <div class="border-top cart-total-item mt-4 pt-4 pb-4">
+                <span class="cart-total-title fw-bold">Total</span>
+                <span class="cart-total-price fw-bold">$0</span>
+            </div>
+            <button class="btn fw-bold text-light btn-purchase" type="button" style="background-color: #000;">Go To Checkout</button>
+        </div>
+    </div>
+    <div class="bag-footer">
+        <div class="bag-footer-item" style="margin-left: 90px;">
+            <i class="bi bi-archive"></i>
+            <h5>Free global returns collection service</h5>
+            <span>We offer a free returns collection service on all orders worldwide</span>
+        </div>
+        <div class="bag-footer-item" style="margin-left: 20px;">
+            <i class="bi bi-star"></i>
+            <h5>4.7/5 stars and 25,000+ reviews</h5>
+            <span>100% authentic brands and original styles. You know you can trust us.</span>
+        </div>
+        <div class="bag-footer-item ms-5">
+            <i class="bi bi-person"></i>
+            <h5>Not ready to commit?</h5>
+            <span>No worries, you can place an order without an account. Head to checkout and continue as a guest.</span>
+        </div>
+    </div>
+    <div class="rec-content">
+        <div class="rec-header d-flex justify-content-between ms-5 me-5 mb-5">
+            <h3 class="fw-light" style="font-size: 1.4em;">Recommendations</h3>
+            <button type="submit" class="btn">Shop now</button>
+        </div>
+        <div class="rec-item d-flex mt-2 overflow-scroll pe-5" style="background-color: #f2f2f2;">
+            <i class="bi bi-caret-left-square-fill rec-item-icon" style="left: 72px;"></i>
+            <i class="bi bi-caret-right-square-fill rec-item-icon" style="right: 95px;"></i>
+
+            <div class="rec-item-box">
+                <div class="heart campo">
+                    <img src="./images/campo.jpg" class="shop-item-image" style="display: none;">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="shop-item-details">
+                    <div class="rec-item-details">
+                        <span class="shop-item-tag" style="display: none;">Conscious</span>
+                        <h4 class="shop-item-name">VEJA</h4>
+                        <p class="rec-item-details-name shop-item-title">Campo lace-up sneakers</p>
+                        <p class="shop-item-id" style="display: none;"></p>
+                        <p class="rec-item-details-price shop-item-price">$155</p>
+                    </div>
+                    <button class="btn btn-dark shop-item-button fw-bold" type="button" style="width: 100%;">Add To Bag</button>
+                </div>
+            </div>
+
+            <div class="rec-item-box">
+                <div class = "heart esplar">
+                    <img src="./images/esplar.jpg" class="shop-item-image" style="display: none;">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="shop-item-details">
+                    <div class="rec-item-details">
+                        <span class="shop-item-tag" style="display: none;">Conscious</span>
+                        <h4 class="shop-item-name">VEJA</h4>
+                        <p class="rec-item-details-name shop-item-title">Esplar leather sneakers</p>
+                        <p class="shop-item-id" style="display: none;"></p>
+                        <p class="rec-item-details-price shop-item-price">$159</p>
+                    </div>
+                    <button class="btn btn-dark shop-item-button fw-bold " type="button" style="width: 100%;">Add To Bag</button>
+                </div>
+            </div>
+
+            <div class="rec-item-box">
+                <div class="heart urca">
+                    <img src="./images/urca.jpg" class="shop-item-image" style="display: none;">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="shop-item-details">
+                    <div class ="rec-item-details">
+                        <span class="shop-item-tag" style="display: none;">Conscious</span>
+                        <h4 class="shop-item-name">VEJA</h4>
+                        <p class="rec-item-details-name shop-item-title">Urca CWL low-top sneakers</p>
+                        <p class="shop-item-id" style="display: none;"></p>
+                        <p class="rec-item-details-price shop-item-price">$157</p>
+                    </div>
+                    <button class="btn btn-dark shop-item-button fw-bold " type="button" style="width: 100%;">Add To Bag</button>
+                </div>
+            </div>
+
+            <div class="rec-item-box">
+                <div class="heart v10">
+                    <img src="./images/v-10.jpg" class="shop-item-image" style="display: none;">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="shop-item-details">
+                    <div class="rec-item-details">
+                        <span class="shop-item-tag" style="display: none;">Conscious</span>
+                        <h4 class="shop-item-name">VEJA</h4>
+                        <p class="rec-item-details-name shop-item-title">V-10 low-top sneakers</p>
+                        <p class="shop-item-id" style="display: none;"></p>
+                        <p class="rec-item-details-price shop-item-price">$231</p>
+                    </div>
+                    <button class="btn btn-dark shop-item-button fw-bold " type="button" style="width: 100%;">Add To Bag</button>
+                </div>
+            </div>
+
+            <div class="rec-item-box">
+                <div class="heart logo-patch">
+                    <img src="./images/logo-patch.jpg" class="shop-item-image" style="display: none;">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="shop-item-details">
+                    <div class="rec-item-details">
+                        <span class="shop-item-tag" style="display: none;">Conscious</span>
+                        <h4 class="shop-item-name">VEJA</h4>
+                        <p class="rec-item-details-name shop-item-title">Logo-patch lace-up sneakers</p>
+                        <p class="shop-item-id" style="display: none;"></p>
+                        <p class="rec-item-details-price shop-item-price">$135</p>
+                    </div>
+                    <button class="btn btn-dark shop-item-button fw-bold " type="button" style="width: 100%;">Add To Bag</button>
+                </div>
+            </div>
+
+            <div class="rec-item-box">
+                <div class="heart v12">
+                    <img src="./images/v12.jpg" class="shop-item-image" style="display: none;">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="shop-item-details">
+                    <div class="rec-item-details">
+                        <span class="shop-item-tag" style="display: none;">Conscious</span>
+                        <h4 class="shop-item-name">VEJA</h4>
+                        <p class="rec-item-details-name shop-item-title">V12 low-top sneakers</p>
+                        <p class="shop-item-id" style="display: none;"></p>
+                        <p class="rec-item-details-price shop-item-price">$146</p>
+                    </div>
+                    <button class="btn btn-dark shop-item-button fw-bold " type="button" style="width: 100%;">Add To Bag</button>
+                </div>
+            </div>
+
+            <div class="rec-item-box">
+                <div class="heart comme">
+                    <img src="./images/comme.jpg" class="shop-item-image" style="display: none;">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="shop-item-details">
+                    <div class="rec-item-details">
+                        <span class="shop-item-tag" style="display: none;">Conscious</span>
+                        <h4 class="shop-item-name">Comme Des Garçons</h4>
+                        <p class="rec-item-details-name shop-item-title">x Solomon SR90 panelled sneakers</p>
+                        <p class="shop-item-id" style="display: none;"></p>
+                        <p class="rec-item-details-price shop-item-price">$257</p>
+                    </div>
+                    <button class="btn btn-dark shop-item-button fw-bold" type="button" style="width: 100%;">Add To Bag</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="cart-footer fw-light">
+        <div class="cart-footer-item item1" style="width: 680px;">
+            <h5 class="ms-0 mb-3">Need help?</h5>
+            <span>Contact our global Customer Service team, you can reach us by phone or email. Alternatively, you may find the answer in our <a href="#">Frequently Asked Questions page.</a></span>
+        </div>
+        <div class="cart-footer-item me-5 ms-4" style="width: 210px;">
+            <div class="d-flex fw-light mb-2">
+                <i class="bi bi-telephone fs-5"></i>
+                <h5 class="fw-bold ms-2 pt-2" style="font-size: 1em;">Call us</h5>
+            </div>
+            <div class="mb-3 fw-bold">
+                <a href="#">+1 646 791 3768</a>
+            </div>
+            <span>Monday to Friday: 8am to 9pm EST</span>
+        </div>
+        <div class="cart-footer-item" style="width: 200px;">
+            <div class="d-flex fw-light mb-2">
+                <i class="bi bi-envelope fs-5 pt-0"></i>
+                <h5 class="fw-bold ms-2 pt-2" style="font-size: 1em;">Email us</h5>
+            </div>
+            <span><a href="#">Click here to send us an email</a></span>
+            <div class="d-flex mt-1 mb-2">
+                <i class="bi bi-question-circle fs-5"></i>
+                <h5 class="fw-bold ms-2 pt-2" style="font-size: 1em;">FAQs</h5>
+            </div>
+            <span>Find the answers you need in our <a href="#">FAQs</a></span>
+        </div>
+    </div>
+    <div class="bottom-content mt-5">
+        <div class="bottom-content-left">
+            <h4>GET 10% OFF YOUR FIRST ORDER</h4>
+            <p>Sign up for promotions, tailored new arrivals, stock updates and more - straight to your inbox</p>
+        </div>
+        <div class="bottom-content-right">
+            <span class="">GET UPDATES BY</span>
+            <div class="email-check mt-3">
+                    <input type="checkbox" class="form mycheckbox mb-3" name="email" data-bs-toggle="collapse" data-bs-target=".emailcollapse" checked>
+                    <label for="email">Email</label>
+                <div class="collapse show emailcollapse">
+                    <input class="form-control fw-lighter input2" type="email" name="email" placeholder="Your email address" style="width: 350px;">
+                </div>
+            </div>
+            <div class="sms-check mt-3 mb-2">
+                    <input type="checkbox" class="" name="sms" data-bs-toggle="collapse" data-bs-target=".signincollapse">
+                    <label for="sms">SMS</label>
+                <div class="collapse signincollapse">
+                    <div class="d-flex form" style="position: relative;">
+                        <div class="drop" style="width: 130px; height: 44.6px; border: 1px solid #6d6d6d; border-radius: 5px; margin-right: 5px; padding-top: 8px; padding-left: 15px; display: flex;">
+                            <img src="./images/nigeria.jpg" alt="italy-flag" style="height: 23px; width: 23px; margin-top: 2px;">
+                            <span class="ms-1" style="margin-top: 2px;">+234</span>
+                            <i class="bi bi-chevron-down ms-3 arrow-down" style="font-size: 1em; margin-top: 3px;"></i>
+                            <i class="bi bi-chevron-up ms-3 arrow-up" style="font-size: 1em; margin-top: 3px; display: none;"></i>
+                        </div>
+                        <div class="drop2" style="position: absolute; top: 44px; left: 0px; width: 130px; height: 108px; border: 1px solid #6d6d6d; border-radius: 5px; margin-right: 5px; padding-top: 8px; padding-left: 15px; display: none; flex-direction: column; background-color: #fff; overflow: scroll; padding-top: 10px; padding-bottom: 10px;">
+                            <div class="d-flex">
+                                <img src="./images/afghanistan.jpg" alt="italy-flag" style="height: 23px; width: 23px; margin-top: 2px;">
+                                <span class="ms-1" style="margin-top: 2px;">+93</span>
+                            </div>
+                            <div class="mt-4 ms-1 d-flex">
+                                <img src="./images/albania.jpg" alt="italy-flag" style="height: 18px; width: 18px; margin-top: 2px;">
+                                <span class="ms-1" style="margin-top: 0px;">+355</span>
+                            </div>
+                            <div class="mt-4 d-flex">
+                                <img src="./images/algeria.jpg" alt="italy-flag" style="height: 23px; width: 23px; margin-top: 2px;">
+                                <span class="ms-1" style="margin-top: 2px;">+213</span>
+                            </div>
+                            <div class="mt-4 d-flex">
+                                <img src="./images/american-samoa.jpg" alt="italy-flag" style="height: 18px; width: 18px; margin-top: 2px;">
+                                <span class="ms-1" style="margin-top: 0px;">+1 684</span>
+                            </div>
+                            <div class="mt-4 d-flex">
+                                <img src="./images/andorra.jpg" alt="italy-flag" style="height: 18px; width: 18px; margin-top: 2px;">
+                                <span class="ms-1" style="margin-top: 0px;">+376</span>
+                            </div>
+                        </div>
+                        <input class="form-control input2 fw-lighter" placeholder="Your phone number" style="height: 45px; width: 350px;">
+                    </div>
+                </div>
+                
+            </div>
+            <button type="button" class="mt-2" name="signup">Sign Up</button>
+            <span id="title" class="mt-3">By signing up, you consent to receiving marketing by email and/or SMS and acknowledge you have read our<a href="#" style = "color: #000;"> Privacy Policy.</a> Unsubscribe anytime at the bottom of our emails or by replying STOP to any of our SMS.</span>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-left">
+            <h5>Customer Service</h5>
+            <ul>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Orders and delivery</a></li>
+                <li><a href="#">Returns and refunds</a></li>
+                <li><a href="#">Payment and pricing</a></li>
+                <li><a href="#">Cryptocurrency payments</a></li>
+                <li><a href="#">Promotion terms and conditions</a></li>
+                <li><a href="#">FARFETCH Customer Promise</a></li>
+            </ul>
+        </div>
+        <div class="footer-center">
+            <h5>About FARFETCH</h5>
+            <ul>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Investors</a></li>
+                <li><a href="#">FARFETCH partner boutiques</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">FARFETCH app</a></li>
+                <li><a href="#">Modern slavery statement</a></li>
+            </ul>
+        </div>
+        <div class="footer-social">
+            <div class="footer-right">
+                <h5>Discounts and membership</h5>
+                <ul>
+                    <li><a href="#">Affiliate program</a></li>
+                    <li><a href="#">Refer a friend</a></li>
+                    <li><a href="#">FARFETCH membership</a></li>
+                    <li><a href="#">Student Beans and Graduatues</a></li>
+                    <li><a href="#">Student and Youth discount</a></li>
+                </ul>
+            </div>
+            <h5>Follow us</h5>
+            <div class="social"> 
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-pinterest-p"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-snapchat"></i>
+                <i class="fa-brands fa-youtube"></i>
+            </div>
+        </div>
+    </div>
+    <div class="footer-2nd">
+        <div class="footer-2nd-details">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms and conditions</a>
+            <a href="#">Accessibility</a>
+            <a href="#">Sitemap</a>
+        </div>
+        <p>'FARFETCH' and the 'FARFETCH' logo are trade marks of FARFETCH UK Limited and are registered in numerous jurisdictions around the world. <br> © Copyright 2023 FARFETCH UK Limited. All rights reserved.</p>
+    </div>
+    <script src="../frontend/csrf-helper.js"></script>
+    <!-- <script src="toast-helper.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="farfetch.js"></script>
+    <script src="farfetchcart.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping Addresses</title>
+    <link rel="stylesheet" href="addresses.css">
+</head>
+<body>
+    <!-- Shipping Addresses -->
+    <section class="profile-section">
+        <h2>Shipping Addresses</h2>
+        <div class="address-list" id="address-list">
+            <p id="no-addresses-message">No shipping addresses yet. Add your first address!</p>
+        </div>
+        <button class="btn btn-primary" id="add-address-btn">Add New Address</button>
+    </section>
+
+    <!-- Add Address Modal -->
+    <div class="modal-overlay" id="address-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Add New Address</h3>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            
+            <form id="address-form">
+                <div class="form-group">
+                    <label for="full_name">Full Name <span class="required">*</span></label>
+                    <input type="text" id="full_name" name="full_name" required>
+                    <div class="error-message" id="full_name_error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
+                    <div class="error-message" id="phone_error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="street">Street Address <span class="required">*</span></label>
+                    <input type="text" id="street" name="street" placeholder="123 Main Street" required>
+                    <div class="error-message" id="street_error"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City <span class="required">*</span></label>
+                        <input type="text" id="city" name="city" required>
+                        <div class="error-message" id="city_error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State/Province</label>
+                        <input type="text" id="state" name="state" placeholder="Optional">
+                        <div class="error-message" id="state_error"></div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="postal_code">Postal Code <span class="required">*</span></label>
+                        <input type="text" id="postal_code" name="postal_code" placeholder="12345" required>
+                        <div class="error-message" id="postal_code_error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country <span class="required">*</span></label>
+                        <select id="country" name="country" required>
+                            <option value="">Select Country</option>
+                            <!-- Countries will be loaded dynamically -->
+                        </select>
+                        <div class="error-message" id="country_error"></div>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="is_default" name="is_default" value="1">
+                    <label for="is_default">Set as default address</label>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="save-address-btn">Save Address</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="../frontend/csrf-helper.js"></script>
+    <script src="addresses.js"></script>
+</body>
+</html>

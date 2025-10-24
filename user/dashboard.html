@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="translate-loader.js"></script>
+</head>
+<body>
+  <button class="hamburger-menu" id="hamburger-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>My Account</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="orders.html">Orders</a>
+        <a href="shop.html">Shop</a>
+        <a href="#">Wishlist</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="support.html">Support</a>
+        <a href="settings.html">Settings</a>
+        <!-- <div id="google_translate_element"></div> -->
+      </nav>
+      <div class="sidebar-footer">
+        <a href="#" class="logout-btn">Logout</a>
+        <a href="#" class="switch-account">Switch account</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+      <h1 id="welcome-message">Welcome, User</h1>
+      <p>Select a section from the sidebar to manage your account.</p>   
+      <!-- Optional: Dashboard stats or quick actions -->
+      <div style="margin-top: 2rem;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+          <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h3 style="margin: 0 0 0.5rem 0; color: #1e293b;">Quick Actions</h3>
+            <p style="margin: 0; color: #64748b;">Need help? Use the chat widget in the bottom right corner to get instant support!</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="logout-modal" id="logout-modal">
+      <div class="logout-modal-content">
+          <h3>Confirm Logout</h3>
+          <p>Are you sure you want to logout?</p>
+          <div class="logout-modal-actions">
+              <button class="logout-modal-btn logout-cancel" id="logout-cancel">Cancel</button>
+              <button class="logout-modal-btn logout-confirm" id="logout-confirm">Logout</button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../frontend/csrf-helper.js"></script>
+  <script src="../frontend/auth-check.js"></script>
+  <script src="general.js"></script>
+  <script type="text/javascript" src="dashboard.js"></script>
+
+</body>
+</html>

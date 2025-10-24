@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="farfetch.css">
+    <link rel="stylesheet" href="kidswear.css">
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v6.4.0/css/all.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <title>kidswear</title>
+</head>
+<body>
+    <div class="top">
+        <a href="#">Members get access to even more designers on sale | Don't miss out | Sign up or log in to shop now</a>
+    </div>
+    <div class="modal fade modal1">
+        <div class="modal-dialog mw-100 mt-0 bg-white z-1">
+            <div class="modal-content border-0 rounded-0" style="height: 235px;">
+                <div class="modal-header border-0">
+                        <h2 class="modal-title m-auto fw-bolder">FARFETCH</h2>
+                        <div class="icons">
+                            <span class="custom-close-button pe-2 ps-2 pb-1" data-bs-dismiss="modal" aria-label="Close">&times;</span>
+                        </div>
+                </div>
+                <div class="m-auto col-5">
+                    <input type="search" class="search-input form-control border-secondary border-1 fw-light text-dark" name="Search" placeholder="Search womenswear" style="box-shadow: none; height: 45px;" autocomplete="off">
+                </div>
+                <div class="modal-body m-auto mt-2 col-5 p-0">
+                    <ul class="d-flex list-unstyled mt-3 pb-1 txn fw-lighter" style="border-bottom: 1px solid #e2e2e2;">
+                        <li class="pe-3"><a class="women text-decoration-none" href="#" onclick="changePlaceHolder1()">WOMEN</a></li>
+                        <li class="ps-3 pe-3"><a class="text-decoration-none" href="#" onclick="changePlaceHolder2()">MEN</a></li>
+                        <li class="ps-3"><a class="text-decoration-none" href="#" onclick="changePlaceHolder3()">KIDS</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navi">
+        <div class="nav-top">
+            <div class="select">
+                <a href="#">Women</a>
+                <a href="#">Men</a>
+                <a href="kidswear.html"><span>Kids</span></a>
+            </div>
+            <div>
+                <a href="farfetch.html" class="header1"><h1 data-bs-toggle="modal" data-bs-target=".modal3">FARFETCH</h1></a>
+            </div>
+            <div class="icons">
+                <a href="#"><i class="bi bi-globe"></i></a>
+                <a href="#"><i class="bi bi-person icon-person" data-bs-toggle="modal" data-bs-target=".modal2"></i></a>
+                <a href="farfetchwishlist.html"><i class="bi bi-suit-heart"></i></a>
+                <a href="farfetchcart.html"><i class="bi bi-handbag type-bold"></i></a>
+            </div>
+        </div>
+        <div class="nav-bottom">
+            <div class="menu">
+                <ul>
+                    <li><a href="#">Extra 20% Off</a></li>
+                    <li><a href="#" style="color: red;">Sale</a></li>
+                    <li><a href="#">New in</a></li>
+                    <li><a href="#">Brands</a></li>
+                    <li><a href="#">Baby (0-36mth)</a></li>
+                    <li><a href="#">Kids (2-12 yrs)</a></li>
+                    <li><a href="#">Teens (13-16 yrs)</a></li>
+                </ul>
+            </div>
+            <div class="search-bar">
+                <input type="text" class="form-control" name="Search" data-bs-toggle="modal" data-bs-target=".modal1" placeholder="Search" style="box-shadow: none; outline: none;" onclick="focusModalInput()" autocomplete="off">
+            </div>
+        </div>
+    </div>
+    <div class="first-content"><a href="#">
+        <h2 class="fw-bold">GET AN EXTRA 20% OFFSALE</h2>
+        <P>Selected styles for a limited time</P>
+        <button type="button">Shop now</button></a>
+    </div>
+    <div class="second-content">
+        <div>
+            <img src="./images/kids.jpg">
+        </div>
+        <div class="second-content-right"><a href="#">
+            <h3>Back-to-school style</h3>
+            <P>Discover our curation of this season's hero pieces in time for the new <br>term</P>
+            <button type="button">Shop now</button></a>
+        </div>
+    </div>
+    <div class="third-content">
+        <h3>The best of new in</h3>
+        <div>
+            <div class="third-content-details">
+                <img src="./images/shirt.JPG">
+                <P>HEY BABY</P>
+            </div>
+            <div class="third-content-details">
+                <img src="./images/cool-kids.jpg">
+                <P>COOL KIDS</P>
+            </div>
+            <div class="third-content-details">
+                <img src="./images/jacket.jpg">
+                <P>FOR THE TEENS</P>
+            </div>
+        </div>
+    </div>
+    <div class="fourth-content">
+        <div class="fourth-content-details">
+            <img src="./images/sneakers.jpg">
+            <p>NEW SNEAKERS</p>
+            <p>Your favorite sneaks on their little feet</p>
+        </div>
+        <div class="fourth-content-details">
+            <img src="./images/backpack.jpg">
+            <p>BACKPACKS AT THE READY</p>
+            <p>Whether heading on vacation or prepping for camp, get them sorted</p>
+        </div>
+    </div>
+    <div class="fifth-content">
+        <div class="fifth-content-top">
+            <h3>Changing bags, but make it fashion</h3>
+            <button type="button">Shop now</button>
+        </div>
+        <div class="kids-item">
+            <div class="kids-item-box w-50">
+                <div class="heart givenchy-icon">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="kids-item-details">
+                    <span class="text-secondary">New Season</span>
+                    <h4>Givenchy Kids</h4>
+                    <span class="kids-item-details-name">logo-embroidered 4G-jacquard hanging bag</span>
+                    <span class="kids-item-details-price">$1,379</span>
+                </div>
+            </div>
+            <div class="kids-item-box w-50">
+                <div class ="heart missoni-icon">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="kids-item-details">
+                    <span class="text-secondary">New Season</span>
+                    <h4>Missoni Kids</h4>
+                    <span class="kids-item-details-name">zigzag-pattern changing bag</span>
+                    <span class="kids-item-details-price pt-4">$579</span>
+                </div>
+            </div>
+            <div class="kids-item-box w-50">
+                <div class="heart chloe-icon">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="kids-item-details">
+                    <span class="text-secondary">New Season</span>
+                    <h4>Chloé Kids</h4>
+                    <span class="kids-item-details-name">stripe-detail changing bag</span>
+                    <span class="kids-item-details-price pt-4">$603</span>
+                </div>
+            </div>
+            <div class="kids-item-box w-50">
+                <div class="heart kenzo-icon">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+                <div class="kids-item-details">
+                    <span class="text-secondary">New Season</span>
+                    <h4>Kenzo Kids</h4>
+                    <span class="kids-item-details-name">logo-embroidered changing bag</span>
+                    <span class="kids-item-details-price pt-4">$477</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sixth-content">
+        <img src="./images/bonpoint-kids.jpg">
+        <div>
+            <p>BONPOINT KIDS</p>
+            <p>New fall favorites from the Paris label</p>
+        </div>
+    </div>
+    <div class="mid-content">
+        <div class="cover"><a href="#">
+            <i class="fa-solid fa-clothes-hanger"></i>
+            <p>HOW TO SHOP</p>
+            <p>Your guide to shopping and placing orders</p></a>
+        </div>
+        <div class="cover"><a href="#">
+            <i class="fa-sharp fa-regular fa-circle-question"></i>
+            <p>FAQS</p>
+            <p>Your questions answered</p></a>
+        </div>
+        <div class="cover"><a href="#">
+            <i class="fa-regular fa-message"></i>
+            <p>NEED HELP?</p>
+            <p>Contact our global Customer Service team</p></a>
+        </div>
+    </div>
+    <div class="bottom-content">
+        <div class="bottom-content-left">
+            <h4>GET 10% OFF YOUR FIRST ORDER</h4>
+            <p>Sign up for promotions, tailored new arrivals, stock updates and more - straight to your inbox</p>
+        </div>
+        <div class="bottom-content-right">
+            <span class="">GET UPDATES BY</span>
+                        <div class="email-check mt-3">
+                                <input type="checkbox" class="form mycheckbox mb-3" name="email" data-bs-toggle="collapse" data-bs-target=".emailcollapse" checked>
+                                <label for="email">Email</label>
+                            <div class="collapse show emailcollapse">
+                                <input class="form-control fw-lighter" type="email" name="email" placeholder="Your email address" style="width: 350px;">
+                            </div>
+                        </div>
+                        <div class="sms-check mt-3 mb-2">
+                                <input type="checkbox" class="" name="sms" data-bs-toggle="collapse" data-bs-target=".signincollapse">
+                                <label for="sms">SMS</label>
+                            <div class="collapse signincollapse">
+                                <div class="d-flex form">
+                                        <input class="form-control input1 me-1 text-dark fw-lighter" placeholder="+234">
+                                        <input class="form-control input2 fw-lighter" placeholder="Your phone number" style="height: 45px; width: 350px;">
+                                </div>
+                            </div>
+                        </div>
+            <button type="button" class="mt-2" name="signup">Sign Up</button>
+            <span id="title" class="mt-3">By signing up, you consent to receiving marketing by email and/or SMS and acknowledge you have read our<a href="#" style = "color: #000;"> Privacy Policy.</a> Unsubscribe anytime at the bottom of our emails or by replying STOP to any of our SMS.</span>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-left">
+            <h5>Customer Service</h5>
+            <ul>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Orders and delivery</a></li>
+                <li><a href="#">Returns and refunds</a></li>
+                <li><a href="#">Payment and pricing</a></li>
+                <li><a href="#">Cryptocurrency payments</a></li>
+                <li><a href="#">Promotion terms and conditions</a></li>
+                <li><a href="#">FARFETCH Customer Promise</a></li>
+            </ul>
+        </div>
+        <div class="footer-center">
+            <h5>About FARFETCH</h5>
+            <ul>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Investors</a></li>
+                <li><a href="#">FARFETCH partner boutiques</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">FARFETCH app</a></li>
+                <li><a href="#">Modern slavery statement</a></li>
+            </ul>
+        </div>
+        <div class="footer-social">
+            <div class="footer-right">
+                <h5>Discounts and membership</h5>
+                <ul>
+                    <li><a href="#">Affiliate program</a></li>
+                    <li><a href="#">Refer a friend</a></li>
+                    <li><a href="#">FARFETCH membership</a></li>
+                    <li><a href="#">Student Beans and Graduatues</a></li>
+                    <li><a href="#">Student and Youth discount</a></li>
+                </ul>
+            </div>
+            <h5>Follow us</h5>
+            <div class="social"> 
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-pinterest-p"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-snapchat"></i>
+                <i class="fa-brands fa-youtube"></i>
+            </div>
+        </div>
+    </div>
+    <div class="footer-2nd">
+        <div class="footer-2nd-details">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms and conditions</a>
+            <a href="#">Accessibility</a>
+            <a href="#">Sitemap</a>
+        </div>
+        <p>'FARFETCH' and the 'FARFETCH' logo are trade marks of FARFETCH UK Limited and are registered in numerous jurisdictions around the world. <br> © Copyright 2023 FARFETCH UK Limited. All rights reserved.</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="farfetch.js"></script>
+</body>
+</html>

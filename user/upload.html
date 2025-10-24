@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Photo Upload</title>
+<link rel="stylesheet" href="upload.css">
+</head>
+<body>
+<div class="upload-container">
+<div class="profile-section">
+<div class="current-photo" id="currentPhoto">
+ No Photo
+</div>
+<h2 style="margin-bottom: 10px; color: #333;">Profile Photo</h2>
+<p style="color: #666; font-size: 14px;">Upload a profile picture to personalize your account</p>
+</div>
+<div class="upload-area" id="uploadArea">
+<div class="upload-icon">📁</div>
+<div class="upload-text">Click to upload or drag and drop</div>
+<div class="upload-subtext">PNG, JPG, JPEG up to 5MB</div>
+<input type="file" id="fileInput" accept="image/png,image/jpg,image/jpeg" />
+</div>
+<div class="error-message" id="errorMessage"></div>
+<div class="success-message" id="successMessage"></div>
+<div class="progress-container" id="progressContainer">
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="progress-text" id="progressText">Uploading...</div>
+</div>
+<div class="buttons">
+<button class="btn btn-secondary" id="cancelBtn" style="display: none;">Cancel</button>
+<button class="btn btn-primary" id="uploadBtn" disabled>Upload Photo</button>
+</div>
+</div>
+<script src="upload.js"></script>
+</body>
+</html>

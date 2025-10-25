@@ -1,5 +1,5 @@
 // Hamburger menu functionality
-const websiteUrl = "https://localhost:3000";
+const websiteUrl = "first-project-production-b63f.up.railway.app";
 
 document.addEventListener('DOMContentLoaded', function() {
 

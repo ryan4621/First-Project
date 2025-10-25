@@ -1,6 +1,6 @@
 // csrf-helper.js
 let csrfToken = null;
-const websiteUrl = "https://localhost:3000";
+const websiteUrl = "first-project-production-b63f.up.railway.app";
 
 // Get CSRF token from server
 async function initCsrfToken() {

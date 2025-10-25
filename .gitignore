@@ -5,3 +5,4 @@ node_modules/
 testdb.js
 middleware/logging.js
 frontend/note.js
+backup.sql

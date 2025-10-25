@@ -51,38 +51,31 @@ export const createContactSubmissionsTable = async () => {
 };
 
 export const addContactSubmissionsIndexes = async () => {
-  const queries = [
-    // Composite index for admin filtering
-    `CREATE INDEX IF NOT EXISTS idx_contact_status_priority 
-     ON contact_submissions (status, priority)`,
-    
-    // Index for searching by date range
-    `CREATE INDEX IF NOT EXISTS idx_contact_date_status 
-     ON contact_submissions (created_at, status)`,
-     
-    // Full-text search index for message content (optional)
-    // `ALTER TABLE contact_submissions 
-    //  ADD FULLTEXT(message, admin_notes) 
-    //  -- Only if not exists check needed here`
+  const indexes = [
+    { name: 'idx_contact_status_priority', query: 'CREATE INDEX idx_contact_status_priority ON contact_submissions (status, priority)' },
+    { name: 'idx_contact_date_status', query: 'CREATE INDEX idx_contact_date_status ON contact_submissions (created_at, status)' }
   ];
 
   try {
-    for (const query of queries) {
-      try {
+    for (const { name, query } of indexes) {
+      const [exists] = await pool.execute(
+        'SHOW INDEX FROM contact_submissions WHERE Key_name = ?',
+        [name]
+      );
+
+      if (exists.length === 0) {
         await pool.execute(query);
-      } catch (error) {
-        // Ignore "already exists" errors
-        if (!error.message.includes('already exists') && !error.message.includes('Duplicate')) {
-          throw error;
-        }
+        console.log(`Created index ${name}`);
+      } else {
+        console.log(`Index ${name} already exists`);
       }
     }
-    // console.log('✅ Contact submissions indexes added successfully');
   } catch (error) {
     console.error('❌ Error adding contact submissions indexes:', error);
     throw error;
   }
 };
+
 
 // Helper function to get contact statistics (useful for admin dashboard)
 export const getContactStatistics = async () => {

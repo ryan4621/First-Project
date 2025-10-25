@@ -781,8 +781,8 @@ router.get("/activity-logs", requireAuth, async (req, res) => {
 	try {
 		const userId = req.user.id;
 
-		const limit = parseInt(req.query.limit) || 10;
-		const offset = parseInt(req.query.offset) || 0;
+		const limit = Number(req.query.limit) || 10;
+		const offset = Number(req.query.offset) || 0;
 
 		const [rows] = await pool.execute(
 			`SELECT activity_type, description, ip_address, device_info, created_at
@@ -2200,7 +2200,9 @@ router.get("/orders", requireAuth, async (req, res) => {
 		}
 
 		query += ` ORDER BY created_at DESC LIMIT ? OFFSET ?`;
-		params.push(parseInt(limit), parseInt(offset));
+		const limitNum = Number(limit) || 10;
+		const offsetNum = Number(offset) || 0;
+		params.push(limitNum, offsetNum);
 
 		const [orders] = await pool.execute(query, params);
 
@@ -2413,7 +2415,9 @@ router.get("/notifications", requireAuth, async (req, res) => {
 
 		// Add pagination
 		query += " LIMIT ? OFFSET ?";
-		params.push(parseInt(limit), parseInt(offset));
+		const limitNum = Number(limit) || 10;
+		const offsetNum = Number(offset) || 0;
+		params.push(limitNum, offsetNum);
 
 		const [notifications] = await pool.execute(query, params);
 

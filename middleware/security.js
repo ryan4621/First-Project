@@ -61,9 +61,11 @@ const securityHeaders = helmet({
       ],
       fontSrc: [
         "'self'",
+        "data:",
         "https://fonts.gstatic.com",
         "https://use.fontawesome.com",
-        "https://cdn.jsdelivr.net"
+        "https://cdn.jsdelivr.net",
+        "https://fonts.cdnfonts.com"
       ],
       imgSrc: [
         "'self'",
@@ -75,11 +77,13 @@ const securityHeaders = helmet({
       ],
       scriptSrc: [
         "'self'",
+        "unsafe-inline",
         "https://embed.tawk.to",
         "https://cdn.jsdelivr.net",
         "https://use.fontawesome.com",
         "https://js.stripe.com/v3/",
-        "https://cdnjs.cloudflare.com"
+        "https://cdnjs.cloudflare.com",
+        "https://translate.google.com"
       ],
       connectSrc: [
         "'self'",
@@ -88,10 +92,12 @@ const securityHeaders = helmet({
         "https://embed.tawk.to",
         "wss://embed.tawk.to",
         "https://i.pinimg.com",
-        "https://js.stripe.com/v3/",
-        "https://via.placeholder.com"
+        "https://js.stripe.com/",
+        "https://via.placeholder.com",
+        "https://va.tawk.to",
+        "https://cdn.jsdelivr.net"
       ],
-      frameSrc: ["https://embed.tawk.to"],
+      frameSrc: ["https://embed.tawk.to", "https://js.stripe.com/"],
       objectSrc: ["'none'"],
       upgradeInsecureRequests: [],
     },

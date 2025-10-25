@@ -67,7 +67,6 @@ app.set('trust proxy', 1); // trust first proxy
 
 // Rate limits
 app.use('/auth/resend-verification', verificationResendRateLimit);
-app.use('/auth/me', generalRateLimit);
 app.use('/api/change-password', authRateLimit);
 app.use('/api/change-email', authRateLimit);
 app.use('/api/checkout', strictRateLimit);

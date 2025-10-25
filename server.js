@@ -107,6 +107,12 @@ app.use('/user', express.static(path.join(__dirname, 'user')));
 app.use('/admin', express.static(path.join(__dirname, 'admin')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Root route for health checks / homepage
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'frontend', 'farfetch.html')));
+
+// Optional: favicon route to stop repeated 404s
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
 // Routes
 app.use('/admin', adminRoutes);
 app.use('/api', userRoutes);

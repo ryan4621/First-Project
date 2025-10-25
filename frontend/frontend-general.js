@@ -1,1 +1,0 @@
-const websiteUrl = "first-project-production-b63f.up.railway.app";

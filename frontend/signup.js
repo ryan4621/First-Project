@@ -1,96 +1,98 @@
 //signup.js
 
 document.addEventListener("DOMContentLoaded", () => {
-  const form2 = document.querySelector(".form2");
-  const form1 = document.querySelector(".form1")
+	const form2 = document.querySelector(".form2");
+	const form1 = document.querySelector(".form1");
 
-  // Handle Sign Up form submission
-  form2.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    
-    const email = form2.querySelector('input[name="email"]').value.trim();
-    const name = form2.querySelector('input[name="name"]').value.trim();
-    const password = form2.querySelector('input[name="pwd"]').value.trim();
-    const subscribe = form2.querySelector('input[name="signedin"]').checked;
-    
-    // Basic validation
-    if (!name || !email || !password) {
-      showToast("Please fill in all required fields.", "error");
-      return;
-    }
-    
-    // Email validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      showToast("Please enter a valid email address.", 'error')
-      return;
-    }
-    
-    // Password validation
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-    if (!passwordPattern.test(password)) {
-      showToast("Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one number.", 'error')
-      return;
-    }
-    
-    const signupData = { name, email, password, subscribe };
-    
-    try {
-      const response = await fetch(`${websiteUrl}/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          'x-csrf-token': window.getCsrfToken()
-        },
-        credentials: 'include',
-        body: JSON.stringify(signupData)
-      });
-      
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.message || "Registration failed");
-      }
-      
-      // Show verification modal/page
-      showVerificationModal(email);
+	// Handle Sign Up form submission
+	form2.addEventListener("submit", async (e) => {
+		e.preventDefault();
 
-      const resendBtn = document.querySelector(".resend-btn")
-      const cooldownDiv = document.getElementById("resend-cooldown");
-      const countdownTimer = document.getElementById("countdown-timer");
-      
-      resendBtn.disabled = true;
-      resendBtn.textContent = "Resend Verification Email"
-        // Start cooldown
-        cooldownDiv.style.display = 'block';
-        let secondsRemaining = 60;
-        countdownTimer.textContent = secondsRemaining;
-        
-        const cooldownInterval = setInterval(() => {
-          secondsRemaining--;
-          countdownTimer.textContent = secondsRemaining;
-          
-          if (secondsRemaining <= 0) {
-            clearInterval(cooldownInterval);
-            cooldownDiv.style.display = 'none';
-            resendBtn.disabled = false;
-          }
-        }, 1000);
-      
-    } catch (error) {
-      console.error("Error:", error);
-      showToast(error.message, 'error')
-    }
-  });
-  
-  // Show verification modal
-  function showVerificationModal(email) {
-    // Hide registration form
-    document.querySelector('.form2').style.display = 'none';
-    
-    // Show verification message
-    const container = document.querySelector('.container2');
-    container.innerHTML = `
+		const email = form2.querySelector('input[name="email"]').value.trim();
+		const name = form2.querySelector('input[name="name"]').value.trim();
+		const password = form2.querySelector('input[name="pwd"]').value.trim();
+		const subscribe = form2.querySelector('input[name="signedin"]').checked;
+
+		// Basic validation
+		if (!name || !email || !password) {
+			showToast("Please fill in all required fields.", "error");
+			return;
+		}
+
+		// Email validation
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailPattern.test(email)) {
+			showToast("Please enter a valid email address.", "error");
+			return;
+		}
+
+		// Password validation
+		const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+		if (!passwordPattern.test(password)) {
+			showToast(
+				"Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, and one number.",
+				"error"
+			);
+			return;
+		}
+
+		const signupData = { name, email, password, subscribe };
+
+		try {
+			const response = await fetch(`/auth/register`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"x-csrf-token": window.getCsrfToken(),
+				},
+				credentials: "include",
+				body: JSON.stringify(signupData),
+			});
+
+			const data = await response.json();
+
+			if (!response.ok) {
+				throw new Error(data.message || "Registration failed");
+			}
+
+			// Show verification modal/page
+			showVerificationModal(email);
+
+			const resendBtn = document.querySelector(".resend-btn");
+			const cooldownDiv = document.getElementById("resend-cooldown");
+			const countdownTimer = document.getElementById("countdown-timer");
+
+			resendBtn.disabled = true;
+			resendBtn.textContent = "Resend Verification Email";
+			// Start cooldown
+			cooldownDiv.style.display = "block";
+			let secondsRemaining = 60;
+			countdownTimer.textContent = secondsRemaining;
+
+			const cooldownInterval = setInterval(() => {
+				secondsRemaining--;
+				countdownTimer.textContent = secondsRemaining;
+
+				if (secondsRemaining <= 0) {
+					clearInterval(cooldownInterval);
+					cooldownDiv.style.display = "none";
+					resendBtn.disabled = false;
+				}
+			}, 1000);
+		} catch (error) {
+			console.error("Error:", error);
+			showToast(error.message, "error");
+		}
+	});
+
+	// Show verification modal
+	function showVerificationModal(email) {
+		// Hide registration form
+		document.querySelector(".form2").style.display = "none";
+
+		// Show verification message
+		const container = document.querySelector(".container2");
+		container.innerHTML = `
       <div class="verification-container text-center p-4">
         <div class="verification-icon mb-3">
           <i class="bi bi-envelope-check" style="font-size: 4rem; color: #28a745;"></i>
@@ -114,125 +116,133 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
     `;
-    startVerificationCheck(email);
-  }
-  
-  // Resend verification function (make it global)
-  window.resendVerification = async function(email) {
-    try {
+		startVerificationCheck(email);
+	}
 
-      const resendBtn = document.querySelector(".resend-btn")
-      const cooldownDiv = document.getElementById("resend-cooldown");
-      const countdownTimer = document.getElementById("countdown-timer");
+	// Resend verification function (make it global)
+	window.resendVerification = async function (email) {
+		try {
+			const resendBtn = document.querySelector(".resend-btn");
+			const cooldownDiv = document.getElementById("resend-cooldown");
+			const countdownTimer = document.getElementById("countdown-timer");
 
-      resendBtn.disabled = true;
-      resendBtn.textContent = "Resending email..."
+			resendBtn.disabled = true;
+			resendBtn.textContent = "Resending email...";
 
-      const freshToken = await window.refreshCsrfToken();
-    
-      if (!freshToken) {
-        showToast("Security token expired. Please refresh the page.", 'error')
-        resendBtn.disabled = false;
-        resendBtn.textContent = "Resend Verification Email";
-        return;
-      }
-      
-      const response = await fetch(`${websiteUrl}/auth/resend-verification`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          'x-csrf-token': freshToken
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email })
-      });
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        showToast("Verification email sent! Please check your inbox.", 'success')
-        resendBtn.textContent = "Resend Verification Email"
-        // Start cooldown
-        cooldownDiv.style.display = 'block';
-        let secondsRemaining = 60;
-        countdownTimer.textContent = secondsRemaining;
-        
-        const cooldownInterval = setInterval(() => {
-          secondsRemaining--;
-          countdownTimer.textContent = secondsRemaining;
-          
-          if (secondsRemaining <= 0) {
-            clearInterval(cooldownInterval);
-            cooldownDiv.style.display = 'none';
-            resendBtn.disabled = false;
-            resendBtn.textContent = "Resend Verification Email";
-          }
-        }, 1000);
-      } else {
-        // Check if email is already verified
-        if (data.alreadyVerified) {
-          showToast("Email already verified. Please log in to your account.", 'info')
-        } else {
-          showToast(data.message || "Failed to resend email", 'error')
-        }
-        resendBtn.disabled = false;
-        resendBtn.textContent = "Resend Verification Email";
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      showToast("Failed to resend verification email", 'error')
-      resendBtn.disabled = false;
-      resendBtn.textContent = "Resend Verification Email"
-    }
-  };
+			const freshToken = await window.refreshCsrfToken();
 
-  // Toggle "Keep me signed in" icon
-  const checkboxContainer = form1.querySelector(".form-check");
-  if (checkboxContainer) {
-    const checkedIcon = checkboxContainer.querySelector(".checked-icon");
-    const boxIcon = checkboxContainer.querySelector(".box-icon");
-    checkboxContainer.addEventListener("click", () => {
-      if (checkedIcon.style.display === "none") {
-        checkedIcon.style.display = "inline-block";
-        boxIcon.style.display = "none";
-      } else {
-        checkedIcon.style.display = "none";
-        boxIcon.style.display = "inline-block";
-      }
-    });
-  }
+			if (!freshToken) {
+				showToast("Security token expired. Please refresh the page.", "error");
+				resendBtn.disabled = false;
+				resendBtn.textContent = "Resend Verification Email";
+				return;
+			}
 
-  // Add this function to signup.js
+			const response = await fetch(`/auth/resend-verification`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"x-csrf-token": freshToken,
+				},
+				credentials: "include",
+				body: JSON.stringify({ email }),
+			});
 
-  // Check verification status periodically (optional enhancement)
-  function startVerificationCheck(email) {
-    let checkCount = 0;
-    const maxChecks = 60; // Check for 5 minutes (60 × 5 seconds)
-    
-    const checkInterval = setInterval(async () => {
-      checkCount++;
-      
-      if (checkCount >= maxChecks) {
-        clearInterval(checkInterval);
-        return;
-      }
-      
-      try {
-        // Check if email is verified
-        const response = await fetch(`${websiteUrl}/auth/check-verification?email=${encodeURIComponent(email)}`, {
-          credentials: 'include'
-        });
-        
-        const data = await response.json();
-        
-        if (data.verified) {
-          clearInterval(checkInterval);
-          
-          // Remove waiting modal
-          const container = document.querySelector('.container2');
-          if (container) {
-            // Show success message
-            container.innerHTML = `
+			const data = await response.json();
+
+			if (response.ok) {
+				showToast(
+					"Verification email sent! Please check your inbox.",
+					"success"
+				);
+				resendBtn.textContent = "Resend Verification Email";
+				// Start cooldown
+				cooldownDiv.style.display = "block";
+				let secondsRemaining = 60;
+				countdownTimer.textContent = secondsRemaining;
+
+				const cooldownInterval = setInterval(() => {
+					secondsRemaining--;
+					countdownTimer.textContent = secondsRemaining;
+
+					if (secondsRemaining <= 0) {
+						clearInterval(cooldownInterval);
+						cooldownDiv.style.display = "none";
+						resendBtn.disabled = false;
+						resendBtn.textContent = "Resend Verification Email";
+					}
+				}, 1000);
+			} else {
+				// Check if email is already verified
+				if (data.alreadyVerified) {
+					showToast(
+						"Email already verified. Please log in to your account.",
+						"info"
+					);
+				} else {
+					showToast(data.message || "Failed to resend email", "error");
+				}
+				resendBtn.disabled = false;
+				resendBtn.textContent = "Resend Verification Email";
+			}
+		} catch (error) {
+			console.error("Error:", error);
+			showToast("Failed to resend verification email", "error");
+			resendBtn.disabled = false;
+			resendBtn.textContent = "Resend Verification Email";
+		}
+	};
+
+	// Toggle "Keep me signed in" icon
+	const checkboxContainer = form1.querySelector(".form-check");
+	if (checkboxContainer) {
+		const checkedIcon = checkboxContainer.querySelector(".checked-icon");
+		const boxIcon = checkboxContainer.querySelector(".box-icon");
+		checkboxContainer.addEventListener("click", () => {
+			if (checkedIcon.style.display === "none") {
+				checkedIcon.style.display = "inline-block";
+				boxIcon.style.display = "none";
+			} else {
+				checkedIcon.style.display = "none";
+				boxIcon.style.display = "inline-block";
+			}
+		});
+	}
+
+	// Add this function to signup.js
+
+	// Check verification status periodically (optional enhancement)
+	function startVerificationCheck(email) {
+		let checkCount = 0;
+		const maxChecks = 60; // Check for 5 minutes (60 × 5 seconds)
+
+		const checkInterval = setInterval(async () => {
+			checkCount++;
+
+			if (checkCount >= maxChecks) {
+				clearInterval(checkInterval);
+				return;
+			}
+
+			try {
+				// Check if email is verified
+				const response = await fetch(
+					`/auth/check-verification?email=${encodeURIComponent(email)}`,
+					{
+						credentials: "include",
+					}
+				);
+
+				const data = await response.json();
+
+				if (data.verified) {
+					clearInterval(checkInterval);
+
+					// Remove waiting modal
+					const container = document.querySelector(".container2");
+					if (container) {
+						// Show success message
+						container.innerHTML = `
               <div class="verification-container text-center p-4">
                 <div class="verification-icon mb-3">
                   <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
@@ -242,15 +252,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button class="btn btn-dark mt-3" onclick="window.location.reload()">Continue to Sign In</button>
               </div>
             `;
-          }
-        }
-      } catch (error) {
-        console.error('Verification check error:', error);
-      }
-    }, 5000); // Check every 5 seconds
-  }
+					}
+				}
+			} catch (error) {
+				console.error("Verification check error:", error);
+			}
+		}, 5000); // Check every 5 seconds
+	}
 
-  // Call this after showing verification modal
-  // Add to your existing showVerificationModal function after it displays:
-  // startVerificationCheck(email);
+	// Call this after showing verification modal
+	// Add to your existing showVerificationModal function after it displays:
+	// startVerificationCheck(email);
 });

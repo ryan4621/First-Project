@@ -1,13 +1,13 @@
 // password-reset.js
 
-let resetEmail = '';
-let resetToken = '';
+let resetEmail = "";
+let resetToken = "";
 
 // Import the toast function from login.js or define it here
-function showToast(message, type = 'info') {
-  const toast = document.createElement('div');
-  toast.className = `toast toast-${type}`;
-  toast.style.cssText = `
+function showToast(message, type = "info") {
+	const toast = document.createElement("div");
+	toast.className = `toast toast-${type}`;
+	toast.style.cssText = `
     position: fixed;
     top: 20px;
     right: 20px;
@@ -23,186 +23,196 @@ function showToast(message, type = 'info') {
     transition: opacity 250ms ease, transform 250ms ease;
   `;
 
-  switch(type) {
-    case 'success':
-      toast.style.backgroundColor = '#28a745';
-      break;
-    case 'error':
-      toast.style.backgroundColor = '#dc3545';
-      break;
-    case 'warning':
-      toast.style.backgroundColor = '#ffc107';
-      toast.style.color = '#000';
-      break;
-    default:
-      toast.style.backgroundColor = '#007bff';
-  }
+	switch (type) {
+		case "success":
+			toast.style.backgroundColor = "#28a745";
+			break;
+		case "error":
+			toast.style.backgroundColor = "#dc3545";
+			break;
+		case "warning":
+			toast.style.backgroundColor = "#ffc107";
+			toast.style.color = "#000";
+			break;
+		default:
+			toast.style.backgroundColor = "#007bff";
+	}
 
-  toast.textContent = message;
-  document.body.appendChild(toast);
+	toast.textContent = message;
+	document.body.appendChild(toast);
 
-  setTimeout(() => {
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateY(0)';
-  }, 100);
+	setTimeout(() => {
+		toast.style.opacity = "1";
+		toast.style.transform = "translateY(0)";
+	}, 100);
 
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateY(-10px)';
-    setTimeout(() => {
-      if (toast.parentNode) toast.parentNode.removeChild(toast);
-    }, 260);
-  }, 3000);
+	setTimeout(() => {
+		toast.style.opacity = "0";
+		toast.style.transform = "translateY(-10px)";
+		setTimeout(() => {
+			if (toast.parentNode) toast.parentNode.removeChild(toast);
+		}, 260);
+	}, 3000);
 }
 
 // Step 1: Send reset code
-document.getElementById('sendResetCode')?.addEventListener('click', async () => {
-  const email = document.getElementById('resetEmail').value.trim();
-  
-  if (!email) {
-    showToast('Please enter your email address', 'error');
-    return;
-  }
+document
+	.getElementById("sendResetCode")
+	?.addEventListener("click", async () => {
+		const email = document.getElementById("resetEmail").value.trim();
 
-  try {
-    const response = await fetch(`${websiteUrl}/password-reset/request`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-csrf-token': window.getCsrfToken()
-      },
-      body: JSON.stringify({ email })
-    });
+		if (!email) {
+			showToast("Please enter your email address", "error");
+			return;
+		}
 
-    const data = await response.json();
+		try {
+			const response = await fetch(`/password-reset/request`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"x-csrf-token": window.getCsrfToken(),
+				},
+				body: JSON.stringify({ email }),
+			});
 
-    if (response.ok) {
-      resetEmail = email;
-      showToast('Reset code sent to your email!', 'success');
-      
-      // Move to step 2
-      document.getElementById('resetStep1').style.display = 'none';
-      document.getElementById('resetStep2').style.display = 'block';
-    } else {
-      throw new Error(data.message || 'Failed to send reset code');
-    }
-  } catch (error) {
-    showToast(error.message, 'error');
-  }
-});
+			const data = await response.json();
+
+			if (response.ok) {
+				resetEmail = email;
+				showToast("Reset code sent to your email!", "success");
+
+				// Move to step 2
+				document.getElementById("resetStep1").style.display = "none";
+				document.getElementById("resetStep2").style.display = "block";
+			} else {
+				throw new Error(data.message || "Failed to send reset code");
+			}
+		} catch (error) {
+			showToast(error.message, "error");
+		}
+	});
 
 // Step 2: Verify reset code
-document.getElementById('verifyResetCode')?.addEventListener('click', async () => {
-  const code = document.getElementById('resetCode').value.trim();
-  
-  if (!code || code.length !== 6) {
-    showToast('Please enter the 6-digit code', 'error');
-    return;
-  }
+document
+	.getElementById("verifyResetCode")
+	?.addEventListener("click", async () => {
+		const code = document.getElementById("resetCode").value.trim();
 
-  try {
-    const response = await fetch(`${websiteUrl}/password-reset/verify`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-csrf-token': window.getCsrfToken()
-      },
-      body: JSON.stringify({ email: resetEmail, code })
-    });
+		if (!code || code.length !== 6) {
+			showToast("Please enter the 6-digit code", "error");
+			return;
+		}
 
-    const data = await response.json();
+		try {
+			const response = await fetch(`/password-reset/verify`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"x-csrf-token": window.getCsrfToken(),
+				},
+				body: JSON.stringify({ email: resetEmail, code }),
+			});
 
-    if (response.ok) {
-      resetToken = data.resetToken;
-      showToast('Code verified!', 'success');
-      
-      // Move to step 3
-      document.getElementById('resetStep2').style.display = 'none';
-      document.getElementById('resetStep3').style.display = 'block';
-    } else {
-      throw new Error(data.message || 'Invalid code');
-    }
-  } catch (error) {
-    showToast(error.message, 'error');
-  }
-});
+			const data = await response.json();
+
+			if (response.ok) {
+				resetToken = data.resetToken;
+				showToast("Code verified!", "success");
+
+				// Move to step 3
+				document.getElementById("resetStep2").style.display = "none";
+				document.getElementById("resetStep3").style.display = "block";
+			} else {
+				throw new Error(data.message || "Invalid code");
+			}
+		} catch (error) {
+			showToast(error.message, "error");
+		}
+	});
 
 // Step 3: Reset password
-document.getElementById('resetPassword')?.addEventListener('click', async () => {
-  const newPassword = document.getElementById('newPassword').value;
-  const confirmPassword = document.getElementById('confirmPassword').value;
-  
-  if (!newPassword || !confirmPassword) {
-    showToast('Please fill in both password fields', 'error');
-    return;
-  }
+document
+	.getElementById("resetPassword")
+	?.addEventListener("click", async () => {
+		const newPassword = document.getElementById("newPassword").value;
+		const confirmPassword = document.getElementById("confirmPassword").value;
 
-  if (newPassword !== confirmPassword) {
-    showToast('Passwords do not match', 'error');
-    return;
-  }
+		if (!newPassword || !confirmPassword) {
+			showToast("Please fill in both password fields", "error");
+			return;
+		}
 
-  if (newPassword.length < 6) {
-    showToast('Password must be at least 6 characters', 'error');
-    return;
-  }
+		if (newPassword !== confirmPassword) {
+			showToast("Passwords do not match", "error");
+			return;
+		}
 
-  try {
-    const response = await fetch(`${websiteUrl}/password-reset/reset`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-csrf-token': window.getCsrfToken()
-      },
-      body: JSON.stringify({ 
-        email: resetEmail, 
-        resetToken, 
-        newPassword 
-      })
-    });
+		if (newPassword.length < 6) {
+			showToast("Password must be at least 6 characters", "error");
+			return;
+		}
 
-    const data = await response.json();
+		try {
+			const response = await fetch(`/password-reset/reset`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"x-csrf-token": window.getCsrfToken(),
+				},
+				body: JSON.stringify({
+					email: resetEmail,
+					resetToken,
+					newPassword,
+				}),
+			});
 
-    if (response.ok) {
-      showToast('Password reset successfully!', 'success');
-      
-      // Reset the modal and close it
-      setTimeout(() => {
-        document.getElementById('resetStep1').style.display = 'block';
-        document.getElementById('resetStep2').style.display = 'none';
-        document.getElementById('resetStep3').style.display = 'none';
-        document.getElementById('resetEmail').value = '';
-        document.getElementById('resetCode').value = '';
-        document.getElementById('newPassword').value = '';
-        document.getElementById('confirmPassword').value = '';
-        
-        // Close modal using Bootstrap
-        const modal = bootstrap.Modal.getInstance(document.getElementById('passwordResetModal'));
-        if (modal) modal.hide();
-      }, 2000);
-    } else {
-      throw new Error(data.message || 'Failed to reset password');
-    }
-  } catch (error) {
-    showToast(error.message, 'error');
-  }
-});
+			const data = await response.json();
+
+			if (response.ok) {
+				showToast("Password reset successfully!", "success");
+
+				// Reset the modal and close it
+				setTimeout(() => {
+					document.getElementById("resetStep1").style.display = "block";
+					document.getElementById("resetStep2").style.display = "none";
+					document.getElementById("resetStep3").style.display = "none";
+					document.getElementById("resetEmail").value = "";
+					document.getElementById("resetCode").value = "";
+					document.getElementById("newPassword").value = "";
+					document.getElementById("confirmPassword").value = "";
+
+					// Close modal using Bootstrap
+					const modal = bootstrap.Modal.getInstance(
+						document.getElementById("passwordResetModal")
+					);
+					if (modal) modal.hide();
+				}, 2000);
+			} else {
+				throw new Error(data.message || "Failed to reset password");
+			}
+		} catch (error) {
+			showToast(error.message, "error");
+		}
+	});
 
 // Back to step 1
-document.getElementById('backToStep1')?.addEventListener('click', () => {
-    document.getElementById('resetStep2').style.display = 'none';
-    document.getElementById('resetStep1').style.display = 'block';
+document.getElementById("backToStep1")?.addEventListener("click", () => {
+	document.getElementById("resetStep2").style.display = "none";
+	document.getElementById("resetStep1").style.display = "block";
 });
 
 // Reset modal when it's closed
-document.getElementById('passwordResetModal')?.addEventListener('hidden.bs.modal', () => {
-  document.getElementById('resetStep1').style.display = 'block';
-  document.getElementById('resetStep2').style.display = 'none';
-  document.getElementById('resetStep3').style.display = 'none';
-  document.getElementById('resetEmail').value = '';
-  document.getElementById('resetCode').value = '';
-  document.getElementById('newPassword').value = '';
-  document.getElementById('confirmPassword').value = '';
-  resetEmail = '';
-  resetToken = '';
-});
+document
+	.getElementById("passwordResetModal")
+	?.addEventListener("hidden.bs.modal", () => {
+		document.getElementById("resetStep1").style.display = "block";
+		document.getElementById("resetStep2").style.display = "none";
+		document.getElementById("resetStep3").style.display = "none";
+		document.getElementById("resetEmail").value = "";
+		document.getElementById("resetCode").value = "";
+		document.getElementById("newPassword").value = "";
+		document.getElementById("confirmPassword").value = "";
+		resetEmail = "";
+		resetToken = "";
+	});

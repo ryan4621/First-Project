@@ -51,11 +51,34 @@ const securityHeaders = helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net", "https://fonts.cdnfonts.com", "https://use.fontawesome.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://fonts.googleapis.com",
+        "https://fonts.cdnfonts.com",
+        "https://use.fontawesome.com",
+        "https://cdn.jsdelivr.net"
+      ],
+      fontSrc: [
+        "'self'",
+        "https://fonts.gstatic.com",
+        "https://use.fontawesome.com",
+        "https://cdn.jsdelivr.net"
+      ],
       imgSrc: ["'self'", "data:", "https:", "https://ik.imagekit.io/hd48hro8z"],
-      scriptSrc: ["'self'", "https://embed.tawk.to", "https://cdn.jsdelivr.net"],
-      connectSrc: ["'self'", "https://ik.imagekit.io/hd48hro8z", "https://embed.tawk.to", "wss://embed.tawk.to" ],
+      scriptSrc: [
+        "'self'",
+        "https://embed.tawk.to",
+        "https://cdn.jsdelivr.net",
+        "https://use.fontawesome.com",
+        "https://js.stripe.com/v3/"
+      ],
+      connectSrc: [
+        "'self'",
+        "https://ik.imagekit.io/hd48hro8z",
+        "https://embed.tawk.to",
+        "wss://embed.tawk.to"
+      ],
       frameSrc: ["https://embed.tawk.to"],
       objectSrc: ["'none'"],
       upgradeInsecureRequests: [],
@@ -65,8 +88,8 @@ const securityHeaders = helmet({
   hsts: {
     maxAge: 31536000,
     includeSubDomains: true,
-    preload: true
-  }
+    preload: true,
+  },
 });
 
 // Create a `node-redis` client

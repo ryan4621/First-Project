@@ -77,7 +77,7 @@ const securityHeaders = helmet({
       ],
       scriptSrc: [
         "'self'",
-        "unsafe-inline",
+        "'unsafe-inline'",
         "https://embed.tawk.to",
         "https://cdn.jsdelivr.net",
         "https://use.fontawesome.com",

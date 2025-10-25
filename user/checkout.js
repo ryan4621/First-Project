@@ -23,7 +23,7 @@ class CheckoutManager {
 
     async loadCart() {
         try {
-            const response = await fetch('https://localhost:3000/api/cart', { 
+            const response = await fetch(`${websiteUrl}/api/cart`, { 
                 credentials: 'include' 
             });
             
@@ -47,7 +47,7 @@ class CheckoutManager {
     async loadUserData() {
         try {
             // Load user profile data
-            const profileResponse = await fetch('https://localhost:3000/api/profile', { 
+            const profileResponse = await fetch(`${websiteUrl}/api/profile`, { 
                 credentials: 'include' 
             });
             if (profileResponse.ok) {
@@ -65,7 +65,7 @@ class CheckoutManager {
 
     async loadAddresses() {
         try {
-            const response = await fetch('https://localhost:3000/api/checkout/addresses', { 
+            const response = await fetch(`${websiteUrl}/api/checkout/addresses`, { 
                 credentials: 'include' 
             });
 
@@ -180,7 +180,7 @@ class CheckoutManager {
 
     async loadSavedPaymentMethods() {
         try {
-            const response = await fetch('https://localhost:3000/api/checkout/payment-methods', {
+            const response = await fetch(`${websiteUrl}/api/checkout/payment-methods`, {
                 credentials: 'include'
             });
             
@@ -364,7 +364,7 @@ class CheckoutManager {
                 orderNotes: orderNotes
             };
 
-            const paymentResponse = await fetch('https://localhost:3000/api/checkout/create-intent', {
+            const paymentResponse = await fetch(`${websiteUrl}/api/checkout/create-intent`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -391,7 +391,7 @@ class CheckoutManager {
 
             if (paymentIntent.paymentIntent.status === 'succeeded') {
                 // Payment already completed, confirm with backend
-                const confirmResponse = await fetch('https://localhost:3000/api/checkout/confirm', {
+                const confirmResponse = await fetch(`${websiteUrl}/api/checkout/confirm`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -427,7 +427,7 @@ class CheckoutManager {
 
                 if (confirmedPayment.status === 'succeeded') {
                     // Now confirm with backend
-                    const confirmResponse = await fetch('https://localhost:3000/api/checkout/confirm', {
+                    const confirmResponse = await fetch(`${websiteUrl}/api/checkout/confirm`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

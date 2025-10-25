@@ -71,7 +71,7 @@ class OrdersManager {
             paginationEl.style.display = 'none';
 
             const statusFilter = document.getElementById('status-filter').value;
-            let url = `https://localhost:3000/api/orders?limit=${this.limit}&offset=${this.currentPage * this.limit}`;
+            let url = `${websiteUrl}/api/orders?limit=${this.limit}&offset=${this.currentPage * this.limit}`;
             
             if (statusFilter) {
                 url += `&status=${statusFilter}`;
@@ -177,7 +177,7 @@ class OrdersManager {
 
     async viewOrderDetails(orderNumber) {
         try {
-            const response = await fetch(`https://localhost:3000/api/orders/${orderNumber}`, {
+            const response = await fetch(`${websiteUrl}/api/orders/${orderNumber}`, {
                 credentials: 'include'
             });
 
@@ -300,7 +300,7 @@ class OrdersManager {
         const description = document.getElementById('cancel-description').value;
 
         try {
-            const response = await fetch(`https://localhost:3000/api/orders/${this.currentOrderNumber}/cancel`, {
+            const response = await fetch(`${websiteUrl}/api/orders/${this.currentOrderNumber}/cancel`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

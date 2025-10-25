@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function setUserInfoForChat() {
         try {
             // Get user info from your existing authentication
-            const response = await fetch('https://localhost:3000/auth/me', { credentials: 'include' });
+            const response = await fetch(`${websiteUrl}/auth/me`, { credentials: 'include' });
             if (response.ok) {
                 const userData = await response.json();
                 

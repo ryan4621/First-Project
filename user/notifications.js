@@ -87,7 +87,7 @@ class UserNotifications {
           sortOrder: 'DESC'
         });
   
-        const response = await fetch(`https://localhost:3000/api/notifications?${params}`, {
+        const response = await fetch(`${websiteUrl}/api/notifications?${params}`, {
           credentials: 'include'
         });
   
@@ -300,7 +300,7 @@ class UserNotifications {
   
     async markAsRead(notificationId) {
       try {
-        const response = await fetch(`https://localhost:3000/api/notifications/${notificationId}/read`, {
+        const response = await fetch(`${websiteUrl}/api/notifications/${notificationId}/read`, {
           method: 'POST',
           credentials: 'include',
           headers:  {
@@ -348,7 +348,7 @@ class UserNotifications {
       }
   
       try {
-        const response = await fetch(`https://localhost:3000/api/notifications/${notificationId}`, {
+        const response = await fetch(`${websiteUrl}/api/notifications/${notificationId}`, {
           method: 'DELETE',
           credentials: 'include',
           headers: {
@@ -398,7 +398,7 @@ class UserNotifications {
       }
   
       try {
-        const response = await fetch('https://localhost:3000/api/notifications/mark-all-read', {
+        const response = await fetch(`${websiteUrl}/api/notifications/mark-all-read`, {
           method: 'POST',
           credentials: 'include',
           headers: {
@@ -453,7 +453,7 @@ class UserNotifications {
       }
   
       try {
-        const response = await fetch('https://localhost:3000/api/notifications/bulk-read', {
+        const response = await fetch(`${websiteUrl}/api/notifications/bulk-read`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -497,7 +497,7 @@ class UserNotifications {
       }
   
       try {
-        const response = await fetch('https://localhost:3000/api/notifications/bulk-delete', {
+        const response = await fetch(`${websiteUrl}/api/notifications/bulk-delete`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

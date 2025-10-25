@@ -65,7 +65,7 @@ document.getElementById('sendResetCode')?.addEventListener('click', async () => 
   }
 
   try {
-    const response = await fetch('https://localhost:3000/password-reset/request', {
+    const response = await fetch(`${websiteUrl}/password-reset/request`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ document.getElementById('verifyResetCode')?.addEventListener('click', async () =
   }
 
   try {
-    const response = await fetch('https://localhost:3000/password-reset/verify', {
+    const response = await fetch(`${websiteUrl}/password-reset/verify`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ document.getElementById('resetPassword')?.addEventListener('click', async () => 
   }
 
   try {
-    const response = await fetch('https://localhost:3000/password-reset/reset', {
+    const response = await fetch(`${websiteUrl}/password-reset/reset`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -105,7 +105,7 @@ class SupportManager {
 
     confirmBtn.addEventListener('click', async () => {
       try {
-        await fetch('https://localhost:3000/auth/logout', {
+        await fetch(`${websiteUrl}/auth/logout`, {
           method: 'POST',
           credentials: 'include',
           headers: {
@@ -126,7 +126,7 @@ class SupportManager {
 
   async loadStats() {
     try {
-      const response = await fetch('https://localhost:3000/admin/contact/statistics', {
+      const response = await fetch(`${websiteUrl}/admin/contact/statistics`, {
         credentials: 'include'
       });
 
@@ -198,7 +198,7 @@ class SupportManager {
         sortOrder: 'DESC'
       });
 
-      const response = await fetch(`https://localhost:3000/admin/contact/submissions?${params}`, {
+      const response = await fetch(`${websiteUrl}/admin/contact/submissions?${params}`, {
         credentials: 'include'
       });
 
@@ -394,7 +394,7 @@ class SupportManager {
     this.showModalLoading();
     
     try {
-      const response = await fetch(`https://localhost:3000/admin/contact/submission/${ticketId}`, {
+      const response = await fetch(`${websiteUrl}/admin/contact/submission/${ticketId}`, {
         credentials: 'include'
       });
 
@@ -413,7 +413,7 @@ class SupportManager {
     this.showModalLoading();
     
     try {
-      const response = await fetch(`https://localhost:3000/admin/contact/submission/${ticketId}`, {
+      const response = await fetch(`${websiteUrl}/admin/contact/submission/${ticketId}`, {
         credentials: 'include'
       });
 
@@ -572,7 +572,7 @@ class SupportManager {
     const admin_notes = document.getElementById('editAdminNotes').value;
 
     try {
-      const response = await fetch(`https://localhost:3000/admin/contact/submission/${ticketId}`, {
+      const response = await fetch(`${websiteUrl}/admin/contact/submission/${ticketId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -629,7 +629,7 @@ class SupportManager {
   async exportTickets() {
     try {
       const params = new URLSearchParams(this.filters);
-      const response = await fetch(`https://localhost:3000/admin/contact/export?${params}`, {
+      const response = await fetch(`${websiteUrl}/admin/contact/export?${params}`, {
         credentials: 'include'
       });
 
@@ -704,7 +704,7 @@ class SupportManager {
   }
   
   // Verify role in background (in case it changed)
-  fetch('https://localhost:3000/auth/me', { credentials: 'include' })
+  fetch(`${websiteUrl}/auth/me`, { credentials: 'include' })
   .then(res => res.json())
   .then(user => {
     console.log('User role:', user.role);

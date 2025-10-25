@@ -3,7 +3,7 @@ const currentImage = document.getElementById("currentImage");
 
 async function loadProduct() {
   try {
-    const res = await fetch(`https://localhost:3000/admin/products/${productId}`, {
+    const res = await fetch(`${websiteUrl}/admin/products/${productId}`, {
       credentials: 'include'
     });
     const product = await res.json();
@@ -55,7 +55,7 @@ document.getElementById("editProductForm").addEventListener("submit", async (e) 
       submitBtn.textContent = 'Uploading Image...';
 
       // Get ImageKit signature from your backend
-      const sigRes = await fetch("https://localhost:3000/api/upload-signature", {
+      const sigRes = await fetch(`${websiteUrl}/api/upload-signature`, {
         credentials: "include"
       });
       const sigData = await sigRes.json();
@@ -95,7 +95,7 @@ document.getElementById("editProductForm").addEventListener("submit", async (e) 
   console.log("Sending updated product data:", productData);
 
   try {
-    const res = await fetch(`https://localhost:3000/admin/products/${productId}`, {
+    const res = await fetch(`${websiteUrl}/admin/products/${productId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Check if user is authenticated
   async function checkAuthentication() {
     try {
-      const response = await fetch("https://localhost:3000/auth/me", {
+      const response = await fetch(`${websiteUrl}/auth/me`, {
         method: "GET",
         credentials: "include"
       });
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   //     if (!confirmed) return;
       
   //     try {
-  //       const response = await fetch("https://localhost:3000/logout", {
+  //       const response = await fetch(`${websiteUrl}/logout`, {
   //         method: "POST",
   //         credentials: "include"
   //       });

@@ -10,10 +10,10 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // Email configuration
 const EMAIL_CONFIG = {
   from: {
-    email: process.env.FROM_EMAIL || 'noreply@yourwebsite.com',
-    name: process.env.FROM_NAME || 'Your Website Support'
+    email: process.env.FROM_EMAIL,
+    name: process.env.FROM_NAME
   },
-  adminEmail: process.env.ADMIN_EMAIL || 'admin@yourwebsite.com'
+  adminEmail: process.env.ADMIN_EMAIL
 };
 
 /**
@@ -1265,7 +1265,7 @@ export const sendCriticalErrorAlert = async (errorDetails) => {
       return { success: false, message: 'No super admins found' };
     }
 
-    const adminPanelUrl = `${process.env.FRONTEND_URL || 'https://yourwebsite.com'}/admin-error-logs.html`;
+    const adminPanelUrl = `${process.env.WEBSITE_URL}/admin-error-logs.html`;
     
     const htmlContent = `
       <!DOCTYPE html>

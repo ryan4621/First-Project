@@ -4,6 +4,7 @@ import express from "express";
 import pool from "../main.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import { requireAuth } from "../middleware/auth.js";
 import Stripe from "stripe";
 import { countries } from "countries-list";
@@ -45,6 +46,7 @@ import {
 } from "../middleware/validation.js";
 
 const router = express.Router();
+dotenv.config();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // SETTINGS
@@ -1271,7 +1273,7 @@ router.put(
 				);
 
 				// Send verification email
-				const verificationUrl = `https://localhost:3000/auth/verify-email?token=${verificationToken}`;
+				const verificationUrl = `${process.env.WEBSITE_URL}/auth/verify-email?token=${verificationToken}`;
 				await sendVerificationEmail(email, name, verificationUrl);
 			} else {
 				// Email didn't change, normal update

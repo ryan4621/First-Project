@@ -7,7 +7,7 @@ let cartTotal = 0;
 // Check authentication on page load
 async function checkAuth() {
     try {
-        const response = await fetch('https://localhost:3000/auth/me', { credentials: 'include' });
+        const response = await fetch(`${websiteUrl}/auth/me`, { credentials: 'include' });
         if (!response.ok) {
             // window.location.href = '../frontend/farfetch.html';
             return;
@@ -39,7 +39,7 @@ async function apiCall(url, method = 'GET', data = null) {
             options.body = JSON.stringify(data);
         }
         
-        const response = await fetch(`https://localhost:3000${url}`, options);
+        const response = await fetch(`${websiteUrl}${url}`, options);
         
         // IMPROVED: Better error handling with response body
         if (!response.ok) {
@@ -255,7 +255,7 @@ async function updateQuantity(productId, change) {
     }
     
     try {
-        const response = await fetch(`https://localhost:3000/api/cart/update/${item.cartItemId}`, {
+        const response = await fetch(`${websiteUrl}/api/cart/update/${item.cartItemId}`, {
             method: 'PUT',
             credentials: 'include',
             headers: {

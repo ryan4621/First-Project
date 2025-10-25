@@ -1,5 +1,20 @@
 // Hamburger menu functionality
+const websiteUrl = "https://localhost:3000";
+
 document.addEventListener('DOMContentLoaded', function() {
+
+  const originalFetch = window.fetch;
+  window.fetch = function(...args) {
+    return originalFetch(...args).then(response => {
+      if (response.status === 403) {
+        // Clear cookie and redirect to login
+        document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.href = '../frontend/farfetch.html'; // Adjust to your login page path
+      }
+      return response;
+    });
+  };
+  
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const sidebar = document.querySelector('.sidebar');
   const overlay = document.getElementById('sidebar-overlay');
@@ -60,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   confirmBtn.addEventListener('click', async () => {
     try {
-      await fetch('https://localhost:3000/auth/logout', {
+      await fetch(`${websiteUrl}/auth/logout`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -81,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.add('super-admin');
     }
     
-    fetch('https://localhost:3000/auth/me', { credentials: 'include' })
+    fetch(`${websiteUrl}/auth/me`, { credentials: 'include' })
     .then(res => res.json())
     .then(user => {
       console.log('User role:', user.role);

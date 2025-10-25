@@ -79,7 +79,7 @@ class NotificationManager {
 
     confirmBtn.addEventListener('click', async () => {
       try {
-        await fetch('https://localhost:3000/auth/logout', {
+        await fetch(`${websiteUrl}/auth/logout`, {
           method: 'POST',
           credentials: 'include',
           headers: {
@@ -100,7 +100,7 @@ class NotificationManager {
 
   async loadStats() {
     try {
-      const response = await fetch('https://localhost:3000/admin/notifications/statistics', {
+      const response = await fetch(`${websiteUrl}/admin/notifications/statistics`, {
         credentials: 'include'
       });
 
@@ -142,7 +142,7 @@ class NotificationManager {
         sortOrder: 'DESC'
       });
 
-      const response = await fetch(`https://localhost:3000/admin/notifications?${params}`, {
+      const response = await fetch(`${websiteUrl}/admin/notifications?${params}`, {
         credentials: 'include'
       });
 
@@ -298,7 +298,7 @@ class NotificationManager {
 
       this.setFormLoadingState(true);
 
-      const response = await fetch('https://localhost:3000/admin/notifications', {
+      const response = await fetch(`${websiteUrl}/admin/notifications`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -395,7 +395,7 @@ class NotificationManager {
     this.showModalLoading();
     
     try {
-      const response = await fetch(`https://localhost:3000/admin/notifications/${notificationId}`, {
+      const response = await fetch(`${websiteUrl}/admin/notifications/${notificationId}`, {
         credentials: 'include'
       });
 
@@ -493,7 +493,7 @@ class NotificationManager {
     // }
 
     try {
-      const response = await fetch(`https://localhost:3000/admin/notifications/${notificationId}/send`, {
+      const response = await fetch(`${websiteUrl}/admin/notifications/${notificationId}/send`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -532,7 +532,7 @@ class NotificationManager {
     }
 
     try {
-      const response = await fetch(`https://localhost:3000/admin/notifications/${notificationId}`, {
+      const response = await fetch(`${websiteUrl}/admin/notifications/${notificationId}`, {
         method: 'DELETE',
         credentials: 'include',
         headers: {
@@ -643,7 +643,7 @@ class NotificationManager {
   }
   
   // Verify role in background (in case it changed)
-  fetch('https://localhost:3000/auth/me', { credentials: 'include' })
+  fetch(`${websiteUrl}/auth/me`, { credentials: 'include' })
   .then(res => res.json())
   .then(user => {
     console.log('User role:', user.role);
@@ -659,6 +659,7 @@ class NotificationManager {
     console.error('Failed to check user role:', err);
   });
 })(); 
+
 // Initialize notification manager when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   window.notificationManager = new NotificationManager();

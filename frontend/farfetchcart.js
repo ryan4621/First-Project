@@ -23,7 +23,7 @@ async function apiCall(url, method = 'GET', data = null) {
       options.body = JSON.stringify(data);
     }
     
-    const response = await fetch(`https://localhost:3000${url}`, options);
+    const response = await fetch(`${websiteUrl}${url}`, options);
     if (response.ok) {
       return await response.json();
     }
@@ -76,7 +76,7 @@ async function loadCartFromBackend() {
 async function loadProductsFromDatabase() {
   try {
     // FIX: Changed from /api/cart to /api/products
-    const response = await fetch('https://localhost:3000/api/products', {
+    const response = await fetch(`${websiteUrl}/api/products`, {
       credentials: 'include',
       method: 'GET',
       headers: {

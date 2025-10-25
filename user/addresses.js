@@ -1,7 +1,7 @@
 // addresses.js - Updated with new modal IDs
 
 const AddressAPI = {
-    baseURL: 'https://localhost:3000/api',
+    baseURL: `${websiteUrl}/api`,
 
     async getAddresses() {
         try {
@@ -158,7 +158,7 @@ addressModal.addEventListener('click', (e) => {
 // Load countries
 async function loadCountries() {
     try {
-        const response = await fetch('https://localhost:3000/api/countries');
+        const response = await fetch(`${websiteUrl}/api/countries`);
         const countries = await response.json();
         
         const countrySelect = document.getElementById('country');

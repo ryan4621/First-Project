@@ -4,6 +4,7 @@ import express from 'express';
 import pool from "../main.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
 import { requireAuth } from '../middleware/auth.js';
 import crypto from 'crypto';
 import { sendNotificationEmail, send2FACodeEmail, sendVerificationEmail } from '../services/email-service.js';
@@ -13,6 +14,8 @@ import { validateRegister, validateLogin, validateResendVerification, validate2f
 import { checkVerificationCooldown, updateVerificationTimestamp } from '../middleware/email-verification-cooldown.js';
 
 const router = express.Router();
+
+dotenv.config();
 
 // Register route with email verification
 router.post("/register", validateRegister, handleValidationErrors,
@@ -51,7 +54,7 @@ router.post("/register", validateRegister, handleValidationErrors,
       );
       
       // Send verification email
-      const verificationUrl = `${'https://localhost:3000'}/auth/verify-email?token=${verificationToken}`;
+      const verificationUrl = `${process.env.WEBSITE_URL}/auth/verify-email?token=${verificationToken}`;
       await sendVerificationEmail(email, name, verificationUrl);
       
       res.status(201).json({ 
@@ -289,7 +292,7 @@ router.post("/resend-verification", validateResendVerification, handleValidation
         );
         
         // Send verification email
-        const verificationUrl = `${'https://localhost:3000'}/auth/verify-email?token=${verificationToken}`;
+        const verificationUrl = `${process.env.WEBSITE_URL}/auth/verify-email?token=${verificationToken}`;
         await sendVerificationEmail(email, verifiedUser[0].name || 'User', verificationUrl);
         
         // Update the timestamp for cooldown tracking
@@ -321,7 +324,7 @@ router.post("/resend-verification", validateResendVerification, handleValidation
       );
       
       // Send verification email
-      const verificationUrl = `${'https://localhost:3000'}/auth/verify-email?token=${verificationToken}`;
+      const verificationUrl = `${process.env.WEBSITE_URL}/auth/verify-email?token=${verificationToken}`;
       await sendVerificationEmail(email, pending[0].name, verificationUrl);
       
       // Update the timestamp for cooldown tracking

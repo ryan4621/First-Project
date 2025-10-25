@@ -1,4 +1,4 @@
-fetch("https://localhost:3000/admin/products", { credentials: "include" })
+fetch(`${websiteUrl}/admin/products`, { credentials: "include" })
   .then(res => res.json())
   .then(data => {
     // Sort by created_at ascending (oldest first)
@@ -49,7 +49,7 @@ async function deleteProduct(id) {
     return;
   }
 
-  fetch(`https://localhost:3000/admin/products/${id}`, {
+  fetch(`${websiteUrl}/admin/products/${id}`, {
     method: "DELETE",
     credentials: "include",
     headers: {

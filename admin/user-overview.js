@@ -1,7 +1,7 @@
 //user-overview.js
 
 let currentUser = null;
-    const apiBase = "https://localhost:3000/admin";
+    const apiBase = `${websiteUrl}/admin`;
 
     // Get user ID from URL parameters
     function getUserIdFromUrl() {

@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    fetch("https://localhost:3000/auth/me", { credentials: "include" })
+    fetch(`${websiteUrl}/auth/me`, { credentials: "include" })
     .then(r => r.json())
     .then(data => {
         if (!data ) {
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         try {
             // Get signature from backend
-            const sigRes = await fetch("https://localhost:3000/api/upload-signature", {
+            const sigRes = await fetch(`${websiteUrl}/api/upload-signature`, {
                 credentials: "include"
             });
             const { signature, expire, token } = await sigRes.json();
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
         submitBtn.textContent = 'Adding Product...';
         
         try {
-            const response = await fetch('https://localhost:3000/admin/products', {
+            const response = await fetch(`${websiteUrl}/admin/products`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

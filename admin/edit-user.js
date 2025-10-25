@@ -2,7 +2,7 @@ const params = new URLSearchParams(window.location.search);
 const userId = params.get("id");
 
 // Load user data
-fetch(`https://localhost:3000/admin/users/${userId}`, { credentials: "include" })
+fetch(`${websiteUrl}/admin/users/${userId}`, { credentials: "include" })
   .then(res => res.json())
   .then(user => {
     document.getElementById("email").value = user.email;
@@ -21,7 +21,7 @@ document.getElementById("editUserForm").addEventListener("submit", function(e) {
     role: document.getElementById("role").value
   };
 
-  fetch(`https://localhost:3000/admin/users/${userId}`, {
+  fetch(`${websiteUrl}/admin/users/${userId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

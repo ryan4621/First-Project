@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     async function loadUserInfo() {
       try {
-        const response = await fetch('https://localhost:3000/api/profile', {
+        const response = await fetch(`${websiteUrl}/api/profile`, {
           method: 'GET',
           credentials: 'include'
         });
@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         // Submit form
-        const response = await fetch('https://localhost:3000/api/contact', {
+        const response = await fetch(`${websiteUrl}/api/contact`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

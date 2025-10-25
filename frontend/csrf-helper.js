@@ -1,10 +1,11 @@
 // csrf-helper.js
 let csrfToken = null;
+const websiteUrl = "https://localhost:3000";
 
 // Get CSRF token from server
 async function initCsrfToken() {
   try {
-    const response = await fetch('https://localhost:3000/api/csrf-token', {
+    const response = await fetch(`${websiteUrl}/api/csrf-token`, {
       credentials: 'include'
     });
     const data = await response.json();
@@ -20,7 +21,7 @@ async function initCsrfToken() {
 
 async function refreshCsrfToken() {
   try {
-    const response = await fetch('https://localhost:3000/api/csrf-token', {
+    const response = await fetch(`${websiteUrl}/api/csrf-token`, {
       credentials: 'include'
     });
     const data = await response.json();

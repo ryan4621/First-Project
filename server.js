@@ -1,6 +1,6 @@
 import express from 'express';
 import https from "https";
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 import pool from './main.js'
 import cookieParser from "cookie-parser";
 import path, { dirname } from 'path';
@@ -10,7 +10,7 @@ import userRoutes from './routes/user-routes.js';
 import authRoutes from './routes/auth-routes.js';
 import publicRoutes from './routes/public-routes.js';
 import { errorHandler, notFoundHandler, checkUserStatus, logAdminActivity } from './middleware/auth.js';
-import { tlsOptions, corsHeaders, securityHeaders, generalRateLimit, authRateLimit, verificationResendRateLimit, strictRateLimit, addressRateLimit, contactRateLimit, httpsRedirect, doubleCsrfProtection, checkEnvVars, gracefulShutdown } from './middleware/security.js';
+import { corsHeaders, securityHeaders, generalRateLimit, authRateLimit, verificationResendRateLimit, strictRateLimit, addressRateLimit, contactRateLimit, doubleCsrfProtection, checkEnvVars, gracefulShutdown } from './middleware/security.js';
 import { updateSessionActivity, guestSessionHandler, setupScheduledTasks } from './middleware/session.js';
 import { ensureAddressesTable } from "./migrations/addresses-mig.js";
 import { createUserPreferencesTable } from "./migrations/user-preferences-mig.js"
@@ -48,7 +48,7 @@ await addVerificationCooldownColumn();
 const app = express();
 
 // HTTPS redirect
-app.use(httpsRedirect);
+// app.use(httpsRedirect);
 
 // Setup session cleanup scheduler
 setupScheduledTasks();
@@ -91,23 +91,6 @@ app.use('/api/', generalRateLimit);
 // });
 
 app.use(guestSessionHandler);
-
-import crypto from "crypto";
-
-app.use((req, res, next) => {
-  let deviceId = req.cookies.deviceId;
-  if (!deviceId) {
-    deviceId = crypto.randomUUID();
-    res.cookie("deviceId", deviceId, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      maxAge: 365 * 24 * 60 * 60 * 1000
-    });
-  }
-  req.deviceId = deviceId;
-  next();
-});
 
 // CSRF protection 
 app.use(doubleCsrfProtection);

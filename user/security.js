@@ -18,7 +18,7 @@ export function initializeSecurity() {
     }
 
     try {
-      const response = await fetch("https://localhost:3000/api/change-password", {
+      const response = await fetch(`${websiteUrl}/api/change-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -178,7 +178,7 @@ export function initializeSecurity() {
         const newState = !currentlyEnabled;
         
         // Get user info first
-        const userResponse = await fetch("https://localhost:3000/api/profile", {
+        const userResponse = await fetch(`${websiteUrl}/api/profile`, {
           method: "GET",
           credentials: "include"
         });
@@ -206,7 +206,7 @@ export function initializeSecurity() {
         enable2FABtn.classList.add('loading');
         enable2FABtn.disabled = true;
         
-        const response = await fetch("https://localhost:3000/api/2fa/toggle", {
+        const response = await fetch(`${websiteUrl}/api/2fa/toggle`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -318,7 +318,7 @@ export function initializeSecurity() {
   // Load 2FA status from backend
   async function load2FAStatus() {
       try {
-      const response = await fetch("https://localhost:3000/api/2fa/status", {
+      const response = await fetch(`${websiteUrl}/api/2fa/status`, {
           method: "GET",
           credentials: "include"
       });
@@ -370,7 +370,7 @@ export function initializeSecurity() {
   // Load security questions status
   async function loadSecurityQuestionsStatus() {
     try {
-      const response = await fetch("https://localhost:3000/api/security-questions/status", {
+      const response = await fetch(`${websiteUrl}/api/security-questions/status`, {
         method: "GET",
         credentials: "include"
       });
@@ -482,7 +482,7 @@ export function initializeSecurity() {
       saveBtn.classList.add('loading');
       saveBtn.disabled = true;
       
-      const response = await fetch("https://localhost:3000/api/security-questions", {
+      const response = await fetch(`${websiteUrl}/api/security-questions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -538,7 +538,7 @@ export function initializeSecurity() {
   // Load and display active sessions
   async function loadActiveSessions() {
       try {
-      const response = await fetch("https://localhost:3000/api/sessions", {
+      const response = await fetch(`${websiteUrl}/api/sessions`, {
           method: "GET",
           credentials: "include"
       });
@@ -609,7 +609,7 @@ export function initializeSecurity() {
   // Terminate specific session
   window.terminateSession = async function(sessionId) {
       try {
-      const response = await fetch(`https://localhost:3000/api/sessions/${sessionId}`, {
+      const response = await fetch(`${websiteUrl}/api/sessions/${sessionId}`, {
           method: "DELETE",
           credentials: "include",
           headers: {
@@ -632,7 +632,7 @@ export function initializeSecurity() {
   // Terminate all other sessions
   window.terminateAllSessions = async function() {
       try {
-      const response = await fetch("https://localhost:3000/api/sessions/terminate-all", {
+      const response = await fetch(`${websiteUrl}/api/sessions/terminate-all`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -686,7 +686,7 @@ export function initializeSecurity() {
         currentOffset = 0;
       }
       
-      const response = await fetch(`https://localhost:3000/api/activity-logs?limit=10&offset=${currentOffset}`, {
+      const response = await fetch(`${websiteUrl}/api/activity-logs?limit=10&offset=${currentOffset}`, {
         method: "GET",
         credentials: "include"
       });
@@ -875,7 +875,7 @@ export function initializeSecurity() {
   // Deactivate account
   async function deactivateAccount(password) {
     try {
-      const response = await fetch("https://localhost:3000/api/account/deactivate", {
+      const response = await fetch(`${websiteUrl}/api/account/deactivate`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -905,7 +905,7 @@ export function initializeSecurity() {
   // Delete account permanently
   async function deleteAccount(password) {
     try {
-      const response = await fetch("https://localhost:3000/api/account/delete", {
+      const response = await fetch(`${websiteUrl}/api/account/delete`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

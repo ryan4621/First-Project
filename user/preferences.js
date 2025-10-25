@@ -22,7 +22,7 @@ export function initializePreferences() {
   // On page load, apply saved language
   async function applySavedLanguage() {
     try {
-      const response = await fetch("https://localhost:3000/api/preferences", {
+      const response = await fetch(`${websiteUrl}/api/preferences`, {
         method: "GET",
         credentials: "include"
       });
@@ -42,7 +42,7 @@ export function initializePreferences() {
   // Load user preferences from backend
   async function loadUserPreferences() {
     try {
-      const response = await fetch("https://localhost:3000/api/preferences", {
+      const response = await fetch(`${websiteUrl}/api/preferences`, {
         method: "GET",
         credentials: "include"
       });
@@ -110,7 +110,7 @@ export function initializePreferences() {
 
       console.log("Saving preferences:", preferencesData);
 
-      const response = await fetch("https://localhost:3000/api/preferences", {
+      const response = await fetch(`${websiteUrl}/api/preferences`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -160,7 +160,7 @@ export function initializePreferences() {
       resetBtn.classList.add('loading');
       resetBtn.disabled = true;
 
-      const response = await fetch("https://localhost:3000/api/preferences/reset", {
+      const response = await fetch(`${websiteUrl}/api/preferences/reset`, {
         method: "POST",
         credentials: "include"
       });

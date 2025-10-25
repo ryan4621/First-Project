@@ -9,12 +9,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { RedisStore } from 'rate-limit-redis'
 import { createClient } from 'redis'
+
 dotenv.config();
 
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 
-// // TLS options
+// TLS options
 // const tlsOptions = {
 //   key: fs.readFileSync(join(__dirname, "../key.pem")),
 //   cert: fs.readFileSync(join(__dirname, "../cert.pem")),
@@ -39,8 +40,8 @@ dotenv.config();
 
 const corsHeaders = cors({
   origin: process.env.NODE_ENV === 'production' 
-  ? [process.env.FRONTEND_URL]
-  : ["http://127.0.0.1:5500", "https://localhost:3000"],
+  ? [process.env.WEBSITE_URL]
+  : true,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 });
@@ -70,10 +71,7 @@ const securityHeaders = helmet({
 
 // Create a `node-redis` client
 const client = createClient({
-	socket: {
-    host: 'localhost',
-    port: 6379,
-  }
+	url: process.env.REDIS_URL
 })
 
 await client.connect()
@@ -165,14 +163,14 @@ const contactRateLimit = rateLimit({
   store: new RedisStore({ sendCommand: (...args) => client.sendCommand(args) })
 });
 
-const httpsRedirect = (req, res, next) => {
-  if (process.env.NODE_ENV === 'production') {
-    if (req.header('x-forwarded-proto') !== 'https') {
-      return res.redirect(`https://${req.header('host')}${req.url}`);
-    }
-  }
-  next();
-};
+// const httpsRedirect = (req, res, next) => {
+//   if (process.env.NODE_ENV === 'production') {
+//     if (req.header('x-forwarded-proto') !== 'https') {
+//       return res.redirect(`https://${req.header('host')}${req.url}`);
+//     }
+//   }
+//   next();
+// };
 
 // Configure CSRF protection
 const { doubleCsrfProtection } = doubleCsrf({
@@ -203,7 +201,9 @@ const checkEnvVars = () => {
     'DB_NAME',
     'STRIPE_SECRET_KEY',
     'STRIPE_WEBHOOK_SECRET',
-    'IMAGEKIT_PRIVATE'
+    'IMAGEKIT_PRIVATE',
+    'REDIS_URL',
+    'WEBSITE_URL'
   ];
 
   for (const envVar of requiredEnvVars) {
@@ -246,7 +246,6 @@ const gracefulShutdown = (server, pool) => {
 }
 
 export {
-  tlsOptions,
   corsHeaders,
   securityHeaders,
   generalRateLimit,
@@ -255,7 +254,6 @@ export {
   addressRateLimit,
   contactRateLimit,
   verificationResendRateLimit,
-  httpsRedirect,
   doubleCsrfProtection,
   checkEnvVars,
   gracefulShutdown

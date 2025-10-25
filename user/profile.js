@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           return;
         }
 
-        const response = await fetch("https://localhost:3000/auth/resend-verification", {
+        const response = await fetch(`${websiteUrl}/auth/resend-verification`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 🔹 Check if user is logged in
   try {
-    const response = await fetch("https://localhost:3000/api/profile", {
+    const response = await fetch(`${websiteUrl}/api/profile`, {
       method: "GET",
       credentials: "include"
     });
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Fetch countries from your backend
   try {
-    const res = await fetch("https://localhost:3000/api/countries");
+    const res = await fetch(`${websiteUrl}/api/countries`);
     const countries = await res.json();
 
     countries.forEach(country => {
@@ -277,7 +277,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-      const response = await fetch("https://localhost:3000/api/profile", {
+      const response = await fetch(`${websiteUrl}/api/profile`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -369,7 +369,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Load current profile photo on page load
   async function loadCurrentProfilePhoto() {
     try {
-      const response = await fetch('https://localhost:3000/auth/me', { 
+      const response = await fetch(`${websiteUrl}/auth/me`, { 
         credentials: 'include' 
       });
       
@@ -530,7 +530,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       simulateProfileProgress();
 
       // Get ImageKit signature from backend
-      const sigRes = await fetch("https://localhost:3000/api/upload-signature", {
+      const sigRes = await fetch(`${websiteUrl}/api/upload-signature`, {
         credentials: "include"
       });
 
@@ -558,7 +558,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (uploadData.url) {
         // Update user profile with new image URL
-        const updateRes = await fetch("https://localhost:3000/api/update-profile-photo", {
+        const updateRes = await fetch(`${websiteUrl}/api/update-profile-photo`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -693,7 +693,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const listElement = document.getElementById('payment-methods-list');
 
       try {
-        const response = await fetch('https://localhost:3000/api/payment-methods', {
+        const response = await fetch(`${websiteUrl}/api/payment-methods`, {
           credentials: 'include'
         });
 
@@ -753,7 +753,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     async openAddPaymentMethodModal() {
       try {
         // Create setup intent
-        const response = await fetch('https://localhost:3000/api/payment-methods/setup-intent', {
+        const response = await fetch(`${websiteUrl}/api/payment-methods/setup-intent`, {
           method: 'POST',
           credentials: 'include',
           headers: {
@@ -840,7 +840,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Save to backend - UPDATED ID
         const isDefault = document.getElementById('payment-set-default').checked;
         
-        const response = await fetch('https://localhost:3000/api/payment-methods', {
+        const response = await fetch(`${websiteUrl}/api/payment-methods`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -878,7 +878,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     async setDefault(paymentMethodId) {
         try {
-            const response = await fetch(`https://localhost:3000/api/payment-methods/${paymentMethodId}/default`, {
+            const response = await fetch(`${websiteUrl}/api/payment-methods/${paymentMethodId}/default`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
@@ -904,7 +904,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             `Are you sure you want to delete ${cardDisplay}?`,
             async () => {
                 try {
-                    const response = await fetch(`https://localhost:3000/api/payment-methods/${paymentMethodId}`, {
+                    const response = await fetch(`${websiteUrl}/api/payment-methods/${paymentMethodId}`, {
                         method: 'DELETE',
                         credentials: 'include',
                         headers: {

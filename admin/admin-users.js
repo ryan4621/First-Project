@@ -1,7 +1,7 @@
 //admin-users.js
 
 (() => {
-  const apiBase = "https://localhost:3000/admin";
+  const apiBase = `${websiteUrl}/admin`;
   let state = { page: 1, limit: 20, q: "", role: "", sort: "created_asc", totalPages: 1 };
 
   // DOM

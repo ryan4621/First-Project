@@ -5,7 +5,7 @@ document.getElementById("changePasswordForm").addEventListener("submit", async (
   const newPassword = document.getElementById("newPassword").value.trim();
 
   try {
-    const res = await fetch("https://localhost:3000/admin/change-password", {
+    const res = await fetch(`${websiteUrl}/admin/change-password`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

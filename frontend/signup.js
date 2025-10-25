@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const signupData = { name, email, password, subscribe };
     
     try {
-      const response = await fetch("https://localhost:3000/auth/register", {
+      const response = await fetch(`${websiteUrl}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
       
-      const response = await fetch("https://localhost:3000/auth/resend-verification", {
+      const response = await fetch(`${websiteUrl}/auth/resend-verification`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
       
       try {
         // Check if email is verified
-        const response = await fetch(`https://localhost:3000/auth/check-verification?email=${encodeURIComponent(email)}`, {
+        const response = await fetch(`${websiteUrl}/auth/check-verification?email=${encodeURIComponent(email)}`, {
           credentials: 'include'
         });
         

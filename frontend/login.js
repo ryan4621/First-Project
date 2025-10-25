@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resendBtn.textContent = 'Sending...';
         
         try {
-          const response = await fetch('https://localhost:3000/auth/2fa/resend', {
+          const response = await fetch(`${websiteUrl}/auth/2fa/resend`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     verifyBtn.textContent = 'Verifying...';
     
     try {
-      const response = await fetch('https://localhost:3000/auth/2fa/verify', {
+      const response = await fetch(`${websiteUrl}/auth/2fa/verify`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("CSRF Token:", window.getCsrfToken());
 
     try {
-      const response = await fetch("https://localhost:3000/auth/login", {
+      const response = await fetch(`${websiteUrl}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

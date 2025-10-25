@@ -89,7 +89,7 @@ class AdminOrdersManager {
             const statusFilter = document.getElementById('status-filter').value;
             const paymentFilter = document.getElementById('payment-filter').value;
             
-            let url = `https://localhost:3000/admin/orders?limit=${this.limit}&offset=${this.currentPage * this.limit}`;
+            let url = `${websiteUrl}/admin/orders?limit=${this.limit}&offset=${this.currentPage * this.limit}`;
             
             if (statusFilter) url += `&status=${statusFilter}`;
             if (paymentFilter) url += `&paymentStatus=${paymentFilter}`;
@@ -184,7 +184,7 @@ class AdminOrdersManager {
 
     async viewOrderDetails(orderNumber) {
         try {
-            const response = await fetch(`https://localhost:3000/admin/orders/${orderNumber}`, {
+            const response = await fetch(`${websiteUrl}/admin/orders/${orderNumber}`, {
                 credentials: 'include'
             });
 
@@ -328,7 +328,7 @@ class AdminOrdersManager {
         const newStatus = document.getElementById('new-status').value;
 
         try {
-            const response = await fetch(`https://localhost:3000/admin/orders/${this.currentOrderNumber}/status`, {
+            const response = await fetch(`${websiteUrl}/admin/orders/${this.currentOrderNumber}/status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -355,7 +355,7 @@ class AdminOrdersManager {
 
     async deleteOrder() {
         try {
-            const response = await fetch(`https://localhost:3000/admin/orders/${this.currentOrderNumber}`, {
+            const response = await fetch(`${websiteUrl}/admin/orders/${this.currentOrderNumber}`, {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {

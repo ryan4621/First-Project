@@ -1,6 +1,6 @@
 // admin-error-logs.js
 
-const API_BASE = 'https://localhost:3000/admin';
+const API_BASE = `${websiteUrl}/admin`;
 
 let currentPage = 1;
 const errorsPerPage = 50;

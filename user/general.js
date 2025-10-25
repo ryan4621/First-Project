@@ -1,17 +1,19 @@
+const websiteUrl = "https://localhost:3000";
+
 document.addEventListener('DOMContentLoaded', function() {
   // Add this at the very beginning of your script tag
   // Intercept fetch responses globally
-  // const originalFetch = window.fetch;
-  // window.fetch = function(...args) {
-  //   return originalFetch(...args).then(response => {
-  //     if (response.status === 403) {
-  //       // Clear cookie and redirect to login
-  //       document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-  //       window.location.href = '../frontend/farfetch.html'; // Adjust to your login page path
-  //     }
-  //     return response;
-  //   });
-  // };
+  const originalFetch = window.fetch;
+  window.fetch = function(...args) {
+    return originalFetch(...args).then(response => {
+      if (response.status === 403) {
+        // Clear cookie and redirect to login
+        document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.href = '../frontend/farfetch.html'; // Adjust to your login page path
+      }
+      return response;
+    });
+  };
 
   // Logout modal controls
   const logoutBtn = document.getElementsByClassName('logout-btn')[0];
@@ -36,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (logoutConfirm) {
     logoutConfirm.addEventListener('click', async () => {
       try {
-        await fetch('https://localhost:3000/auth/logout', { 
+        await fetch(`${websiteUrl}/auth/logout`, { 
           method: 'POST', 
           credentials: 'include',
           headers: {

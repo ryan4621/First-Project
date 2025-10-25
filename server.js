@@ -102,10 +102,10 @@ app.use(updateSessionActivity);
 
 // Static files
 const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use('/frontend', express.static(path.join(__dirname, 'frontend')));
-app.use('/user', express.static(path.join(__dirname, 'user')));
-app.use('/admin', express.static(path.join(__dirname, 'admin')));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.static(path.join(__dirname, 'frontend')));
+app.use(express.static(path.join(__dirname, 'user')));
+app.use(express.static(path.join(__dirname, 'admin')));
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 // Root route for health checks / homepage
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'frontend', 'farfetch.html')));

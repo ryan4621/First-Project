@@ -367,7 +367,7 @@ export const sendContactNotificationToAdmin = async (submissionId, customerName,
     const subjectLine = `New Support Request - Ticket #${submissionId} [${priority.toUpperCase()}]`;
     
     const customerType = userInfo ? 'Registered User' : 'Guest';
-    const adminPanelUrl = `https://yourwebsite.com/admin-support.html`; // Update with your actual admin URL
+    const adminPanelUrl = `/admin-support.html`; // Update with your actual admin URL
     
     const htmlContent = `
       <!DOCTYPE html>

@@ -746,6 +746,29 @@ router.post("/2fa/resend", validate2faResend, handleValidationErrors,
     }
   }
 );
+
+// Get current user profile (including profile image)
+router.get("/me", requireAuth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const [users] = await pool.execute(
+      "SELECT id, name, email, role, profile_image, email_verified FROM users WHERE id = ?",
+      [userId]
+    );
+
+    if (users.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const user = users[0];
+    res.json(user);
+
+  } catch (err) {
+    console.error("Get user error:", err);
+    res.status(500).json({ message: "Failed to get user data" });
+  }
+});
   
 // Logout route (updated)
 router.post("/logout", async (req, res) => {

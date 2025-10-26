@@ -76,7 +76,7 @@ app.use('/api/payment-methods', strictRateLimit);
 app.use('/api/addresses', addressRateLimit);
 app.use('/api/contact', contactRateLimit);
 app.use('/admin/change-password', authRateLimit);
-app.use('/auth', authRateLimit);
+// app.use('/auth', authRateLimit);
 app.use('/api/', generalRateLimit);
 
 

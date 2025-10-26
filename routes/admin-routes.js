@@ -1024,9 +1024,9 @@ router.get('/contact/submissions', validateAdminContactQuery, handleValidationEr
 
     let query = `
       SELECT cs.id, cs.user_id, cs.name, cs.email, cs.subject, cs.message, 
-             cs.status, cs.priority, cs.admin_notes, cs.responded_at, 
-             cs.created_at, cs.updated_at,
-             u.name as user_name
+      cs.status, cs.priority, cs.admin_notes, cs.responded_at, 
+      cs.created_at, cs.updated_at,
+      u.name as user_name
       FROM contact_submissions cs
       LEFT JOIN users u ON cs.user_id = u.id
       WHERE 1=1
@@ -1665,8 +1665,8 @@ router.get("/notifications", validateAdminNotificationsQuery, handleValidationEr
 
     let query = `
       SELECT n.id, n.title, n.message, n.category, n.status, n.total_recipients,
-             n.email_sent_count, n.push_sent_count, n.created_at, n.sent_at,
-             u.name as created_by_name
+      n.email_sent_count, n.push_sent_count, n.created_at, n.sent_at,
+      u.name as created_by_name
       FROM notifications n
       LEFT JOIN users u ON n.created_by_admin_id = u.id
       WHERE 1=1
@@ -1696,7 +1696,9 @@ router.get("/notifications", validateAdminNotificationsQuery, handleValidationEr
 
     // Add pagination
     query += ' LIMIT ? OFFSET ?';
-    params.push(parseInt(limit), parseInt(offset));
+    const limitNum = Number(limit) || 10;
+		const offsetNum = Number(offset) || 0;
+		params.push(limitNum, offsetNum);
 
     const [notifications] = await pool.execute(query, params);
 

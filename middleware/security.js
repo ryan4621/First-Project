@@ -57,7 +57,9 @@ const securityHeaders = helmet({
         "https://fonts.googleapis.com",
         "https://fonts.cdnfonts.com",
         "https://use.fontawesome.com",
-        "https://cdn.jsdelivr.net"
+        "https://cdn.jsdelivr.net",
+        "https://embed.tawk.to",
+        "https://www.gstatic.com"
       ],
       fontSrc: [
         "'self'",
@@ -83,7 +85,8 @@ const securityHeaders = helmet({
         "https://use.fontawesome.com",
         "https://js.stripe.com/v3/",
         "https://cdnjs.cloudflare.com",
-        "https://translate.google.com"
+        "https://translate.google.com",
+        "https://translate.googleapis.com"
       ],
       connectSrc: [
         "'self'",

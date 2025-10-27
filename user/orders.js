@@ -4,7 +4,7 @@ class OrdersManager {
 	constructor() {
 		this.orders = [];
 		this.currentOrderNumber = null;
-		this.currentPage = 0;
+		this.currentPage = 1;
 		this.limit = 10;
 		this.totalOrders = 0;
 
@@ -77,9 +77,7 @@ class OrdersManager {
 			paginationEl.style.display = "none";
 
 			const statusFilter = document.getElementById("status-filter").value;
-			let url = `/api/orders?limit=${this.limit}&offset=${
-				this.currentPage * this.limit
-			}`;
+			let url = `/api/orders?page=${this.currentPage}&limit=${this.limit}`;
 
 			if (statusFilter) {
 				url += `&status=${statusFilter}`;

@@ -149,7 +149,7 @@ const generalRateLimit = rateLimit({
 // Strict rate limiting for sensitive operations
 const strictRateLimit = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 50, // limit each IP to 50 requests per windowMs
+  max: 1000, // limit each IP to 50 requests per windowMs
   message: {
     success: false,
     message: 'Too many sensitive operations, please try again later',
@@ -163,7 +163,7 @@ const strictRateLimit = rateLimit({
 // Authentication rate limiting
 const authRateLimit = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // limit each IP to 5 attempts per windowMs
+  max: 1000, // limit each IP to 5 attempts per windowMs
   message: {
     success: false,
     message: 'Too many authentication attempts, please try again later',
@@ -177,7 +177,7 @@ const authRateLimit = rateLimit({
 
 const verificationResendRateLimit = rateLimit({
   windowMs: 60 * 60 * 1000,
-  max: 3,
+  max: 10,
   message: {
     success: false,
     message: 'Too many verification email requests. Please try again later.',
@@ -191,7 +191,7 @@ const verificationResendRateLimit = rateLimit({
 // Address operations rate limiting
 const addressRateLimit = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 1000,
   message: {
     success: false,
     message: 'Too many address operations, please try again later',
@@ -204,7 +204,7 @@ const addressRateLimit = rateLimit({
 
 const contactRateLimit = rateLimit({
   windowMs: 60 * 60 * 1000,
-  max: 3,
+  max: 30,
   message: {
     success: false,
     message: 'Too many contact submissions, please try again later',

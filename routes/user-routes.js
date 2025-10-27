@@ -778,20 +778,18 @@ export async function logUserActivity(
 }
 
 // Get user's activity logs
-router.get("/activity-logs", requireAuth, async (req, res) => {
+router.get("/activity-logs", requireAuth, validatePagination, async (req, res) => {
 	try {
 		const userId = req.user.id;
-
-		const limit = Number(req.query.limit) || 10;
-		const offset = Number(req.query.offset) || 0;
+		const { limit, offset } = req.pagination;
 
 		const [rows] = await pool.execute(
-			`SELECT activity_type, description, ip_address, device_info, created_at
-         FROM activity_logs 
-         WHERE user_id = ?
-         ORDER BY created_at DESC
-         LIMIT ? OFFSET ?`,
-			[userId, limit, offset]
+		`SELECT activity_type, description, ip_address, device_info, created_at
+		FROM activity_logs 
+		WHERE user_id = ?
+		ORDER BY created_at DESC
+		LIMIT ? OFFSET ?`,
+		[userId, limit, offset]
 		);
 
 		res.json({ activities: rows });
@@ -2180,9 +2178,11 @@ router.post(
 // ORDERS
 
 // GET /api/orders - Get user's orders
-router.get("/orders", requireAuth, async (req, res) => {
+router.get("/orders", requireAuth, validatePagination, async (req, res) => {
 	try {
-		const { status, limit = 10, offset = 0 } = req.query;
+		const userId = req.user.id;
+		const { status} = req.query;
+		const { limit, offset } = req.pagination;
 
 		let query = `SELECT 
         id, order_number, status, payment_status, payment_method,
@@ -2193,23 +2193,20 @@ router.get("/orders", requireAuth, async (req, res) => {
        FROM orders 
        WHERE user_id = ?`;
 
-		const params = [req.user.id];
+		const params = [userId];
 
 		if (status) {
 			query += ` AND status = ?`;
 			params.push(status);
 		}
 
-		query += ` ORDER BY created_at DESC LIMIT ? OFFSET ?`;
-		const limitNum = Number(limit) || 10;
-		const offsetNum = Number(offset) || 0;
-		params.push(limitNum, offsetNum);
+		query += ` LIMIT ${limit} OFFSET ${offset}`;
 
 		const [orders] = await pool.execute(query, params);
 
 		// Get total count for pagination
 		let countQuery = "SELECT COUNT(*) as total FROM orders WHERE user_id = ?";
-		const countParams = [req.user.id];
+		const countParams = [userId];
 
 		if (status) {
 			countQuery += " AND status = ?";
@@ -2221,8 +2218,8 @@ router.get("/orders", requireAuth, async (req, res) => {
 		res.json({
 			orders,
 			total: countResult[0].total,
-			limit: parseInt(limit),
-			offset: parseInt(offset),
+			limit: limit,
+			offset: offset,
 		});
 	} catch (error) {
 		console.error("Get orders error:", error);
@@ -2376,8 +2373,7 @@ router.get("/notifications", requireAuth, validatePagination, async (req, res) =
 			category = "all",
 			sortBy = "created_at",
 			sortOrder = "DESC",
-		} = req.query;
-		
+		} = req.query;		
 		const { limit, offset } = req.pagination;
 
 		// Build base WHERE clause once
@@ -2419,11 +2415,6 @@ router.get("/notifications", requireAuth, validatePagination, async (req, res) =
 
 		// Add pagination
 		query += ` LIMIT ${limit} OFFSET ${offset}`;
-
-		// DEBUG: Check what we're actually passing
-		console.log('Params before execute:', params);
-		console.log('Param types:', params.map(p => typeof p));
-		console.log('Query:', query);
 
 		const [notifications] = await pool.execute(query, params);
 

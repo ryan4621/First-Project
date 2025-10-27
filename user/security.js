@@ -731,7 +731,7 @@ export function initializeSecurity() {
 		);
 		const activityList = document.getElementById("security-activity-list");
 
-		let currentOffset = 0;
+		let currentPage = 1;
 		const limit = 10;
 
 		// Load initial activity logs
@@ -757,11 +757,11 @@ export function initializeSecurity() {
 	async function loadActivityLogs(isInitial = false) {
 		try {
 			if (isInitial) {
-				currentOffset = 0;
+				currentPage = 1;
 			}
 
 			const response = await fetch(
-				`/api/activity-logs?limit=10&offset=${currentOffset}`,
+				`/api/activity-logs?page=${currentPage}&limit=10`,
 				{
 					method: "GET",
 					credentials: "include",
@@ -771,7 +771,7 @@ export function initializeSecurity() {
 			if (response.ok) {
 				const data = await response.json();
 				displayActivityLogs(data.activities, isInitial);
-				currentOffset += data.activities.length;
+				currentPage++
 
 				// Hide load more button if no more activities
 				const loadMoreBtn = document.getElementById(

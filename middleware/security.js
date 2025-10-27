@@ -67,7 +67,8 @@ const securityHeaders = helmet({
         "https://fonts.gstatic.com",
         "https://use.fontawesome.com",
         "https://cdn.jsdelivr.net",
-        "https://fonts.cdnfonts.com"
+        "https://fonts.cdnfonts.com",
+        "https://embed.tawk.to"
       ],
       imgSrc: [
         "'self'",
@@ -86,7 +87,8 @@ const securityHeaders = helmet({
         "https://js.stripe.com/v3/",
         "https://cdnjs.cloudflare.com",
         "https://translate.google.com",
-        "https://translate.googleapis.com"
+        "https://translate.googleapis.com",
+        "https://translate-pa.googleapis.com"
       ],
       connectSrc: [
         "'self'",
@@ -98,7 +100,9 @@ const securityHeaders = helmet({
         "https://js.stripe.com/",
         "https://via.placeholder.com",
         "https://va.tawk.to",
-        "https://cdn.jsdelivr.net"
+        "https://cdn.jsdelivr.net",
+        "https://translate.googleapis.com",
+        "https://embed.tawk.to/_s/v4/app/68f83c69d79/js/twk-chunk-vendors.js"
       ],
       frameSrc: ["https://embed.tawk.to", "https://js.stripe.com/"],
       objectSrc: ["'none'"],

@@ -2421,6 +2421,11 @@ router.get("/notifications", requireAuth, validatePagination, async (req, res) =
 		query += " LIMIT ? OFFSET ?";
 		params.push(limit, offset);
 
+		// DEBUG: Check what we're actually passing
+		console.log('Params before execute:', params);
+		console.log('Param types:', params.map(p => typeof p));
+		console.log('Query:', query);
+
 		const [notifications] = await pool.execute(query, params);
 
 		// Get total count for pagination

@@ -642,7 +642,7 @@ router.post("/2fa/verify", validate2faVerify, handleValidationErrors,
       
       await pool.execute(
         "DELETE FROM user_sessions WHERE user_id = ? AND ip_address = ?",
-        [user.id, ipAddress]
+        [userData.id, ipAddress]
       );
 
       

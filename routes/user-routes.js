@@ -788,8 +788,8 @@ router.get("/activity-logs", requireAuth, validatePagination, async (req, res) =
 		FROM activity_logs 
 		WHERE user_id = ?
 		ORDER BY created_at DESC
-		LIMIT ? OFFSET ?`,
-		[userId, limit, offset]
+		LIMIT ${limit} OFFSET ${offset}`,
+		[userId]
 		);
 
 		res.json({ activities: rows });

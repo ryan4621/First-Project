@@ -90,20 +90,23 @@ const securityHeaders = helmet({
         "https://translate.googleapis.com",
         "https://translate-pa.googleapis.com"
       ],
+      scriptSrcAttr: [
+        "'unsafe-inline'"
+      ],
       connectSrc: [
         "'self'",
         "https://ik.imagekit.io/hd48hro8z",
         "https://upload.imagekit.io",
         "https://embed.tawk.to",
         "wss://embed.tawk.to",
+        "https://va.tawk.to",
+        "wss://vsa*.tawk.to", 
         "https://i.pinimg.com",
         "https://js.stripe.com/",
         "https://via.placeholder.com",
-        "https://va.tawk.to",
         "https://cdn.jsdelivr.net",
         "https://translate.googleapis.com",
         "https://embed.tawk.to/_s/v4/app/68f83c69d79/js/twk-chunk-vendors.js",
-        "wss://vsa39.tawk.to"
       ],
       frameSrc: ["https://embed.tawk.to", "https://js.stripe.com/"],
       objectSrc: ["'none'"],

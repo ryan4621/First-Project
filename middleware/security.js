@@ -100,7 +100,7 @@ const securityHeaders = helmet({
         "https://embed.tawk.to",
         "wss://embed.tawk.to",
         "https://va.tawk.to",
-        "wss://vsa*.tawk.to", 
+        "wss://*.tawk.to", 
         "https://i.pinimg.com",
         "https://js.stripe.com/",
         "https://via.placeholder.com",

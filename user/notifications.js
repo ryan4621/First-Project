@@ -99,8 +99,8 @@ class UserNotifications {
 			const params = new URLSearchParams({
 				status: this.filters.status,
 				category: this.filters.category,
+				page: this.currentPage,
 				limit: this.limit,
-				offset: (this.currentPage - 1) * this.limit,
 				sortBy: "created_at",
 				sortOrder: "DESC",
 			});
@@ -604,12 +604,12 @@ class UserNotifications {
         transform: translateX(100%);
         transition: transform 0.3s ease;
         ${
-					type === "success"
-						? "background: #27ae60;"
-						: type === "error"
-						? "background: #e74c3c;"
-						: "background: #3498db;"
-				}
+			type === "success"
+			? "background: #27ae60;"
+			: type === "error"
+			? "background: #e74c3c;"
+			: "background: #3498db;"
+		}
       `;
 		toast.textContent = message;
 

@@ -196,7 +196,7 @@ class SupportManager {
 			const params = new URLSearchParams({
 				...this.filters,
 				limit: this.limit,
-				offset: (this.currentPage - 1) * this.limit,
+				page: this.currentPage,
 				sortBy: "created_at",
 				sortOrder: "DESC",
 			});

@@ -2,7 +2,8 @@
 
 export function initializeSecurity() {
 	// Add this at the top of the security.js file, after the export function line
-	let currentOffset = 0;
+	let currentPage = 1;
+	const limit = 10;
 
 	// Change password functionality
 	async function changePassword(currentPassword, newPassword, confirmPassword) {
@@ -730,9 +731,6 @@ export function initializeSecurity() {
 			"security-load-more-activity-btn"
 		);
 		const activityList = document.getElementById("security-activity-list");
-
-		let currentPage = 1;
-		const limit = 10;
 
 		// Load initial activity logs
 		await loadActivityLogs(true);

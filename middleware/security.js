@@ -107,6 +107,7 @@ const securityHeaders = helmet({
         "https://cdn.jsdelivr.net",
         "https://translate.googleapis.com",
         "https://embed.tawk.to/_s/v4/app/68f83c69d79/js/twk-chunk-vendors.js",
+        "https://cdnjs.cloudflare.com"
       ],
       frameSrc: ["https://embed.tawk.to", "https://js.stripe.com/"],
       objectSrc: ["'none'"],

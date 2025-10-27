@@ -3,7 +3,7 @@
 const API_BASE = `/admin`;
 
 let currentPage = 1;
-const errorsPerPage = 50;
+const limit = 50;
 let currentFilters = {
 	severity: "all",
 	error_type: "all",
@@ -184,11 +184,10 @@ async function loadErrorLogs() {
 		'<tr><td colspan="8" class="error-logs-loading">Loading error logs...</td></tr>';
 
 	try {
-		const offset = (currentPage - 1) * errorsPerPage;
 		const queryParams = new URLSearchParams({
 			...currentFilters,
-			limit: errorsPerPage,
-			offset: offset,
+			limit: limit,
+			page: currentPage,
 			sortBy: "created_at",
 			sortOrder: "DESC",
 		});

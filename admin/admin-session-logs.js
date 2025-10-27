@@ -3,7 +3,7 @@
 const API_BASE = `/admin`;
 
 let currentPage = 1;
-const logsPerPage = 50;
+const limit = 50;
 let currentFilters = {
 	admin_id: "all",
 	action: "all",
@@ -181,11 +181,10 @@ async function loadActivityLogs() {
 		'<tr><td colspan="7" class="admin-session-logs-loading">Loading activity logs...</td></tr>';
 
 	try {
-		const offset = (currentPage - 1) * logsPerPage;
 		const queryParams = new URLSearchParams({
 			...currentFilters,
-			limit: logsPerPage,
-			offset: offset,
+			limit: limit,
+			page: currentPage,
 			sortBy: "created_at",
 			sortOrder: "DESC",
 		});

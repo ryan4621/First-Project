@@ -165,7 +165,7 @@ class NotificationManager {
 		try {
 			const params = new URLSearchParams({
 				limit: this.limit,
-				offset: (this.currentPage - 1) * this.limit,
+				page: this.currentPage,
 				sortBy: "created_at",
 				sortOrder: "DESC",
 			});

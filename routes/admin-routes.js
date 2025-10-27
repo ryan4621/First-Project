@@ -7,7 +7,7 @@ import Stripe from 'stripe';
 import { logError } from '../utils/error-logger.js';
 import { sendNotificationEmail } from '../services/email-service.js';
 import { requireAdmin, requireSuperAdmin } from '../middleware/auth.js';
-import { validatePasswordChange, validateId, validateOrderNumber, validateAdminUsersQuery, validateAdminUsersExport, validateAdminUserUpdate, validateUserStatus, validateAdminSendEmail, validateAdminRefundsQuery, validateRefundProcess, validatePartialRefund, validateProductId, validateProduct, validateAdminContactQuery, validateContactSubmissionUpdate, validateAdminContactExport, validateAdminOrdersQuery, validateOrderStatus, validateAdminNotificationsQuery, validateAdminNotification, validateActivityLogsQuery, validateActivityLogsExport, validateErrorLogsQuery, validateErrorLogsExport, validateErrorResolve, validateBulkErrorResolve, validateBulkErrorDelete, handleValidationErrors } from "../middleware/validation.js";
+import { validatePasswordChange, validateId, validateOrderNumber, validateAdminUsersQuery, validateAdminUsersExport, validateAdminUserUpdate, validateUserStatus, validateAdminSendEmail, validateAdminRefundsQuery, validateRefundProcess, validatePartialRefund, validateProductId, validateProduct, validateAdminContactQuery, validateContactSubmissionUpdate, validateAdminContactExport, validateAdminOrdersQuery, validateOrderStatus, validateAdminNotificationsQuery, validateAdminNotification, validateActivityLogsQuery, validateActivityLogsExport, validateErrorLogsQuery, validateErrorLogsExport, validateErrorResolve, validateBulkErrorResolve, validateBulkErrorDelete, handleValidationErrors, validatePagination } from "../middleware/validation.js";
 
 const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -95,17 +95,16 @@ router.post("/change-password", validatePasswordChange, handleValidationErrors, 
 });
 
 // Get users with search, filter, sort and pagination
-router.get("/users", validateAdminUsersQuery, handleValidationErrors, requireAdmin, async (req, res) => {
+router.get("/users", requireAdmin, validateAdminUsersQuery, validatePagination, handleValidationErrors, async (req, res) => {
   try {
     const isSuperAdmin = req.user.role === 'super_admin';
 
     // Query params
-    const page = Math.max(parseInt(req.query.page) || 1, 1);
-    const limit = Math.min(parseInt(req.query.limit) || 20, 200);
-    const offset = (page - 1) * limit;
     const q = (req.query.q || "").trim();           // search
     const role = req.query.role || "";              // role filter
     const sort = req.query.sort === "created_desc" ? "created_at DESC" : "created_at ASC";
+
+    const { page, limit, offset } = req.pagination;
 
     // Build WHERE clauses
     const where = [];
@@ -141,8 +140,8 @@ router.get("/users", validateAdminUsersQuery, handleValidationErrors, requireAdm
        FROM users
        ${whereSql}
        ORDER BY ${sort}
-       LIMIT ? OFFSET ?`,
-      [...params, limit, offset]
+       LIMIT ${limit} OFFSET ${offset}`,
+      [...params]
     );
 
     res.json({
@@ -1009,18 +1008,18 @@ router.delete("/products/:id", validateProductId, handleValidationErrors, requir
 // CONTACT / SUPPORT
 
 // Get all contact submissions (admin only)
-router.get('/contact/submissions', validateAdminContactQuery, handleValidationErrors, requireAdmin, async (req, res) => {
+router.get('/contact/submissions', requireAdmin, validateAdminContactQuery, validatePagination, handleValidationErrors, async (req, res) => {
   try {
     const {
       status = 'all',
       subject = 'all',
       priority = 'all',
-      limit = 20,
-      offset = 0,
       search = '',
       sortBy = 'created_at',
       sortOrder = 'DESC'
     } = req.query;
+
+		const { limit, offset } = req.pagination;
 
     let query = `
       SELECT cs.id, cs.user_id, cs.name, cs.email, cs.subject, cs.message, 
@@ -1066,8 +1065,7 @@ router.get('/contact/submissions', validateAdminContactQuery, handleValidationEr
     }
 
     // Add pagination
-    query += ' LIMIT ? OFFSET ?';
-    params.push(parseInt(limit), parseInt(offset));
+   	query += ` LIMIT ${limit} OFFSET ${offset}`;
 
     const [submissions] = await pool.execute(query, params);
 
@@ -1109,9 +1107,9 @@ router.get('/contact/submissions', validateAdminContactQuery, handleValidationEr
         submissions,
         pagination: {
           total,
-          limit: parseInt(limit),
-          offset: parseInt(offset),
-          hasMore: parseInt(offset) + parseInt(limit) < total
+          limit: limit,
+          offset: offset,
+          hasMore: offset + limit < total
         },
         filters: { status, subject, priority, search }
       }
@@ -1340,8 +1338,8 @@ router.get("/contact/export", validateAdminContactExport, handleValidationErrors
 
     let query = `
       SELECT cs.id, cs.name, cs.email, cs.subject, cs.message, 
-             cs.status, cs.priority, cs.admin_notes, cs.created_at, cs.updated_at,
-             u.name as user_name
+      cs.status, cs.priority, cs.admin_notes, cs.created_at, cs.updated_at,
+      u.name as user_name
       FROM contact_submissions cs
       LEFT JOIN users u ON cs.user_id = u.id
       WHERE 1=1
@@ -1406,10 +1404,11 @@ router.get("/contact/export", validateAdminContactExport, handleValidationErrors
 // ORDERS
 
 // GET /api/admin/orders - Get all orders (admin only)
-router.get('/orders', validateAdminOrdersQuery, handleValidationErrors, requireAdmin, async (req, res) => {
+router.get('/orders', requireAdmin, validateAdminOrdersQuery, validatePagination, handleValidationErrors, async (req, res) => {
   try {
 
-    const { status, paymentStatus, limit = 50, offset = 0 } = req.query;
+    const { status, paymentStatus } = req.query;
+		const { limit, offset } = req.pagination;
 
     let query = `
       SELECT 
@@ -1434,8 +1433,7 @@ router.get('/orders', validateAdminOrdersQuery, handleValidationErrors, requireA
       params.push(paymentStatus);
     }
 
-    query += ` ORDER BY o.created_at DESC LIMIT ? OFFSET ?`;
-    params.push(parseInt(limit), parseInt(offset));
+    query += ` ORDER BY o.created_at DESC LIMIT ${limit} OFFSET ${offset}`;
 
     const [orders] = await pool.execute(query, params);
 
@@ -1447,8 +1445,8 @@ router.get('/orders', validateAdminOrdersQuery, handleValidationErrors, requireA
     res.json({
       orders,
       total: countResult[0].total,
-      limit: parseInt(limit),
-      offset: parseInt(offset)
+      limit: limit,
+      offset: offset
     });
   } catch (error) {
     console.error('Get admin orders error:', error);
@@ -1652,16 +1650,16 @@ router.get("/notifications/statistics", requireAdmin, async (req, res) => {
 });
 
 // Get all notifications with filtering and pagination
-router.get("/notifications", validateAdminNotificationsQuery, handleValidationErrors, requireAdmin, async (req, res) => {
+router.get("/notifications", requireAdmin, validateAdminNotificationsQuery, validatePagination, handleValidationErrors, async (req, res) => {
   try {
     const {
       status = 'all',
-      category = 'all', 
-      limit = 20,
-      offset = 0,
+      category = 'all',
       sortBy = 'created_at',
       sortOrder = 'DESC'
     } = req.query;
+
+		const { limit, offset } = req.pagination;
 
     let query = `
       SELECT n.id, n.title, n.message, n.category, n.status, n.total_recipients,
@@ -1695,10 +1693,7 @@ router.get("/notifications", validateAdminNotificationsQuery, handleValidationEr
     }
 
     // Add pagination
-    query += ' LIMIT ? OFFSET ?';
-    const limitNum = Number(limit) || 10;
-		const offsetNum = Number(offset) || 0;
-		params.push(limitNum, offsetNum);
+    query += ` LIMIT ${limit} OFFSET ${offset}`;
 
     const [notifications] = await pool.execute(query, params);
 
@@ -1725,9 +1720,9 @@ router.get("/notifications", validateAdminNotificationsQuery, handleValidationEr
         notifications,
         pagination: {
           total,
-          limit: parseInt(limit),
-          offset: parseInt(offset),
-          hasMore: parseInt(offset) + parseInt(limit) < total
+          limit: limit,
+          offset: offset,
+          hasMore: offset + limit < total
         }
       }
     });
@@ -1993,23 +1988,23 @@ router.delete("/notifications/:id", validateId, handleValidationErrors, requireA
 
 
 
-// ACTIVITY LOGGING
+// ACTIVITY LOGGING (Super Admin Only)
 
 // Get admin activity logs with filtering and pagination
-router.get("/activity-logs", validateActivityLogsQuery, handleValidationErrors, requireSuperAdmin, async (req, res) => {
+router.get("/activity-logs", requireSuperAdmin, validateActivityLogsQuery, validatePagination, handleValidationErrors, async (req, res) => {
   try {
     const {
       admin_id = 'all',
       action = 'all',
       entity_type = 'all',
-      limit = 50,
-      offset = 0,
       sortBy = 'created_at',
       sortOrder = 'DESC',
       search = '',
       date_from = '',
       date_to = ''
     } = req.query;
+
+		const { limit, offset } = req.pagination;
 
     let query = `
       SELECT 
@@ -2078,8 +2073,7 @@ router.get("/activity-logs", validateActivityLogsQuery, handleValidationErrors, 
     }
 
     // Add pagination
-    query += ' LIMIT ? OFFSET ?';
-    params.push(parseInt(limit), parseInt(offset));
+    query += ` LIMIT ${limit} OFFSET ${offset}`;
 
     const [logs] = await pool.execute(query, params);
 
@@ -2132,9 +2126,9 @@ router.get("/activity-logs", validateActivityLogsQuery, handleValidationErrors, 
         logs,
         pagination: {
           total,
-          limit: parseInt(limit),
-          offset: parseInt(offset),
-          hasMore: parseInt(offset) + parseInt(limit) < total
+          limit: limit,
+          offset: offset,
+          hasMore: offset + limit < total
         }
       }
     });
@@ -2527,26 +2521,24 @@ function getCategoryPreference(userPrefs, category) {
 }
 
 
-// ADD THESE ROUTES TO YOUR admin-routes.js file
-
 // ERROR MONITORING (Super Admin Only)
 
 // Get error logs with filtering and pagination
-router.get("/error-logs", validateErrorLogsQuery, handleValidationErrors, requireSuperAdmin, async (req, res) => {
+router.get("/error-logs", requireSuperAdmin, validateErrorLogsQuery, validatePagination, handleValidationErrors, async (req, res) => {
   try {
     const {
       severity = 'all',
       error_type = 'all',
       resolved = 'all',
       user_id = 'all',
-      limit = 50,
-      offset = 0,
       sortBy = 'created_at',
       sortOrder = 'DESC',
       search = '',
       date_from = '',
       date_to = ''
     } = req.query;
+
+		const { limit, offset } = req.pagination;
 
     let query = `
       SELECT 
@@ -2622,8 +2614,7 @@ router.get("/error-logs", validateErrorLogsQuery, handleValidationErrors, requir
     }
 
     // Add pagination
-    query += ' LIMIT ? OFFSET ?';
-    params.push(parseInt(limit), parseInt(offset));
+    query += ` LIMIT ${limit} OFFSET ${offset}`;
 
     const [errors] = await pool.execute(query, params);
 
@@ -2677,9 +2668,9 @@ router.get("/error-logs", validateErrorLogsQuery, handleValidationErrors, requir
         errors,
         pagination: {
           total,
-          limit: parseInt(limit),
-          offset: parseInt(offset),
-          hasMore: parseInt(offset) + parseInt(limit) < total
+          limit: limit,
+          offset: offset,
+          hasMore: offset + limit < total
         }
       }
     });
@@ -3140,22 +3131,22 @@ router.get("/error-logs/filters/error-types", requireSuperAdmin, async (req, res
 // ERROR MONITORING TEST LOGS
 
 // Add to any admin route temporarily
-router.get("/test-critical", requireSuperAdmin, async (req, res) => {
-  const error = new Error("Database connection failed");
-  error.name = "DatabaseError";
-  await logError(error, { req }, 'critical');
+// router.get("/test-critical", requireSuperAdmin, async (req, res) => {
+//   const error = new Error("Database connection failed");
+//   error.name = "DatabaseError";
+//   await logError(error, { req }, 'critical');
 
-  res.json({ test: 'done' });
-});
+//   res.json({ test: 'done' });
+// });
 
-router.get("/test-high", requireSuperAdmin, async (req, res) => {
-  res.status(400)
-  throw new Error("Bad request test");
-});
+// router.get("/test-high", requireSuperAdmin, async (req, res) => {
+//   res.status(400)
+//   throw new Error("Bad request test");
+// });
 
-router.get("/test-low", requireSuperAdmin, async (req, res) => {
-  await logError(new Error("Minor issue"), { req }, 'low');
-  res.json({ test: 'done' });
-});
+// router.get("/test-low", requireSuperAdmin, async (req, res) => {
+//   await logError(new Error("Minor issue"), { req }, 'low');
+//   res.json({ test: 'done' });
+// });
 
 export default router;

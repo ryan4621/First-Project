@@ -517,23 +517,6 @@ export const validate2FAToggle = [
 
 
 // ======================
-// ACTIVITY LOGS VALIDATIONS
-// ======================
-
-export const validateActivityLogs = [
-  query('limit')
-    .optional()
-    .isInt({ min: 1, max: 100 })
-    .withMessage('Limit must be between 1 and 100'),
-  
-  query('offset')
-    .optional()
-    .isInt({ min: 0 })
-    .withMessage('Offset must be a non-negative integer')
-];
-
-
-// ======================
 // SECURITY QUESTIONS VALIDATIONS
 // ======================
 
@@ -668,16 +651,6 @@ export const validateId = [
 // ======================
 
 export const validateAdminUsersQuery = [
-  query('page')
-    .optional()
-    .isInt({ min: 1 })
-    .withMessage('Page must be a positive integer'),
-  
-  query('limit')
-    .optional()
-    .isInt({ min: 1, max: 200 })
-    .withMessage('Limit must be between 1 and 200'),
-  
   query('q')
     .optional()
     .trim()
@@ -763,16 +736,6 @@ export const validateAdminRefundsQuery = [
     .trim()
     .isLength({ max: 50 })
     .withMessage('Status must not exceed 50 characters'),
-  
-  query('page')
-    .optional()
-    .isInt({ min: 1 })
-    .withMessage('Page must be a positive integer'),
-  
-  query('limit')
-    .optional()
-    .isInt({ min: 1, max: 200 })
-    .withMessage('Limit must be between 1 and 200')
 ];
 
 export const validateRefundProcess = [
@@ -863,16 +826,6 @@ export const validateAdminContactQuery = [
     .isIn(['all', 'low', 'normal', 'high', 'urgent'])
     .withMessage('Priority must be all, low, normal, high, or urgent'),
   
-  query('limit')
-    .optional()
-    .isInt({ min: 1, max: 100 })
-    .withMessage('Limit must be between 1 and 100'),
-  
-  query('offset')
-    .optional()
-    .isInt({ min: 0 })
-    .withMessage('Offset must be a non-negative integer'),
-  
   query('search')
     .optional()
     .trim()
@@ -933,9 +886,9 @@ export const validateContactSubmissionUpdate = [
 ];
 
 
-// ======================
+// =======================
 // ADMIN ORDER VALIDATIONS
-// ======================
+// =======================
 
 export const validateAdminOrdersQuery = [
   query('status')
@@ -947,16 +900,6 @@ export const validateAdminOrdersQuery = [
     .optional()
     .isIn(['pending', 'paid', 'failed', 'refunded', 'partially_refunded'])
     .withMessage('Invalid payment status'),
-  
-  query('limit')
-    .optional()
-    .isInt({ min: 1, max: 200 })
-    .withMessage('Limit must be between 1 and 200'),
-  
-  query('offset')
-    .optional()
-    .isInt({ min: 0 })
-    .withMessage('Offset must be a non-negative integer')
 ];
 
 export const validateOrderStatus = [
@@ -981,16 +924,6 @@ export const validateAdminNotificationsQuery = [
     .trim()
     .isLength({ max: 50 })
     .withMessage('Category must not exceed 50 characters'),
-  
-  query('limit')
-    .optional()
-    .isInt({ min: 1, max: 100 })
-    .withMessage('Limit must be between 1 and 100'),
-  
-  query('offset')
-    .optional()
-    .isInt({ min: 0 })
-    .withMessage('Offset must be a non-negative integer'),
   
   query('sortBy')
     .optional()
@@ -1077,16 +1010,6 @@ export const validateActivityLogsQuery = [
     .trim()
     .isLength({ max: 100 })
     .withMessage('Entity type must not exceed 100 characters'),
-  
-  query('limit')
-    .optional()
-    .isInt({ min: 1, max: 200 })
-    .withMessage('Limit must be between 1 and 200'),
-  
-  query('offset')
-    .optional()
-    .isInt({ min: 0 })
-    .withMessage('Offset must be a non-negative integer'),
   
   query('sortBy')
     .optional()
@@ -1178,16 +1101,6 @@ export const validateErrorLogsQuery = [
     .trim()
     .isLength({ max: 50 })
     .withMessage('User ID must not exceed 50 characters'),
-  
-  query('limit')
-    .optional()
-    .isInt({ min: 1, max: 200 })
-    .withMessage('Limit must be between 1 and 200'),
-  
-  query('offset')
-    .optional()
-    .isInt({ min: 0 })
-    .withMessage('Offset must be a non-negative integer'),
   
   query('sortBy')
     .optional()

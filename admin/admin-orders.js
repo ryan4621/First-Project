@@ -4,7 +4,7 @@ class AdminOrdersManager {
 	constructor() {
 		this.orders = [];
 		this.currentOrderNumber = null;
-		this.currentPage = 0;
+		this.currentPage = 1;
 		this.limit = 20;
 		this.totalOrders = 0;
 
@@ -19,7 +19,7 @@ class AdminOrdersManager {
 	setupEventListeners() {
 		// Filter buttons
 		document.getElementById("filter-btn").addEventListener("click", () => {
-			this.currentPage = 0;
+			this.currentPage = 1;
 			this.loadOrders();
 		});
 
@@ -101,9 +101,7 @@ class AdminOrdersManager {
 			const statusFilter = document.getElementById("status-filter").value;
 			const paymentFilter = document.getElementById("payment-filter").value;
 
-			let url = `/admin/orders?limit=${this.limit}&offset=${
-				this.currentPage * this.limit
-			}`;
+			let url = `/admin/orders?page=${this.currentPage}&limit=${this.limit}`;
 
 			if (statusFilter) url += `&status=${statusFilter}`;
 			if (paymentFilter) url += `&paymentStatus=${paymentFilter}`;
@@ -208,11 +206,11 @@ class AdminOrdersManager {
 		paginationEl.style.display = "block";
 
 		const totalPages = Math.ceil(this.totalOrders / this.limit);
-		const currentDisplayPage = this.currentPage + 1;
+		const currentDisplayPage = this.currentPage;
 
 		pageInfoEl.textContent = `Page ${currentDisplayPage} of ${totalPages} (Total: ${this.totalOrders} orders)`;
 
-		prevBtn.disabled = this.currentPage === 0;
+		prevBtn.disabled = this.currentPage === 1;
 		nextBtn.disabled = currentDisplayPage >= totalPages;
 	}
 

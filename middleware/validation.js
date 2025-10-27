@@ -1304,3 +1304,24 @@ export const handleValidationErrors = (req, res, next) => {
   }
   next();
 };
+
+
+
+export const validatePagination = (req, res, next) => {
+  let { page, limit } = req.query;
+
+  page = parseInt(page, 10);
+  limit = parseInt(limit, 10);
+
+  if (isNaN(page) || page < 1) page = 1;
+  if (isNaN(limit) || limit < 1) limit = 10;
+  if (limit > 100) limit = 100;
+
+  req.pagination = {
+    page,
+    limit,
+    offset: (page - 1) * limit
+  };
+
+  next();
+};

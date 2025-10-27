@@ -43,6 +43,7 @@ import {
 	validateOrderNumber,
 	validateOrderCancel,
 	handleValidationErrors,
+	validatePagination
 } from "../middleware/validation.js";
 
 const router = express.Router();
@@ -2367,38 +2368,41 @@ router.post(
 // NOTIFICATIONS
 
 // Get user's notifications with filtering and pagination
-router.get("/notifications", requireAuth, async (req, res) => {
+router.get("/notifications", requireAuth, validatePagination, async (req, res) => {
 	try {
 		const userId = req.user.id;
 		const {
 			status = "all",
 			category = "all",
-			limit = 10,
-			offset = 0,
 			sortBy = "created_at",
 			sortOrder = "DESC",
 		} = req.query;
+		
+		const { limit, offset } = req.pagination;
 
-		let query = `
-        SELECT un.id, un.is_read, un.read_at, un.created_at,
-               n.title, n.message, n.category
-        FROM user_notifications un
-        JOIN notifications n ON un.notification_id = n.id
-        WHERE un.user_id = ? AND un.is_deleted = FALSE
-      `;
+		// Build base WHERE clause once
+		let whereClause = "WHERE un.user_id = ? AND un.is_deleted = FALSE";
 		const params = [userId];
 
 		// Apply filters
 		if (status === "unread") {
-			query += " AND un.is_read = FALSE";
+			whereClause += " AND un.is_read = FALSE";
 		} else if (status === "read") {
-			query += " AND un.is_read = TRUE";
+			whereClause += " AND un.is_read = TRUE";
 		}
 
 		if (category !== "all") {
-			query += " AND n.category = ?";
+			whereClause += " AND n.category = ?";
 			params.push(category);
 		}
+
+		let query = `
+			SELECT un.id, un.is_read, un.read_at, un.created_at,
+			n.title, n.message, n.category
+			FROM user_notifications un
+			JOIN notifications n ON un.notification_id = n.id
+			${whereClause}
+		`;
 
 		// Add sorting
 		const validSortColumns = ["created_at", "read_at"];
@@ -2415,33 +2419,20 @@ router.get("/notifications", requireAuth, async (req, res) => {
 
 		// Add pagination
 		query += " LIMIT ? OFFSET ?";
-		const limitNum = Number(limit) || 10;
-		const offsetNum = Number(offset) || 0;
-		params.push(limitNum, offsetNum);
+		params.push(limit, offset);
 
 		const [notifications] = await pool.execute(query, params);
 
 		// Get total count for pagination
 		let countQuery = `
-        SELECT COUNT(*) as total 
-        FROM user_notifications un
-        JOIN notifications n ON un.notification_id = n.id
-        WHERE un.user_id = ? AND un.is_deleted = FALSE
-      `;
-		const countParams = [userId];
+			SELECT COUNT(*) as total 
+			FROM user_notifications un
+			JOIN notifications n ON un.notification_id = n.id
+			${whereClause}
+      	`;
 
-		if (status === "unread") {
-			countQuery += " AND un.is_read = FALSE";
-		} else if (status === "read") {
-			countQuery += " AND un.is_read = TRUE";
-		}
+		const [countResult] = await pool.execute(countQuery, [...params.slice(0, params.length - 2)]);
 
-		if (category !== "all") {
-			countQuery += " AND n.category = ?";
-			countParams.push(category);
-		}
-
-		const [countResult] = await pool.execute(countQuery, countParams);
 		const total = countResult[0].total;
 
 		// Get statistics
@@ -2463,9 +2454,9 @@ router.get("/notifications", requireAuth, async (req, res) => {
 				notifications,
 				pagination: {
 					total,
-					limit: parseInt(limit),
-					offset: parseInt(offset),
-					hasMore: parseInt(offset) + parseInt(limit) < total,
+					limit: limit,
+					offset: offset,
+					hasMore: offset + limit < total,
 				},
 				stats: statsResult[0],
 			},

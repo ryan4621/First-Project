@@ -26,6 +26,7 @@ import { createPaymentMethodsTable } from "./migrations/payment-methods-mig.js";
 import { createErrorLogsTable, setupErrorLogCleanup } from './migrations/error-logs-mig.js';
 import { createPendingRegistrationsTable } from "./migrations/pending-registrations-mig.js";
 import { addVerificationCooldownColumn } from './migrations/add-verification-cooldown.js';
+import { add2faCooldownColumn } from './migrations/add-2fa-cooldown.js';
 
 // Run migrations
 await ensureAddressesTable();
@@ -43,6 +44,7 @@ await createErrorLogsTable();
 await setupErrorLogCleanup();
 await createPendingRegistrationsTable();
 await addVerificationCooldownColumn();
+await add2faCooldownColumn();
 
 // Init Express
 const app = express();

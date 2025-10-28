@@ -12,6 +12,7 @@ import { body, query, validationResult } from 'express-validator';
 import { logUserActivity } from './user-routes.js';
 import { validateRegister, validateLogin, validateResendVerification, validate2faVerify, validate2faResend, handleValidationErrors  } from '../middleware/validation.js';
 import { checkVerificationCooldown, updateVerificationTimestamp } from '../middleware/email-verification-cooldown.js';
+import { check2faCooldown, update2faTimestamp } from '../middleware/2fa-cooldown.js';
 
 const router = express.Router();
 
@@ -68,7 +69,7 @@ router.post("/register", validateRegister, handleValidationErrors,
   }
 );
   
-// Email verification route - FIXED
+// Email verification route
 router.get("/verify-email",
   [
     query('token')
@@ -261,17 +262,23 @@ router.get("/verify-email",
   }
 );
   
-// Resend verification email route - FIXED
+// Resend verification email route
 router.post("/resend-verification", validateResendVerification, handleValidationErrors, checkVerificationCooldown,
   async (req, res) => {
     try {
       const { email } = req.body;
+
+      // ✅ Add debug logging
+      console.log('Resend verification request for email:', email);
 
       // Check if email exists in users table and is VERIFIED
       const [verifiedUser] = await pool.execute(
         "SELECT id, email_verified FROM users WHERE email = ?",
         [email]
       );
+
+      // ✅ Add debug logging
+      console.log('Verified user check:', verifiedUser);
       
       if (verifiedUser.length > 0 && verifiedUser[0].email_verified === 1) {
         return res.status(400).json({ 
@@ -282,6 +289,9 @@ router.post("/resend-verification", validateResendVerification, handleValidation
       
       // Check if email exists in users table but is NOT verified (email change case)
       if (verifiedUser.length > 0 && verifiedUser[0].email_verified === 0) {
+
+        console.log('Unverified user found, fetching name...');
+        
         // Generate new token
         const verificationToken = crypto.randomBytes(32).toString('hex');
         const tokenExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
@@ -309,6 +319,8 @@ router.post("/resend-verification", validateResendVerification, handleValidation
         "SELECT id, name, email FROM pending_registrations WHERE email = ?",
         [email]
       );
+
+      console.log('Pending registration check:', pending);
       
       if (pending.length === 0) {
         return res.status(404).json({ message: "Registration not found. Please sign up first." });
@@ -339,6 +351,39 @@ router.post("/resend-verification", validateResendVerification, handleValidation
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "Failed to resend verification email" });
+    }
+  }
+);
+
+router.post("/2fa/check-cooldown", validate2faResend, handleValidationErrors,
+  async (req, res) => {
+    try {
+      const { userId } = req.body;
+      
+      const [results] = await pool.execute(
+        `SELECT last_2fa_code_sent FROM user_security_settings WHERE user_id = ?`,
+        [userId]
+      );
+      
+      if (results.length === 0 || !results[0].last_2fa_code_sent) {
+        return res.json({ remainingSeconds: 0 });
+      }
+      
+      const lastSent = new Date(results[0].last_2fa_code_sent);
+      const now = new Date();
+      const cooldownPeriod = 60 * 1000;
+      const timeSinceLastSent = now - lastSent;
+      
+      if (timeSinceLastSent < cooldownPeriod) {
+        const remainingSeconds = Math.ceil((cooldownPeriod - timeSinceLastSent) / 1000);
+        return res.json({ remainingSeconds });
+      }
+      
+      res.json({ remainingSeconds: 0 });
+      
+    } catch (err) {
+      console.error('Check cooldown error:', err);
+      res.status(500).json({ message: "Failed to check cooldown" });
     }
   }
 );
@@ -482,6 +527,9 @@ router.post("/login", validateLogin, handleValidationErrors,
         
         // Send code via email
         await send2FACodeEmail(user.email, user.name, code);
+
+        // Update cooldown timestamp
+        await update2faTimestamp(user.id);
         
         // Return response indicating 2FA is required
         return res.json({
@@ -705,7 +753,7 @@ router.post("/2fa/verify", validate2faVerify, handleValidationErrors,
 );
 
 // NEW ENDPOINT: Resend 2FA code
-router.post("/2fa/resend", validate2faResend, handleValidationErrors,
+router.post("/2fa/resend", validate2faResend, handleValidationErrors, check2faCooldown,
   async (req, res) => {
 
     try {
@@ -737,6 +785,9 @@ router.post("/2fa/resend", validate2faResend, handleValidationErrors,
       
       // Send new code via email
       await send2FACodeEmail(user.email, user.name, code);
+
+      // Update cooldown timestamp
+      await update2faTimestamp(userId);
       
       res.json({ message: "New 2FA code sent to your email" });
       

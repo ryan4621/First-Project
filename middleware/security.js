@@ -178,7 +178,7 @@ const authRateLimit = rateLimit({
 
 const verificationResendRateLimit = rateLimit({
   windowMs: 60 * 60 * 1000,
-  max: 100,
+  max: 1000,
   message: {
     success: false,
     message: 'Too many verification email requests. Please try again later.',

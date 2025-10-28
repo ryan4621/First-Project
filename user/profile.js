@@ -1064,18 +1064,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 		showToast(message, type = "success") {
 			const toast = document.createElement("div");
 			toast.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        padding: 12px 24px;
-        border-radius: 4px;
-        color: white;
-        font-weight: 500;
-        z-index: 10001;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        ${type === "success" ? "background: #28a745;" : "background: #dc3545;"}
-      `;
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				padding: 12px 24px;
+				border-radius: 4px;
+				color: white;
+				font-weight: 500;
+				z-index: 10001;
+				transform: translateX(100%);
+				transition: transform 0.3s ease;
+				${type === "success" ? "background: #28a745;" : "background: #dc3545;"}
+			`;
 			toast.textContent = message;
 
 			document.body.appendChild(toast);

@@ -176,6 +176,9 @@ document.addEventListener("DOMContentLoaded", () => {
 						showToast("New code sent to your email", "success");
 						codeInput.value = "";
 						codeInput.focus();
+
+						// Start countdown
+  						start2faResendCooldown(60);
 					} else {
 						showToast(data.message || "Failed to resend code", "error");
 					}
@@ -203,12 +206,59 @@ document.addEventListener("DOMContentLoaded", () => {
 		);
 		modal.show();
 
+		// Add these functions:
+		async function checkExisting2faCooldown() {
+			if (!pendingLoginData) return;
+			
+			try {
+				const response = await fetch('/auth/2fa/check-cooldown', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'x-csrf-token': window.getCsrfToken()
+				},
+				credentials: 'include',
+				body: JSON.stringify({ userId: pendingLoginData.userId })
+				});
+				
+				const data = await response.json();
+				
+				if (data.remainingSeconds > 0) {
+				start2faResendCooldown(data.remainingSeconds);
+				}
+			} catch (error) {
+				console.error('Error checking 2FA cooldown:', error);
+			}
+		}
+
+		function start2faResendCooldown(seconds) {
+			const resendBtn = document.getElementById('resend2FABtn');
+			resendBtn.disabled = true;
+			
+			let remaining = seconds;
+			resendBtn.textContent = `Resend Code (${remaining}s)`;
+			
+			const countdown = setInterval(() => {
+				remaining--;
+				if (remaining <= 0) {
+				clearInterval(countdown);
+				resendBtn.disabled = false;
+				resendBtn.textContent = 'Resend Code';
+				} else {
+				resendBtn.textContent = `Resend Code (${remaining}s)`;
+				}
+			}, 1000);
+		}
+
+		// Call it immediately
+		checkExisting2faCooldown();
+
 		// Focus on input after modal is shown
 		document
-			.getElementById("twoFactorModal")
-			.addEventListener("shown.bs.modal", () => {
-				document.getElementById("twoFactorCode").focus();
-			});
+		.getElementById("twoFactorModal")
+		.addEventListener("shown.bs.modal", () => {
+			document.getElementById("twoFactorCode").focus();
+		});
 	}
 
 	// Verify 2FA code
@@ -313,7 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 				// Handle email not found
 				if (data.emailNotFound) {
-					showToast("Email not registered", "error");
+					showToast("Invalid credentials", "error");
 					return;
 				}
 
